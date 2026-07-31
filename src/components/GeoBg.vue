@@ -16,5 +16,22 @@
       <span class="block w-2 h-2 rounded-full opacity-[0.05]" style="background: #88a8ff;" />
       <span class="block w-2 h-2 rounded-full opacity-[0.05]" style="background: #c4b5fd;" />
     </div>
+
+    <div class="absolute top-[28%] left-[15%] w-36 h-36 rounded-full opacity-[0.035]" style="background: rgba(255,80,80,0.06);" />
+    <div class="absolute bottom-[35%] right-[25%] w-0 h-0 opacity-[0.03]" style="border-left: 60px solid transparent; border-right: 60px solid transparent; border-bottom: 100px solid rgba(80,120,255,0.06);" />
+    <div class="absolute top-[55%] left-[40%] w-32 h-16 rounded-t-full opacity-[0.025]" style="background: rgba(255,200,50,0.04);" />
+
+    <div class="absolute top-[18%] right-[35%] flex gap-4">
+      <span class="block w-1.5 h-1.5 opacity-[0.05]" style="background: #c4b5fd;" />
+      <span class="block w-1.5 h-1.5 opacity-[0.04]" style="background: #c4b5fd;" />
+      <span class="block w-1.5 h-1.5 opacity-[0.05]" style="background: #c4b5fd;" />
+      <span class="block w-1.5 h-1.5 opacity-[0.04]" style="background: #c4b5fd;" />
+      <span class="block w-1.5 h-1.5 opacity-[0.05]" style="background: #c4b5fd;" />
+    </div>
+    <div class="absolute bottom-[22%] left-[35%] flex gap-3">
+      <span class="block w-1.5 h-1.5 opacity-[0.04]" style="background: #88a8ff;" />
+      <span class="block w-1.5 h-1.5 opacity-[0.05]" style="background: #88a8ff;" />
+      <span class="block w-1.5 h-1.5 opacity-[0.04]" style="background: #88a8ff;" />
+    </div>
   </div>
 </template>

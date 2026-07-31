@@ -39,19 +39,22 @@ function closePreview() { showPreview.value = false }
 
     <div class="fixed left-[12%] top-0 bottom-0 border-l border-dashed border-white/[0.03] z-0 pointer-events-none" />
     <div class="fixed right-[12%] top-0 bottom-0 border-l border-dashed border-white/[0.03] z-0 pointer-events-none" />
+
+    <div class="fixed top-[35%] left-[20%] right-[20%] h-[2px] z-0 pointer-events-none bg-white/[0.04]" />
+    <div class="fixed left-[30%] top-[20%] bottom-[20%] w-[2px] z-0 pointer-events-none bg-white/[0.03]" />
     <SkillCloud />
     <div class="fixed inset-0 z-0 pointer-events-none select-none overflow-hidden">
       <div class="absolute top-[8%] -left-[10%] -right-[10%] h-0 flex items-center" style="transform: rotate(-8deg);"><span class="text-[3.5vw] font-mono font-bold text-white/[0.035] tracking-[0.6em] whitespace-nowrap strip-slide-1">TECHNICAL ARTIST&nbsp;&nbsp;&nbsp;TECHNICAL ARTIST&nbsp;&nbsp;&nbsp;TECHNICAL ARTIST</span></div>
       <div class="absolute top-[88%] -left-[10%] -right-[10%] h-0 flex items-center" style="transform: rotate(-8deg);"><span class="text-[3.5vw] font-mono font-bold text-white/[0.03] tracking-[0.6em] whitespace-nowrap strip-slide-2">TECHNICAL DIRECTOR&nbsp;&nbsp;&nbsp;TECHNICAL DIRECTOR&nbsp;&nbsp;&nbsp;TECHNICAL DIRECTOR</span></div>
     </div>
-    <div class="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-0 pointer-events-none select-none">
+    <div class="fixed top-1/2 left-[53%] -translate-x-1/2 -translate-y-1/2 z-0 pointer-events-none select-none">
       <div class="flex items-center gap-3 md:gap-5 text-[16vw] font-black leading-none tracking-[0.4em]" style="font-family: 'Cinzel', serif;">
-        <span style="color: #a5b4fc; opacity: 0.08;">J</span><span style="color: #c4b5fd; opacity: 0.10; transform: translateY(-6px);">U</span><span style="color: #a5b4fc; opacity: 0.08;">S</span><span style="color: #c4b5fd; opacity: 0.10; transform: translateY(4px);">L</span><span style="color: #a5b4fc; opacity: 0.08;">I</span><span style="color: #c4b5fd; opacity: 0.12; transform: translateY(-2px);">U</span>
+        <span style="color: #a5b4fc; opacity: 0.08; text-shadow: -2px 0 rgba(255,60,60,0.12), 2px 0 rgba(60,180,255,0.12);">J</span><span style="color: #c4b5fd; opacity: 0.10; transform: translateY(-6px); text-shadow: -2px 0 rgba(255,60,60,0.15), 2px 0 rgba(60,180,255,0.15);">U</span><span style="color: #a5b4fc; opacity: 0.08; text-shadow: -2px 0 rgba(255,60,60,0.12), 2px 0 rgba(60,180,255,0.12);">S</span><span style="color: #c4b5fd; opacity: 0.10; transform: translateY(4px); text-shadow: -2px 0 rgba(255,60,60,0.15), 2px 0 rgba(60,180,255,0.15);">L</span><span style="color: #a5b4fc; opacity: 0.08; text-shadow: -2px 0 rgba(255,60,60,0.12), 2px 0 rgba(60,180,255,0.12);">I</span><span style="color: #c4b5fd; opacity: 0.12; transform: translateY(-2px); text-shadow: -2px 0 rgba(255,60,60,0.15), 2px 0 rgba(60,180,255,0.15);">U</span>
       </div>
     </div>
     <NavDots />
 
-    <button @click="toggleLocale" class="fixed top-4 md:top-6 right-6 z-50 px-3 py-1.5 text-[10px] md:text-xs font-mono tracking-wider rounded-full border backdrop-blur-sm transition-all duration-200" :class="locale === 'zh' ? 'bg-white/[0.04] border-white/[0.08] text-white/50 hover:text-white/70' : 'bg-white/[0.04] border-white/[0.08] text-white/50 hover:text-white/70'">{{ locale === 'zh' ? 'EN' : '中' }}</button>
+    <button @click="toggleLocale" class="fixed top-4 md:top-6 right-6 z-50 px-3 py-1.5 text-[10px] md:text-xs font-mono tracking-wider rounded-full border backdrop-blur-sm transition-all duration-200" :class="locale === 'zh' ? 'bg-white/[0.04] border-white/[0.08] text-white/50 hover:text-white/70' : 'bg-white/[0.04] border-white/[0.08] text-white/50 hover:text-white/70'">{{ locale === 'zh' ? '中' : 'EN' }}</button>
 
     <main class="relative z-[2]">
       <RouterView v-slot="{ Component }">
