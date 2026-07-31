@@ -1,5 +1,8 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
+import { useI18n } from '@/composables/useI18n'
+
+const { t } = useI18n()
 
 interface Skill {
   name: string
@@ -20,27 +23,17 @@ const skills: Skill[] = [
   { name: 'ZBrush', level: 65, icon: 'https://pub-4a4da7a40c564edabe95305d5bc9e7a0.r2.dev/works/icons/zbrush.png' }
 ]
 
-const tools = [
-  'UE5', 'Maya', 'Python', 'PyQt',
-  'SpeedTree', 'Gaea', 'ZBrush', 'SP',
-  'WorldCreator', 'ComfyUI', 'PS', 'PR',
-  'AE', 'Deadline', 'Git', 'rez',
-  'C++', 'C#'
-]
-
+const tools = ['UE5', 'Maya', 'Python', 'PyQt', 'SpeedTree', 'Gaea', 'ZBrush', 'SP', 'WorldCreator', 'ComfyUI', 'PS', 'PR', 'AE', 'Deadline', 'Git', 'rez', 'C++', 'C#']
 const languageBasis = ['C++', 'C#', 'C']
-
 const revealed = ref(false)
 
-onMounted(() => {
-  setTimeout(() => revealed.value = true, 200)
-})
+onMounted(() => { setTimeout(() => revealed.value = true, 200) })
 </script>
 
 <template>
   <div class="space-y-6">
     <div>
-      <h3 class="text-xs font-mono tracking-[0.2em] text-indigo-400/70 uppercase mb-5">Core Skills</h3>
+      <h3 class="text-xs font-mono tracking-[0.2em] text-indigo-400/70 uppercase mb-5">{{ t('coreSkills') }}</h3>
       <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-4 gap-y-3">
         <div v-for="(s, i) in skills" :key="s.name" class="flex items-center gap-2.5 group">
           <div class="w-8 h-8 rounded-lg border border-white/[0.08] bg-white/[0.03] flex items-center justify-center flex-shrink-0 overflow-hidden">
@@ -53,44 +46,22 @@ onMounted(() => {
               <span class="text-[10px] font-mono text-white/25 ml-2">{{ s.level }}%</span>
             </div>
             <div class="h-1 bg-white/[0.04] rounded-full overflow-hidden">
-              <div
-                class="h-full bg-gradient-to-r from-indigo-500 to-indigo-400 rounded-full"
-                :style="{
-                  width: revealed ? `${s.level}%` : '0%',
-                  transitionDelay: `${i * 50}ms`,
-                  transitionDuration: '1s',
-                  transitionTimingFunction: 'cubic-bezier(0.34, 1.56, 0.64, 1)'
-                }"
-              />
+              <div class="h-full bg-gradient-to-r from-indigo-500 to-indigo-400 rounded-full" :style="{ width: revealed ? `${s.level}%` : '0%', transitionDelay: `${i * 50}ms`, transitionDuration: '1s', transitionTimingFunction: 'cubic-bezier(0.34, 1.56, 0.64, 1)' }" />
             </div>
           </div>
         </div>
       </div>
     </div>
-
     <div>
-      <h3 class="text-xs font-mono tracking-[0.2em] text-indigo-400/70 uppercase mb-4">Tools &amp; Tech</h3>
+      <h3 class="text-xs font-mono tracking-[0.2em] text-indigo-400/70 uppercase mb-4">{{ t('toolsTech') }}</h3>
       <div class="flex flex-wrap gap-1.5">
-        <span
-          v-for="t in tools"
-          :key="t"
-          class="text-[11px] px-2.5 py-1 rounded-md bg-white/[0.02] text-white/45 border border-white/[0.05] hover:border-indigo-400/25 hover:text-indigo-300 transition-all duration-200"
-        >
-          {{ t }}
-        </span>
+        <span v-for="tt in tools" :key="tt" class="text-[11px] px-2.5 py-1 rounded-md bg-white/[0.02] text-white/45 border border-white/[0.05] hover:border-indigo-400/25 hover:text-indigo-300 transition-all duration-200">{{ tt }}</span>
       </div>
     </div>
-
     <div>
-      <h3 class="text-xs font-mono tracking-[0.2em] text-indigo-400/70 uppercase mb-4">Language Foundation</h3>
+      <h3 class="text-xs font-mono tracking-[0.2em] text-indigo-400/70 uppercase mb-4">{{ t('langFoundation') }}</h3>
       <div class="flex flex-wrap gap-1.5">
-        <span
-          v-for="t in languageBasis"
-          :key="t"
-          class="text-[11px] px-2.5 py-1 rounded-md bg-white/[0.01] text-white/25 border border-white/[0.03]"
-        >
-          {{ t }}
-        </span>
+        <span v-for="lt in languageBasis" :key="lt" class="text-[11px] px-2.5 py-1 rounded-md bg-white/[0.01] text-white/25 border border-white/[0.03]">{{ lt }}</span>
       </div>
     </div>
   </div>

@@ -4,12 +4,15 @@ import { useRoute } from 'vue-router'
 import { works, categories } from '@/data/works'
 import WorkCard from '@/components/WorkCard.vue'
 import { useScrollNav } from '@/composables/useScrollNav'
+import { useI18n } from '@/composables/useI18n'
 
 const emit = defineEmits<{
   particlePause: []
   particleResume: []
   previewImage: [src: string, alt: string]
 }>()
+
+const { t } = useI18n()
 
 const route = useRoute()
 const activeCategory = ref((route.query.category as string) || '')
@@ -75,8 +78,8 @@ useScrollNav(
     <div class="sticky top-12 z-20 pt-6 pb-3 md:pt-8 md:pb-4 px-6 bg-[#0f0f1a]/80 backdrop-blur-md">
       <div class="w-full max-w-6xl mx-auto">
         <div class="text-center mb-5 md:mb-6">
-          <p class="text-[10px] md:text-xs font-mono tracking-[0.3em] text-indigo-400/60 mb-1.5">PORTFOLIO / 作品集</p>
-          <p class="text-[10px] md:text-xs text-white/25">点击卡片图片可全屏预览 · 点击带 VIDEO 标识播放演示</p>
+          <p class="text-[10px] md:text-xs font-mono tracking-[0.3em] text-indigo-400/60 mb-1.5">{{ t('portfolio') }} / {{ t('portfolioSub') }}</p>
+          <p class="text-[10px] md:text-xs text-white/25">{{ t('previewHint') }}</p>
         </div>
 
         <div class="flex justify-center gap-2 md:gap-3 pb-2 overflow-x-auto scrollbar-none">
@@ -89,7 +92,7 @@ useScrollNav(
               ? 'bg-indigo-500/15 border-indigo-400/30 text-indigo-300'
               : 'bg-white/[0.02] border-white/[0.06] text-white/45 hover:border-white/15 hover:text-white/65'"
           >
-            {{ tab || '全部' }}
+            {{ tab || t('all') }}
           </button>
         </div>
       </div>

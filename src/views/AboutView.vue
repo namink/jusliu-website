@@ -2,15 +2,17 @@
 import Timeline from '@/components/Timeline.vue'
 import SkillBar from '@/components/SkillBar.vue'
 import { useScrollNav } from '@/composables/useScrollNav'
+import { useI18n } from '@/composables/useI18n'
 
 useScrollNav()
+const { t } = useI18n()
 </script>
 
 <template>
   <section class="min-h-screen w-full flex items-center justify-center relative px-6 py-20 md:py-24">
     <div class="w-full max-w-5xl mx-auto">
       <div class="text-center mb-12 md:mb-16">
-        <p class="text-[10px] md:text-xs font-mono tracking-[0.3em] text-indigo-400/60 mb-2">ABOUT / 关于</p>
+        <p class="text-[10px] md:text-xs font-mono tracking-[0.3em] text-indigo-400/60 mb-2">{{ t('aboutTitle') }} / {{ t('aboutSub') }}</p>
       </div>
 
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 md:gap-16">
@@ -62,9 +64,9 @@ useScrollNav()
 
       <div class="mt-16 md:mt-20 pt-12 md:pt-16 border-t border-white/[0.04]">
         <div class="text-center">
-          <p class="text-xs font-mono tracking-[0.2em] text-indigo-400/70 uppercase mb-4">Education</p>
-          <h4 class="text-lg text-white font-medium">江西软件职业技术大学</h4>
-          <p class="text-sm text-white/40 mt-1">计算机应用工程 · 本科 · 2019 - 2023</p>
+          <p class="text-xs font-mono tracking-[0.2em] text-indigo-400/70 uppercase mb-4">{{ t('education') }}</p>
+          <h4 class="text-lg text-white font-medium">{{ t('eduSchool') }}</h4>
+          <p class="text-sm text-white/40 mt-1">{{ t('eduDegree') }}</p>
         </div>
       </div>
     </div>
