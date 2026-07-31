@@ -19,7 +19,7 @@ const nezhaIdx = computed(() => {
 
 const nezhaDelay = computed(() => {
   const total = featured.value.length || 1
-  return `-${30 * nezhaIdx.value / total}s`
+  return `-${30 * (nezhaIdx.value - 0.5) / total}s`
 })
 
 const trackRef = ref<HTMLDivElement>()
@@ -69,9 +69,7 @@ onUnmounted(() => {
 
 <template>
   <div class="relative w-full">
-    <div class="film-reel relative rounded-2xl border-t-[4px] border-b-[4px] border-x-[4px] border-white/[0.06] shadow-[inset_0_4px_12px_rgba(0,0,0,0.2)]" @mouseenter="onEnter" @mouseleave="onLeave">
-      <div class="absolute top-0 left-1 right-1 h-[4px] z-10 opacity-80" style="background: repeating-linear-gradient(90deg, transparent 0, transparent 6px, rgba(200,162,255,0.3) 6px, rgba(200,162,255,0.3) 12px);" />
-      <div class="absolute bottom-0 left-1 right-1 h-[4px] z-10 opacity-80" style="background: repeating-linear-gradient(90deg, transparent 0, transparent 6px, rgba(200,162,255,0.3) 6px, rgba(200,162,255,0.3) 12px);" />
+    <div class="film-reel relative rounded-2xl overflow-hidden border-t-[4px] border-b-[4px] border-x-[4px] border-white/[0.06] shadow-[inset_0_4px_12px_rgba(0,0,0,0.2)]" @mouseenter="onEnter" @mouseleave="onLeave">
 
     <div ref="trackRef" class="flex gap-2 carousel-track py-3" :class="{ '[animation-play-state:paused]': paused }" :style="{ animationDelay: nezhaDelay }" @mousedown.prevent="onDown" style="cursor:grab">
         <div
