@@ -24,17 +24,13 @@ const { t } = useI18n()
             <p>{{ t('bio4') }}</p>
           </div>
 
-          <div class="mt-8 flex flex-wrap gap-3">
-            <a href="mailto:conti_717@163.com"
-              class="text-xs md:text-sm px-5 py-2.5 rounded-lg bg-indigo-500/10 border border-indigo-400/20 text-indigo-300 hover:bg-indigo-500/20 transition-all duration-300 inline-flex items-center gap-2"
-            >
-              conti_717@163.com
+          <div class="mt-8 flex items-center gap-3">
+            <a href="mailto:conti_717@163.com" title="conti_717@163.com" class="w-10 h-10 flex items-center justify-center rounded-full border border-white/[0.06] text-indigo-400/50 hover:text-indigo-300 hover:border-indigo-400/30 transition-all duration-200">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M22 4L12 13L2 4"/></svg>
             </a>
-            <a href="tel:18070154965"
-              class="text-xs md:text-sm px-5 py-2.5 rounded-lg bg-white/[0.02] border border-white/[0.06] text-white/40 hover:text-white/60 hover:border-white/20 transition-all duration-300"
-            >
-              18070154965
-            </a>
+            <span title="WeChat: Jusliu" class="w-10 h-10 flex items-center justify-center rounded-full border border-white/[0.06] text-white/30 hover:text-white/50 hover:border-white/[0.12] transition-all duration-200 cursor-default">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+            </span>
           </div>
         </div>
 

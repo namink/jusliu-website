@@ -76,13 +76,19 @@ function goTo(path: string) {
         <p class="text-sm md:text-base text-white/25 leading-relaxed">{{ t('taglineSub') }}</p>
       </div>
 
-      <a href="mailto:conti_717@163.com" class="inline-flex items-center gap-1.5 text-xs text-white/25 hover:text-white/45 transition-colors duration-200 mb-10">
-        <svg class="w-3.5 h-3.5 opacity-40 group-hover:opacity-70 transition-opacity" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
-          <rect x="2" y="4" width="20" height="16" rx="2" />
-          <path d="M22 4L12 13L2 4" />
-        </svg>
-        {{ t('contactEmail') }}
-      </a>
+      <div class="flex items-center justify-center gap-4 mb-10">
+        <a href="mailto:conti_717@163.com" title="conti_717@163.com" class="w-9 h-9 flex items-center justify-center rounded-full border border-white/[0.06] text-white/30 hover:text-white/60 hover:border-white/[0.15] transition-all duration-200">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+            <rect x="2" y="4" width="20" height="16" rx="2" />
+            <path d="M22 4L12 13L2 4" />
+          </svg>
+        </a>
+        <span title="WeChat: Jusliu" class="w-9 h-9 flex items-center justify-center rounded-full border border-white/[0.06] text-white/30 hover:text-white/60 hover:border-white/[0.15] transition-all duration-200 cursor-default">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+            <path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z" />
+          </svg>
+        </span>
+      </div>
 
       <div class="flex flex-col sm:flex-row gap-4 justify-center">
         <button
