@@ -1,11 +1,24 @@
 <script setup lang="ts">
-import { provide } from 'vue'
+import { ref, provide } from 'vue'
 import { RouterView } from 'vue-router'
 import ParticleBg from '@/components/ParticleBg.vue'
 import NavDots from '@/components/NavDots.vue'
+import VideoModal from '@/components/VideoModal.vue'
 import { createTransition } from '@/composables/useTransition'
 
 provide('transitionHooks', createTransition())
+
+const videoSrc = ref('')
+const showVideo = ref(false)
+
+function playVideo(src: string) {
+  videoSrc.value = src
+  showVideo.value = true
+}
+
+function closeVideo() {
+  showVideo.value = false
+}
 </script>
 
 <template>
@@ -25,9 +38,11 @@ provide('transitionHooks', createTransition())
           @leave="($event, $done) => createTransition().onLeave($event, $done)"
           mode="out-in"
         >
-          <component :is="Component" />
+          <component :is="Component" @play="playVideo" />
         </Transition>
       </RouterView>
     </main>
+
+    <VideoModal :src="videoSrc" :show="showVideo" @close="closeVideo" />
   </div>
 </template>

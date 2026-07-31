@@ -7,13 +7,24 @@ const props = defineProps<{
   index: number
 }>()
 
+const emit = defineEmits<{
+  play: [src: string]
+}>()
+
 const imgError = ref(false)
+
+function onClick() {
+  if (props.work.videoUrl) {
+    emit('play', props.work.videoUrl)
+  }
+}
 </script>
 
 <template>
   <div
     class="group relative overflow-hidden rounded-xl bg-white/[0.03] border border-white/[0.06] hover:border-indigo-400/30 transition-all duration-500 hover:-translate-y-1 cursor-pointer"
     :style="{ transitionDelay: `${props.index * 60}ms` }"
+    @click="onClick"
   >
     <div class="aspect-[16/10] overflow-hidden relative">
       <img
