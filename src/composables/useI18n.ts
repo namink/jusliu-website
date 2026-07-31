@@ -22,7 +22,7 @@ const zh = {
 
   audioOn: 'ON', audioOff: 'OFF',
   audioPause: '暂停音乐', audioPlay: '播放音乐',
-  ndaLabel: '项目涉密', ndaHint: '敬请期待',
+  ndaLabel: '内容保密', ndaHint: '持续完善中',
   previewHint: '点击图片可放大 · 点击 VIDEO 播放演示',
   langBtn: '中',
 
@@ -66,7 +66,7 @@ const en = {
 
   audioOn: 'ON', audioOff: 'OFF',
   audioPause: 'Pause Music', audioPlay: 'Play Music',
-  ndaLabel: 'Confidential', ndaHint: 'Coming Soon',
+  ndaLabel: 'Confidential', ndaHint: 'In Progress',
   previewHint: 'Click to preview · Click VIDEO to play',
   langBtn: 'EN',
 
@@ -97,6 +97,7 @@ const state = reactive({
 
 export function useI18n() {
   const messages = computed<Messages>(() => state.locale === 'zh' ? zh : en)
+  const locale = computed(() => state.locale)
 
   function t(key: string): string {
     const val = (messages.value as any)[key]
@@ -113,5 +114,5 @@ export function useI18n() {
     localStorage.setItem('lang', state.locale)
   }
 
-  return { t, tArr, locale: state.locale, toggleLocale }
+  return { t, tArr, locale, toggleLocale }
 }
