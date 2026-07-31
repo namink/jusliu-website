@@ -14,7 +14,7 @@ const featured = computed(() =>
 const current = ref(0)
 const scrollRef = ref<HTMLDivElement>()
 
-useDragScroll(scrollRef)
+useDragScroll(scrollRef, 0.5)
 
 function setCurrent(i: number) {
   current.value = i
@@ -22,12 +22,12 @@ function setCurrent(i: number) {
 </script>
 
 <template>
-  <div class="relative mx-auto">
+  <div class="relative max-w-5xl mx-auto">
     <div ref="scrollRef" class="flex gap-3 overflow-x-auto snap-x snap-mandatory scrollbar-none scroll-smooth" style="cursor:grab">
       <div
         v-for="(w, i) in featured"
         :key="w.id"
-        class="flex-shrink-0 w-[240px] md:w-[260px] snap-center rounded-2xl overflow-hidden border border-white/[0.06] bg-white/[0.02] transition-all duration-300 hover:border-white/[0.12]"
+        class="flex-shrink-0 w-[200px] md:w-[220px] snap-center rounded-2xl overflow-hidden border border-white/[0.06] bg-white/[0.02] transition-all duration-300 hover:border-white/[0.12]"
         @click="setCurrent(i)"
       >
         <div class="aspect-[16/9] overflow-hidden">

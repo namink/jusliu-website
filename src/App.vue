@@ -42,8 +42,8 @@ function closePreview() { showPreview.value = false }
       <p class="text-[10px] font-mono tracking-[0.3em] text-indigo-400/25 leading-relaxed">TECHNICAL DIRECTOR</p>
     </div>
 
-    <div class="fixed bottom-16 left-1/2 -translate-x-1/2 z-0 pointer-events-none select-none">
-      <span class="block text-[10vw] font-black text-white/[0.015] leading-none tracking-[0.25em] brand-breathe">JUSLIU</span>
+    <div class="fixed bottom-24 left-1/2 -translate-x-1/2 z-0 pointer-events-none select-none">
+      <span class="block text-[10vw] font-black text-white/[0.05] leading-none tracking-[0.25em] brand-breathe">JUSLIU</span>
     </div>
 
     <NavDots />
@@ -82,7 +82,7 @@ function closePreview() { showPreview.value = false }
   animation: brandBreathe 10s ease-in-out infinite;
 }
 @keyframes brandBreathe {
-  0%, 100% { opacity: 0.01; }
-  50% { opacity: 0.025; }
+  0%, 100% { opacity: 0.03; }
+  50% { opacity: 0.07; }
 }
 </style>
