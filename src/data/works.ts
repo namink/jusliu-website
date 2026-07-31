@@ -95,7 +95,7 @@ export const works: Work[] = [
     title: 'Maya 项目管理工具',
     category: '工具开发',
     description: '基于 PyQt 的 Maya 项目管理工具，提升制作管线效率与资产管理规范性。',
-    thumbnail: '',
+    thumbnail: '/works/tools/maya-project-tool.jpg',
     tags: ['Python', 'PyQt', 'Maya', 'TD'],
     videoUrl: '/works/videos/maya-tool.mp4'
   },
