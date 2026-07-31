@@ -10,6 +10,7 @@ const props = defineProps<{
 const emit = defineEmits<{
   particlePause: []
   particleResume: []
+  previewImage: [src: string, alt: string]
 }>()
 
 const playing = ref(false)
@@ -81,9 +82,10 @@ const imgError = ref(false)
         v-else-if="props.work.thumbnail"
         :src="props.work.thumbnail"
         :alt="props.work.title"
-        class="w-full h-full object-contain transition-transform duration-700 group-hover:scale-105 bg-black/40"
+        class="w-full h-full object-contain transition-transform duration-700 group-hover:scale-105 bg-black/40 cursor-zoom-in"
         loading="lazy"
         @error="imgError = true"
+        @click.stop="emit('previewImage', props.work.thumbnail, props.work.title)"
       />
 
       <div

@@ -6,6 +6,7 @@ import NavDots from '@/components/NavDots.vue'
 import GeoBg from '@/components/GeoBg.vue'
 import GridDots from '@/components/GridDots.vue'
 import AudioPlayer from '@/components/AudioPlayer.vue'
+import ImageViewer from '@/components/ImageViewer.vue'
 import { createTransition } from '@/composables/useTransition'
 
 provide('transitionHooks', createTransition())
@@ -14,6 +15,20 @@ const particleRef = ref<InstanceType<typeof ParticleBg>>()
 
 function onParticlePause() { particleRef.value?.setPaused(true) }
 function onParticleResume() { particleRef.value?.setPaused(false) }
+
+const previewSrc = ref('')
+const previewAlt = ref('')
+const showPreview = ref(false)
+
+function onPreviewImage(src: string, alt: string) {
+  previewSrc.value = src
+  previewAlt.value = alt
+  showPreview.value = true
+}
+
+function closePreview() {
+  showPreview.value = false
+}
 </script>
 
 <template>
@@ -43,12 +58,15 @@ function onParticleResume() { particleRef.value?.setPaused(false) }
             :is="Component"
             @particle-pause="onParticlePause"
             @particle-resume="onParticleResume"
+            @preview-image="onPreviewImage"
           />
         </Transition>
       </RouterView>
     </main>
 
     <AudioPlayer />
+
+    <ImageViewer :src="previewSrc" :alt="previewAlt" :show="showPreview" @close="closePreview" />
 
     <div class="fixed bottom-3 right-6 z-50 text-[9px] font-mono tracking-widest text-white/10 select-none">
       jusliu &middot; 2026
