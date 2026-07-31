@@ -41,7 +41,7 @@ function goTo(path: string) {
 <template>
   <section class="min-h-screen w-full flex items-center justify-center relative px-6 pb-24">
     <div
-      class="text-center max-w-2xl mx-auto transition-all duration-1000 ease-out"
+      class="text-center max-w-5xl mx-auto transition-all duration-1000 ease-out"
       :class="visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'"
     >
       <div class="mb-10 space-y-2.5">

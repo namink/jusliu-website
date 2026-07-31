@@ -74,14 +74,14 @@ useScrollNav(
       </div>
     </div>
 
-    <div class="w-full max-w-6xl mx-auto mt-8 md:mt-10 px-6" :style="{ minHeight: '480px' }">
+    <div class="w-full max-w-6xl mx-auto mt-8 md:mt-10 px-6" :style="{ minHeight: '600px' }">
       <div class="flex overflow-x-auto gap-4 md:gap-5 snap-x snap-mandatory pb-4 scrollbar-none">
         <WorkCard
           v-for="(work, i) in filteredWorks"
           :key="work.id"
           :work="work"
           :index="i"
-          class="flex-shrink-0 w-[280px] md:w-[340px] snap-start"
+          class="flex-shrink-0 w-[300px] md:w-[360px] snap-start"
           @particle-pause="emit('particlePause')"
           @particle-resume="emit('particleResume')"
         />
