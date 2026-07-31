@@ -26,9 +26,7 @@ function onPreviewImage(src: string, alt: string) {
   showPreview.value = true
 }
 
-function closePreview() {
-  showPreview.value = false
-}
+function closePreview() { showPreview.value = false }
 </script>
 
 <template>
@@ -39,8 +37,12 @@ function closePreview() {
 
     <div class="fixed top-0 left-0 right-0 h-72 z-0 pointer-events-none opacity-40" style="background: radial-gradient(ellipse at 50% 0%, rgba(136,168,255,0.08) 0%, transparent 70%);" />
 
-    <div class="fixed inset-0 z-0 flex items-center justify-center pointer-events-none select-none">
-      <span class="text-[14vw] font-black tracking-[0.3em] text-white/[0.02] leading-none">JUSLIU</span>
+    <div class="fixed left-6 top-1/2 -translate-y-1/2 z-0 pointer-events-none select-none">
+      <span class="block text-[6vw] font-black text-white/[0.025] leading-[0.85] float-v">JUSLIU</span>
+    </div>
+
+    <div class="fixed right-6 top-1/2 -translate-y-1/2 z-0 pointer-events-none select-none">
+      <span class="block text-[2.5vw] font-bold text-white/[0.015] leading-[1.2] float-v-rev">TECHNICAL ARTIST TECHNICAL DIRECTOR</span>
     </div>
 
     <NavDots />
@@ -73,3 +75,16 @@ function closePreview() {
     </div>
   </div>
 </template>
+
+<style>
+.float-v {
+  animation: floatUp 8s ease-in-out infinite;
+}
+.float-v-rev {
+  animation: floatUp 10s ease-in-out infinite reverse;
+}
+@keyframes floatUp {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-12px); }
+}
+</style>
