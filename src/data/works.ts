@@ -15,7 +15,7 @@ export const works: Work[] = [
     title: 'AI 数字内容生成平台',
     category: 'AI 平台',
     description: '从 0 到 1 构建的 AI 数字内容生成平台。含节点式工作流编辑器、3D 实时预览、PBR 材质编辑器、图片/视频编辑。独立完成需求分析、方案制定与前端界面构建。',
-    thumbnail: '/works/ai-platform/batch-modes.png',
+    thumbnail: '/works/ai-platform/batch-modes.jpg',
     tags: ['AI', 'ComfyUI', '前端', 'Node Editor']
   },
   {
@@ -23,7 +23,7 @@ export const works: Work[] = [
     title: '节点式工作流编辑器',
     category: 'AI 平台',
     description: '可视化节点式工作流系统，支持节点拖拽连接、数据流管线配置、子图导航与参数面板。',
-    thumbnail: '/works/node-editor/overview.png',
+    thumbnail: '/works/node-editor/overview.jpg',
     tags: ['Node Editor', '工作流', '可视化', 'ComfyUI']
   },
   {
@@ -31,7 +31,7 @@ export const works: Work[] = [
     title: '导演台 · 3D 场景编辑器',
     category: 'AI 平台',
     description: 'AI 生成平台内置 3D 实时场景编辑模块。支持自由视角、相机监控、灯光调节、时间线动画与截图输出。',
-    thumbnail: '/works/director3d/timeline.png',
+    thumbnail: '/works/director3d/timeline.jpg',
     tags: ['3D', 'WebGL', '实时渲染', '导演台']
   },
   {
@@ -39,7 +39,7 @@ export const works: Work[] = [
     title: 'PBR 材质编辑器',
     category: 'AI 平台',
     description: 'PBR 材质编辑模块，支持多通道管理、参数实时调节、无缝平铺预览及材质导出。实现 GLSL 与 HLSL 着色器代码转换，集成 PS 图片编辑功能。',
-    thumbnail: '/works/pbr-editor/overview.png',
+    thumbnail: '/works/pbr-editor/overview.jpg',
     tags: ['PBR', '材质', 'GLSL', 'HLSL', 'PS 编辑']
   },
   {
@@ -47,7 +47,7 @@ export const works: Work[] = [
     title: '3D 查看器',
     category: 'AI 平台',
     description: '3D 模型实时预览模块，支持旋转缩放、材质切换与截图导出。',
-    thumbnail: '/works/ai-platform/3d-viewer.png',
+    thumbnail: '/works/ai-platform/3d-viewer.jpg',
     tags: ['3D', '模型预览', 'WebGL', '材质']
   },
   {
@@ -55,7 +55,7 @@ export const works: Work[] = [
     title: 'AIGC Python 桌面客户端',
     category: 'AI 平台',
     description: '基于 PyQt 的 AI 生成桌面工具，集成即梦等平台 AI 服务。在神漫文化期间参与，在现有基础上进行功能优化与迭代。',
-    thumbnail: '/works/ai-tools/result-asset.png',
+    thumbnail: '/works/ai-tools/result-asset.jpg',
     tags: ['Python', 'PyQt', 'AI', '即梦']
   },
   {
@@ -63,7 +63,7 @@ export const works: Work[] = [
     title: 'XGen 毛发规范检测工具',
     category: '工具开发',
     description: '基于 Maya Python API 的 XGen 毛发规范性自动检测工具，确保毛发资产符合管线命名与制作规范，支持批量扫描与异常报告输出。',
-    thumbnail: '/works/tools/xgen-hair-check.png',
+    thumbnail: '/works/tools/xgen-hair-check.jpg',
     tags: ['Maya', 'Python', 'XGen', 'TD']
   },
   {
@@ -71,7 +71,7 @@ export const works: Work[] = [
     title: 'UE 灯光批量管理工具',
     category: '工具开发',
     description: 'Unreal Engine Python API 开发的灯光批量管理工具，支持按类型筛选灯光、属性批量修改、预设配置导入导出。',
-    thumbnail: '/works/tools/ue-light-manager.png',
+    thumbnail: '/works/tools/ue-light-manager.jpg',
     tags: ['UE5', 'Python', '灯光', 'TD']
   },
   {
@@ -79,7 +79,7 @@ export const works: Work[] = [
     title: 'UE sRGB 转 ACES 色彩空间批量工具',
     category: '工具开发',
     description: '将 UE 项目中 sRGB 色彩空间的贴图批量转换至 ACES 标准色彩空间，支持多文件映射与规则配置。',
-    thumbnail: '/works/tools/ue-ocio-aces.png',
+    thumbnail: '/works/tools/ue-ocio-aces.jpg',
     tags: ['UE5', 'Python', 'sRGB', 'ACES', 'TD']
   },
   {
@@ -87,7 +87,7 @@ export const works: Work[] = [
     title: 'Maya 动画角色引用批量替换工具',
     category: '工具开发',
     description: '批量替换 Maya 动画文件中的角色引用路径，支持多文件映射、正则规则匹配与路径模板配置。',
-    thumbnail: '/works/tools/maya-ref-replace.png',
+    thumbnail: '/works/tools/maya-ref-replace.jpg',
     tags: ['Maya', 'Python', '动画', 'TD']
   },
   {
@@ -95,7 +95,7 @@ export const works: Work[] = [
     title: 'Maya 项目管理工具',
     category: '工具开发',
     description: '基于 PyQt 的 Maya 项目管理工具，提升制作管线效率与资产管理规范性。',
-    thumbnail: '/works/tools/maya-project-tool.png',
+    thumbnail: '/works/tools/maya-project-tool.jpg',
     tags: ['Python', 'PyQt', 'Maya', 'TD']
   },
   {
@@ -103,7 +103,7 @@ export const works: Work[] = [
     title: '太空宇航员',
     category: '场景渲染',
     description: '太空环境灯光渲染，模拟无大气散射的太空光照环境',
-    thumbnail: '/works/scene-lighting/Space01.png',
+    thumbnail: '/works/scene-lighting/Space01.jpg',
     tags: ['UE5', '灯光', '太空']
   },
   {
@@ -111,7 +111,7 @@ export const works: Work[] = [
     title: '暗黑场景',
     category: '场景渲染',
     description: '暗黑风格场景布光练习，探索低照度环境下的氛围塑造',
-    thumbnail: '/works/scene-lighting/dark.png',
+    thumbnail: '/works/scene-lighting/dark.jpg',
     tags: ['UE5', '灯光', '氛围']
   },
   {
@@ -119,7 +119,7 @@ export const works: Work[] = [
     title: '双城之战风格',
     category: '风格化',
     description: 'UE 中还原《双城之战》风格化渲染效果，探索 NPR 渲染在游戏引擎中的实现',
-    thumbnail: '/works/stylized/arcane01.png',
+    thumbnail: '/works/stylized/arcane01.jpg',
     tags: ['UE5', '风格化', 'NPR']
   },
   {
@@ -127,7 +127,7 @@ export const works: Work[] = [
     title: '游戏厅场景',
     category: '场景渲染',
     description: '赛博朋克风格游戏厅场景搭建，霓虹灯光与复古元素的碰撞',
-    thumbnail: '/works/scene-lighting/arcade.png',
+    thumbnail: '/works/scene-lighting/arcade.jpg',
     tags: ['UE5', '赛博朋克', '场景搭建']
   },
   {
@@ -135,7 +135,7 @@ export const works: Work[] = [
     title: '美式卡渲材质',
     category: '材质研发',
     description: '美式卡通渲染材质系统研发，实现多光源卡通着色效果',
-    thumbnail: '/works/materials/us-cel01.png',
+    thumbnail: '/works/materials/us-cel01.jpg',
     tags: ['UE5', '材质', '卡渲', 'Shader']
   },
   {
@@ -143,7 +143,7 @@ export const works: Work[] = [
     title: '日式卡渲材质',
     category: '材质研发',
     description: '日式赛璐璐风格材质系统，包括头发各向异性、自阴影、多光源优化',
-    thumbnail: '/works/materials/jp-cel01.png',
+    thumbnail: '/works/materials/jp-cel01.jpg',
     tags: ['UE5', '材质', 'Cel Shading', 'Shader']
   },
   {
@@ -151,7 +151,7 @@ export const works: Work[] = [
     title: '视差水晶材质',
     category: '材质研发',
     description: '利用视差贴图技术在 UE 中实现水晶/宝石的折射与内部细节效果',
-    thumbnail: '/works/materials/crystal.png',
+    thumbnail: '/works/materials/crystal.jpg',
     tags: ['UE5', '视差贴图', '材质']
   },
   {
@@ -159,7 +159,7 @@ export const works: Work[] = [
     title: '玉石材质',
     category: '材质研发',
     description: 'UE 中玉石 SSS 材质还原，模拟半透明玉石的光线散射效果',
-    thumbnail: '/works/materials/jade.png',
+    thumbnail: '/works/materials/jade.jpg',
     tags: ['UE5', 'SSS', '材质'],
     videoUrl: '/works/videos/jade.mp4'
   },
@@ -168,7 +168,7 @@ export const works: Work[] = [
     title: 'PCG 程序化生成',
     category: '程序化',
     description: 'UE5 PCG 框架应用，程序化生成大规模自然环境',
-    thumbnail: '/works/procedural/pcg.png',
+    thumbnail: '/works/procedural/pcg.jpg',
     tags: ['UE5', 'PCG', '程序化']
   },
   {
@@ -176,7 +176,7 @@ export const works: Work[] = [
     title: 'Gaea 地形制作',
     category: '程序化',
     description: 'Gaea 程序化地形生成 + UE5 导入与材质混合流程',
-    thumbnail: '/works/procedural/gaea.png',
+    thumbnail: '/works/procedural/gaea.jpg',
     tags: ['Gaea', 'UE5', '地形']
   },
   {
@@ -184,7 +184,7 @@ export const works: Work[] = [
     title: 'SpeedTree 植物',
     category: '程序化',
     description: 'SpeedTree 程序化植物生成与 UE5 集成，包括树干缠绕效果',
-    thumbnail: '/works/procedural/speedtree.png',
+    thumbnail: '/works/procedural/speedtree.jpg',
     tags: ['SpeedTree', 'UE5', '植物']
   },
   {
@@ -201,7 +201,7 @@ export const works: Work[] = [
     title: 'AI 数字人',
     category: '技术研发',
     description: 'UE5 驱动的实时 AI 数字人系统，支持语音对话与直播间评论接入',
-    thumbnail: '/works/projects/ai-digital.png',
+    thumbnail: '/works/projects/ai-digital.jpg',
     tags: ['UE5', 'AI', '数字人']
   },
   {
