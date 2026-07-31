@@ -35,18 +35,22 @@ function onMove(e: MouseEvent) {
 }
 function onUp() {
   dragging.value = false
-  if (!trackRef.value) return
-  const halfW = trackRef.value.scrollWidth / 2
+  if (!trackRef.value) { paused.value = false; return }
+  const el = trackRef.value
+  const matrix = new DOMMatrixReadOnly(getComputedStyle(el).transform)
+  currentTx = matrix.m41
+  const halfW = el.scrollWidth / 2
   currentTx = ((currentTx % halfW) + halfW) % halfW - halfW / 2
-  const delay = (30 * currentTx) / halfW
-  trackRef.value.style.animation = 'none'
-  trackRef.value.style.transform = `translateX(${currentTx}px)`
+  const delay = halfW > 0 ? (30 * currentTx) / halfW : 0
+  el.style.animation = 'none'
+  el.style.transform = `translateX(${currentTx}px)`
   requestAnimationFrame(() => {
-    if (!trackRef.value) return
-    trackRef.value.style.animation = 'carouselScroll 30s linear infinite'
-    trackRef.value.style.animationDelay = `${delay}s`
-    trackRef.value.style.transform = ''
-    paused.value = false
+    el.style.animation = 'carouselScroll 30s linear infinite'
+    el.style.animationDelay = `${delay}s`
+    requestAnimationFrame(() => {
+      el.style.transform = ''
+      paused.value = false
+    })
   })
 }
 function onEnter() { if (!dragging.value) paused.value = true }

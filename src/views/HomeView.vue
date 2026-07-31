@@ -48,7 +48,7 @@ function goTo(path: string) {
 
       <FeaturedCarousel />
 
-      <div class="text-center max-w-5xl mx-auto mt-8">
+      <div class="max-w-5xl mx-auto mt-8 flex flex-col items-center">
 
       <div class="mb-10 mt-10">
         <div ref="scrollRef" class="flex gap-2 md:gap-3 overflow-x-auto snap-x snap-mandatory scrollbar-none mx-auto"
