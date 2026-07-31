@@ -224,7 +224,7 @@ export const works: Work[] = [
   },
   {
     id: 'nezha',
-    title: '哪吒之魔童闹海',
+    title: '《哪吒之魔童闹海》',
     category: '项目支持',
     description: '参与电影项目的资产制作、特效及技术支持',
     thumbnail: 'https://pub-4a4da7a40c564edabe95305d5bc9e7a0.r2.dev/works/projects/nezha.jpg',
@@ -232,7 +232,7 @@ export const works: Work[] = [
   },
   {
     id: 'boonie-bears',
-    title: '熊出没之重启未来',
+    title: '《熊出没之重启未来》',
     category: '项目支持',
     description: '电影项目技术支持与场景搭建',
     thumbnail: 'https://pub-4a4da7a40c564edabe95305d5bc9e7a0.r2.dev/works/projects/boonie.jpg',
@@ -240,7 +240,7 @@ export const works: Work[] = [
   },
   {
     id: 'honor-of-kings',
-    title: '王者荣耀 CG 动画',
+    title: '《王者荣耀》CG 动画',
     category: '项目支持',
     description: '王者荣耀 CG 短片资产与特效支持',
     thumbnail: 'https://pub-4a4da7a40c564edabe95305d5bc9e7a0.r2.dev/works/projects/hok.jpg',
@@ -248,7 +248,7 @@ export const works: Work[] = [
   },
   {
     id: 'shenyinwangzuo',
-    title: '神印王座',
+    title: '《神印王座》',
     category: '项目支持',
     description: '在播项目 TD 技术支持，负责技术问题排查、插件需求开发及制作流程指导。',
     thumbnail: 'https://pub-4a4da7a40c564edabe95305d5bc9e7a0.r2.dev/works/projects/shenyinwangzuo.jpg',
@@ -256,7 +256,7 @@ export const works: Work[] = [
   },
   {
     id: 'cangyuantu',
-    title: '沧元图',
+    title: '《沧元图》',
     category: '项目支持',
     description: 'TD 技术支持，解决制作管线中的技术难点，开发辅助工具与流程优化方案。',
     thumbnail: 'https://pub-4a4da7a40c564edabe95305d5bc9e7a0.r2.dev/works/projects/cangyuantu.jpg',
@@ -264,7 +264,7 @@ export const works: Work[] = [
   },
   {
     id: 'zhanshen',
-    title: '斩神之凡尘神域',
+    title: '《斩神之凡尘神域》',
     category: '项目支持',
     description: 'TD 技术负责，提供插件需求定制、渲染流程指导及制作管线问题解决。',
     thumbnail: 'https://pub-4a4da7a40c564edabe95305d5bc9e7a0.r2.dev/works/projects/zhanshen.jpg',
@@ -272,7 +272,7 @@ export const works: Work[] = [
   },
   {
     id: 'yizhancangqiong',
-    title: '一斩苍穹',
+    title: '《一斩苍穹》',
     category: '项目支持',
     description: '项目 TD 支持，负责 Python 工具开发、流程优化及团队技术指导。',
     thumbnail: 'https://pub-4a4da7a40c564edabe95305d5bc9e7a0.r2.dev/works/projects/yizhancangqiong.jpg',
@@ -280,7 +280,7 @@ export const works: Work[] = [
   },
   {
     id: 'zetianji',
-    title: '择天记',
+    title: '《择天记》',
     category: '项目支持',
     description: 'TD 技术支持，参与插件开发、问题排查及制作流程规范化。',
     thumbnail: 'https://pub-4a4da7a40c564edabe95305d5bc9e7a0.r2.dev/works/projects/zetianji.jpg',
@@ -288,7 +288,7 @@ export const works: Work[] = [
   },
   {
     id: 'daoguiyixian',
-    title: '道诡异仙',
+    title: '《道诡异仙》',
     category: '项目支持',
     description: '项目 TD 技术支持，负责技术问题排查与制作流程指导。',
     thumbnail: 'https://pub-4a4da7a40c564edabe95305d5bc9e7a0.r2.dev/works/projects/daogui.jpg',
