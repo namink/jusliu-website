@@ -41,14 +41,14 @@ onMounted(() => {
 
   for (let i = 0; i < PARTICLE_COUNT; i++) {
     positions[i * 3] = (Math.random() - 0.5) * 130
-    positions[i * 3 + 1] = (Math.random() - 0.5) * 84
+    positions[i * 3 + 1] = (Math.random() - 0.5) * 140
     positions[i * 3 + 2] = (Math.random() - 0.5) * 130
     const c = palette[Math.floor(Math.random() * palette.length)]
     colorsArr[i * 3] = c.r
     colorsArr[i * 3 + 1] = c.g
     colorsArr[i * 3 + 2] = c.b
     sizes[i] = 0.08 + Math.random() * 0.45
-    speeds[i] = 0.004 + Math.random() * 0.018
+    speeds[i] = 0.006 + Math.random() * 0.019
     offsets[i] = Math.random() * Math.PI * 2
   }
 
@@ -114,8 +114,8 @@ onMounted(() => {
       posArray[i * 3 + 1] -= speeds[i]
       posArray[i * 3] += Math.sin(time * 0.6 + offsets[i]) * 0.015 + mouse.x * speeds[i] * 0.2
 
-      if (posArray[i * 3 + 1] < -42) {
-        posArray[i * 3 + 1] = 42
+      if (posArray[i * 3 + 1] < -70) {
+        posArray[i * 3 + 1] = 70 + (Math.random() - 0.5) * 6
         posArray[i * 3] = (Math.random() - 0.5) * 130
       }
     }
