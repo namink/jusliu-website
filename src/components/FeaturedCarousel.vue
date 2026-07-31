@@ -11,6 +11,14 @@ const featured = computed(() =>
 )
 
 const looped = computed(() => [...featured.value, ...featured.value])
+
+const nezhaIdx = computed(() => {
+  const idx = featured.value.findIndex(w => w.id === 'nezha')
+  return idx >= 0 ? idx : 0
+})
+
+const animDelay = computed(() => `-${30 * nezhaIdx.value / (featured.value.length || 1)}s`)
+
 const trackRef = ref<HTMLDivElement>()
 const paused = ref(false)
 const dragging = ref(false)
@@ -42,7 +50,7 @@ onUnmounted(() => { window.removeEventListener('mousemove', onMove); window.remo
 
 <template>
   <div class="relative w-full" @mouseenter="onEnter" @mouseleave="onLeave">
-    <div ref="trackRef" class="flex gap-4 carousel-track animate-scroll" :class="{ '[animation-play-state:paused]': paused }" @mousedown.prevent="onDown" style="cursor:grab">
+    <div ref="trackRef" class="flex gap-4 carousel-track animate-scroll" :class="{ '[animation-play-state:paused]': paused }" :style="{ animationDelay: animDelay }" @mousedown.prevent="onDown" style="cursor:grab">
       <div v-for="(w, i) in looped" :key="`${w.id}-${i}`" class="flex-shrink-0 w-[42vw] md:w-[38vw] rounded-2xl overflow-hidden border border-white/[0.06] bg-white/[0.02] transition-all duration-300 hover:border-white/[0.12] select-none">
         <div class="aspect-[16/9] overflow-hidden">
           <img v-if="w.thumbnail" :src="w.thumbnail" :alt="w.title" class="w-full h-full object-cover pointer-events-none" loading="lazy" />
@@ -61,6 +69,6 @@ onUnmounted(() => { window.removeEventListener('mousemove', onMove); window.remo
 
 <style scoped>
 @keyframes carouselScroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
-.animate-scroll { animation: carouselScroll 60s linear infinite; }
+.animate-scroll { animation: carouselScroll 30s linear infinite; }
 .carousel-track { will-change: transform; }
 </style>
