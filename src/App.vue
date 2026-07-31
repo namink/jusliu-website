@@ -24,6 +24,10 @@ function onParticleResume() { particleRef.value?.setPaused(false) }
 
     <div class="fixed top-0 left-0 right-0 h-72 z-0 pointer-events-none opacity-40" style="background: radial-gradient(ellipse at 50% 0%, rgba(136,168,255,0.08) 0%, transparent 70%);" />
 
+    <div class="fixed inset-0 z-0 flex items-center justify-center pointer-events-none select-none">
+      <span class="text-[14vw] font-black tracking-[0.3em] text-white/[0.02] leading-none">JUSLIU</span>
+    </div>
+
     <NavDots />
 
     <main class="relative z-[2]">

@@ -70,7 +70,6 @@ function goTo(path: string) {
           <span class="inline-block transition-all duration-1000 ease-out" :class="visible ? 'opacity-100 translate-y-0 blur-0' : 'opacity-0 translate-y-8 blur-sm'" style="transition-delay: 500ms">L</span>
           <span class="inline-block transition-all duration-1000 ease-out" :class="visible ? 'opacity-100 translate-y-0 blur-0' : 'opacity-0 translate-y-8 blur-sm'" style="transition-delay: 600ms">I</span>
           <span class="inline-block transition-all duration-1000 ease-out" :class="visible ? 'opacity-100 translate-y-0 blur-0' : 'opacity-0 translate-y-8 blur-sm'" style="transition-delay: 700ms">U</span>
-          <span class="inline-block transition-all duration-1000 ease-out" :class="visible ? 'opacity-100 translate-y-0 blur-0' : 'opacity-0 translate-y-8 blur-sm'" style="transition-delay: 800ms">'</span>
         </h1>
       </div>
 
@@ -97,12 +96,12 @@ function goTo(path: string) {
         </div>
       </div>
 
-      <div class="flex items-center justify-center gap-4 mb-10">
-        <span class="block w-14 md:w-18 h-px bg-gradient-to-r from-transparent via-white/12 to-transparent" />
-        <p class="text-base md:text-lg text-white/30 leading-relaxed whitespace-nowrap">
-          从&nbsp;0&nbsp;到&nbsp;1，连接艺术与技术的桥梁
-        </p>
-        <span class="block w-14 md:w-18 h-px bg-gradient-to-r from-transparent via-white/12 to-transparent" />
+      <div class="mb-12 text-center">
+        <p class="text-lg md:text-xl text-white/35 text-breathe">从&nbsp;0&nbsp;到&nbsp;1</p>
+        <div class="flex items-center justify-center my-3">
+          <span class="block w-8 h-px bg-gradient-to-r from-transparent via-indigo-400/30 to-transparent" />
+        </div>
+        <p class="text-sm md:text-base text-white/25 leading-relaxed">连接艺术与技术的桥梁</p>
       </div>
 
       <div class="flex items-center justify-center gap-5 mb-10">

@@ -4,6 +4,7 @@ import { useRoute } from 'vue-router'
 import { works, categories } from '@/data/works'
 import WorkCard from '@/components/WorkCard.vue'
 import { useScrollNav } from '@/composables/useScrollNav'
+import { useDragScroll } from '@/composables/useDragScroll'
 
 const emit = defineEmits<{
   particlePause: []
@@ -31,6 +32,9 @@ const filteredWorks = computed(() => {
   })
 })
 
+const scrollRef = ref<HTMLDivElement>()
+useDragScroll(scrollRef, 0.6)
+
 useScrollNav(
   () => {
     if (tabIdx.value < allTabs.length - 1) {
@@ -51,11 +55,11 @@ useScrollNav(
 
 <template>
   <section class="min-h-screen w-full relative pb-20 md:pb-24">
-    <div class="sticky top-0 z-20 pt-6 pb-3 md:pt-8 md:pb-4 px-6 bg-[#0f0f1a]/80 backdrop-blur-md">
+    <div class="sticky top-12 z-20 pt-6 pb-3 md:pt-8 md:pb-4 px-6 bg-[#0f0f1a]/80 backdrop-blur-md">
       <div class="w-full max-w-6xl mx-auto">
         <div class="text-center mb-5 md:mb-6">
           <p class="text-[10px] md:text-xs font-mono tracking-[0.3em] text-indigo-400/60 mb-1.5">PORTFOLIO / 作品集</p>
-          <p class="text-[10px] md:text-xs text-white/25">滚轮切分类 · 点击卡片播放 · 左右滑动浏览</p>
+          <p class="text-[10px] md:text-xs text-white/25">滚轮切分类 · 点击卡片播放 · 拖拽滑动浏览</p>
         </div>
 
         <div class="flex justify-center gap-2 md:gap-3 pb-2 overflow-x-auto scrollbar-none">
@@ -74,8 +78,8 @@ useScrollNav(
       </div>
     </div>
 
-    <div class="w-full max-w-6xl mx-auto mt-8 md:mt-10 px-6" :style="{ minHeight: '600px' }">
-      <div class="flex overflow-x-auto gap-4 md:gap-5 snap-x snap-mandatory pb-4 scrollbar-none">
+    <div class="w-full max-w-6xl mx-auto mt-8 md:mt-10 px-6" :style="{ minHeight: '480px' }">
+      <div ref="scrollRef" class="flex overflow-x-auto gap-4 md:gap-5 snap-x snap-mandatory pb-4 scrollbar-none" style="cursor:grab">
         <WorkCard
           v-for="(work, i) in filteredWorks"
           :key="work.id"

@@ -1,6 +1,7 @@
 <script setup lang="ts">
-import { ref, onMounted, onUnmounted, computed } from 'vue'
+import { ref, computed } from 'vue'
 import { works } from '@/data/works'
+import { useDragScroll } from '@/composables/useDragScroll'
 
 const featured = computed(() =>
   works.filter(w =>
@@ -12,33 +13,22 @@ const featured = computed(() =>
 
 const current = ref(0)
 const scrollRef = ref<HTMLDivElement>()
-let timer = 0
-const cardW = 272
 
-function next() {
-  current.value = (current.value + 1) % featured.value.length
-  if (scrollRef.value) {
-    scrollRef.value.scrollTo({ left: current.value * cardW, behavior: 'smooth' })
-  }
+useDragScroll(scrollRef)
+
+function setCurrent(i: number) {
+  current.value = i
 }
-
-onMounted(() => {
-  timer = window.setInterval(next, 4000)
-})
-
-onUnmounted(() => {
-  clearInterval(timer)
-})
 </script>
 
 <template>
   <div class="relative mx-auto">
-    <div ref="scrollRef" class="flex gap-3 overflow-x-auto snap-x snap-mandatory scrollbar-none scroll-smooth">
+    <div ref="scrollRef" class="flex gap-3 overflow-x-auto snap-x snap-mandatory scrollbar-none scroll-smooth" style="cursor:grab">
       <div
         v-for="(w, i) in featured"
         :key="w.id"
-        class="flex-shrink-0 w-[240px] md:w-[260px] snap-center rounded-2xl overflow-hidden border border-white/[0.06] bg-white/[0.02] transition-all duration-300 hover:border-white/[0.12] cursor-pointer"
-        @click="current = i; scrollRef?.scrollTo({ left: i * cardW, behavior: 'smooth' })"
+        class="flex-shrink-0 w-[240px] md:w-[260px] snap-center rounded-2xl overflow-hidden border border-white/[0.06] bg-white/[0.02] transition-all duration-300 hover:border-white/[0.12]"
+        @click="setCurrent(i)"
       >
         <div class="aspect-[16/9] overflow-hidden">
           <img v-if="w.thumbnail" :src="w.thumbnail" :alt="w.title" class="w-full h-full object-cover" loading="lazy" />
@@ -51,16 +41,6 @@ onUnmounted(() => {
           <h4 class="text-xs md:text-sm font-medium text-white mt-1 leading-tight line-clamp-1">{{ w.title }}</h4>
         </div>
       </div>
-    </div>
-
-    <div class="flex justify-center gap-1.5 mt-3">
-      <span
-        v-for="(_w, i) in [...Array(Math.min(8, featured.length))]"
-        :key="i"
-        class="w-1.5 h-1.5 rounded-full transition-all duration-300 cursor-pointer"
-        :class="i === current % Math.min(8, featured.length) ? 'bg-indigo-400 w-4' : 'bg-white/15 hover:bg-white/30'"
-        @click="current = i; scrollRef?.scrollTo({ left: i * cardW, behavior: 'smooth' })"
-      />
     </div>
   </div>
 </template>
