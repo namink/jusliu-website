@@ -9,12 +9,11 @@ interface Skill {
 
 const skills: Skill[] = [
   { name: 'Unreal Engine 5/4', level: 95, icon: '/works/icons/ue.png' },
-  { name: '需求分析 & 方案制定', level: 85, icon: '' },
   { name: 'Maya', level: 85, icon: '/works/icons/maya.png' },
   { name: 'Python / AI 辅助开发', level: 85, icon: '/works/icons/python.png' },
   { name: 'SpeedTree', level: 80, icon: '/works/icons/speedtree.png' },
   { name: 'ComfyUI / AI 流程', level: 80, icon: '/works/icons/comfyui.png' },
-  { name: 'Substance Painter', level: 75, icon: '' },
+  { name: 'Substance Painter', level: 75, icon: '/works/icons/substancepainter.png' },
   { name: 'Gaea / WorldCreator', level: 75, icon: '/works/icons/gaea.png' },
   { name: 'Deadline 渲染农场', level: 75, icon: '/works/icons/deadline.png' },
   { name: 'Git / rez 包管理', level: 70, icon: '/works/icons/git.png' },
@@ -44,8 +43,8 @@ onMounted(() => {
       <h3 class="text-xs font-mono tracking-[0.2em] text-indigo-400/70 uppercase mb-5">Core Skills</h3>
       <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-4 gap-y-3">
         <div v-for="(s, i) in skills" :key="s.name" class="flex items-center gap-2.5 group">
-          <div class="w-7 h-7 rounded-lg border border-white/[0.06] bg-white/[0.02] flex items-center justify-center flex-shrink-0 overflow-hidden">
-            <img v-if="s.icon" :src="s.icon" :alt="s.name" class="w-4 h-4 object-contain opacity-60 group-hover:opacity-90 transition-opacity" />
+          <div class="w-8 h-8 rounded-lg border border-white/[0.08] bg-white/[0.03] flex items-center justify-center flex-shrink-0 overflow-hidden">
+            <img v-if="s.icon" :src="s.icon" :alt="s.name" class="w-5 h-5 object-contain opacity-85" />
             <span v-else class="text-[10px] text-indigo-400/40 font-mono group-hover:text-indigo-400/70 transition-colors">{{ s.name.charAt(0) }}</span>
           </div>
           <div class="flex-1 min-w-0">
