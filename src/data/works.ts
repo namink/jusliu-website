@@ -63,7 +63,7 @@ export const works: Work[] = [
     title: 'XGen 毛发规范检测工具',
     category: '工具开发',
     description: '基于 Maya Python API 的 XGen 毛发规范性自动检测工具，确保毛发资产符合管线命名与制作规范，支持批量扫描与异常报告输出。',
-    thumbnail: '/works/tools/xgen-hair-check.jpg',
+    thumbnail: '',
     tags: ['Maya', 'Python', 'XGen', 'TD']
   },
   {
@@ -71,7 +71,7 @@ export const works: Work[] = [
     title: 'UE 灯光批量管理工具',
     category: '工具开发',
     description: 'Unreal Engine Python API 开发的灯光批量管理工具，支持按类型筛选灯光、属性批量修改、预设配置导入导出。',
-    thumbnail: '/works/tools/ue-light-manager.jpg',
+    thumbnail: '',
     tags: ['UE5', 'Python', '灯光', 'TD']
   },
   {
@@ -79,7 +79,7 @@ export const works: Work[] = [
     title: 'UE sRGB 转 ACES 色彩空间批量工具',
     category: '工具开发',
     description: '将 UE 项目中 sRGB 色彩空间的贴图批量转换至 ACES 标准色彩空间，支持多文件映射与规则配置。',
-    thumbnail: '/works/tools/ue-ocio-aces.jpg',
+    thumbnail: '',
     tags: ['UE5', 'Python', 'sRGB', 'ACES', 'TD']
   },
   {
@@ -87,7 +87,7 @@ export const works: Work[] = [
     title: 'Maya 动画角色引用批量替换工具',
     category: '工具开发',
     description: '批量替换 Maya 动画文件中的角色引用路径，支持多文件映射、正则规则匹配与路径模板配置。',
-    thumbnail: '/works/tools/maya-ref-replace.jpg',
+    thumbnail: '',
     tags: ['Maya', 'Python', '动画', 'TD']
   },
   {
@@ -95,7 +95,7 @@ export const works: Work[] = [
     title: 'Maya 项目管理工具',
     category: '工具开发',
     description: '基于 PyQt 的 Maya 项目管理工具，提升制作管线效率与资产管理规范性。',
-    thumbnail: '/works/tools/maya-project-tool.jpg',
+    thumbnail: '',
     tags: ['Python', 'PyQt', 'Maya', 'TD'],
     videoUrl: '/works/videos/maya-tool.mp4'
   },
@@ -169,7 +169,7 @@ export const works: Work[] = [
     title: 'PCG 程序化生成',
     category: '程序化',
     description: 'UE5 PCG 框架应用，程序化生成大规模自然环境',
-    thumbnail: '/works/procedural/pcg.jpg',
+    thumbnail: '',
     tags: ['UE5', 'PCG', '程序化']
   },
   {
@@ -177,7 +177,7 @@ export const works: Work[] = [
     title: 'Gaea 地形制作',
     category: '程序化',
     description: 'Gaea 程序化地形生成 + UE5 导入与材质混合流程',
-    thumbnail: '/works/procedural/gaea.jpg',
+    thumbnail: '',
     tags: ['Gaea', 'UE5', '地形']
   },
   {
@@ -185,7 +185,7 @@ export const works: Work[] = [
     title: 'SpeedTree 植物',
     category: '程序化',
     description: 'SpeedTree 程序化植物生成与 UE5 集成，包括树干缠绕效果',
-    thumbnail: '/works/procedural/speedtree.jpg',
+    thumbnail: '',
     tags: ['SpeedTree', 'UE5', '植物']
   },
   {
@@ -193,7 +193,7 @@ export const works: Work[] = [
     title: '角色动画',
     category: '场景渲染',
     description: '角色动作与场景结合渲染作品',
-    thumbnail: '/works/videos/dance-boy.mp4',
+    thumbnail: '/works/videos/dance-boy.jpg',
     tags: ['UE5', '角色', '动画'],
     videoUrl: '/works/videos/dance-boy.mp4'
   },
@@ -202,7 +202,7 @@ export const works: Work[] = [
     title: 'AI 数字人',
     category: '技术研发',
     description: 'UE5 驱动的实时 AI 数字人系统，支持语音对话与直播间评论接入',
-    thumbnail: '/works/projects/ai-digital.jpg',
+    thumbnail: '',
     tags: ['UE5', 'AI', '数字人']
   },
   {

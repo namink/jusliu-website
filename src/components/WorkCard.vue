@@ -7,7 +7,6 @@ const props = defineProps<{
   index: number
 }>()
 
-const imgError = ref(false)
 const playing = ref(false)
 const videoRef = ref<HTMLVideoElement>()
 
@@ -23,6 +22,21 @@ function onPause() {
     playing.value = false
   }
 }
+
+function onKeydown(e: KeyboardEvent) {
+  if (e.key === ' ' || e.code === 'Space') {
+    e.preventDefault()
+    const v = videoRef.value
+    if (!v) return
+    if (v.paused) { v.play() } else { v.pause() }
+  }
+}
+
+function onMouseLeave() {
+  if (videoRef.value && !videoRef.value.paused) {
+    videoRef.value.pause()
+  }
+}
 </script>
 
 <template>
@@ -34,6 +48,8 @@ function onPause() {
         : 'bg-white/[0.03] border border-white/[0.06] hover:border-indigo-400/30'
     ]"
     :style="{ transitionDelay: `${props.index * 60}ms` }"
+    @mouseleave="onMouseLeave"
+    @keydown="onKeydown"
   >
     <div class="aspect-[16/10] overflow-hidden relative">
       <video
@@ -43,19 +59,35 @@ function onPause() {
         :poster="props.work.thumbnail"
         controls
         playsinline
+        tabindex="0"
         class="w-full h-full object-contain bg-black/60 outline-none"
         @pause="onPause"
         @ended="onPause"
       />
 
       <img
-        v-else
+        v-else-if="props.work.thumbnail"
         :src="props.work.thumbnail"
         :alt="props.work.title"
         class="w-full h-full object-contain transition-transform duration-700 group-hover:scale-105 bg-black/40"
         loading="lazy"
-        @error="imgError = true"
       />
+
+      <div
+        v-else
+        class="w-full h-full flex flex-col items-center justify-center bg-gradient-to-br from-[#0f0f2e] via-[#13133a] to-[#0a0a1f]"
+      >
+        <div class="relative mb-4">
+          <svg class="w-10 h-10 md:w-12 md:h-12 text-indigo-400/15" fill="none" stroke="currentColor" stroke-width="1" viewBox="0 0 24 24">
+            <rect x="3" y="11" width="18" height="11" rx="2" />
+            <path d="M7 11V7a5 5 0 0110 0v4" />
+            <circle cx="12" cy="8" r="1.5" fill="currentColor" opacity="0.3" />
+          </svg>
+        </div>
+        <p class="text-sm md:text-base text-white/15 font-mono tracking-[0.3em] select-none">项目涉密</p>
+        <p class="text-[10px] md:text-xs text-white/07 mt-2 tracking-wider select-none">敬请期待</p>
+        <div class="mt-5 w-16 h-px bg-gradient-to-r from-transparent via-white/06 to-transparent" />
+      </div>
 
       <div
         v-if="props.work.videoUrl && !playing"
@@ -67,32 +99,6 @@ function onPause() {
             <path d="M8 5v14l11-7z"/>
           </svg>
         </div>
-      </div>
-
-      <div
-        v-if="props.work.videoUrl && playing"
-        class="absolute top-2 right-2 z-10"
-      >
-        <button
-          @click.stop="onPause"
-          class="w-7 h-7 flex items-center justify-center rounded-full bg-black/50 border border-white/20 text-white/60 hover:text-white hover:bg-black/70 transition-all duration-200"
-        >
-          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-            <path d="M18 6L6 18M6 6l12 12" />
-          </svg>
-        </button>
-      </div>
-
-      <div
-        v-if="imgError && !props.work.videoUrl"
-        class="w-full h-full flex flex-col items-center justify-center bg-gradient-to-br from-[#0f0f2e] via-[#13133a] to-[#0a0a1f] border border-white/[0.04]"
-      >
-        <svg class="w-8 h-8 md:w-10 md:h-10 text-white/10 mb-3" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
-          <rect x="3" y="11" width="18" height="11" rx="2" />
-          <path d="M7 11V7a5 5 0 0110 0v4" />
-        </svg>
-        <p class="text-xs md:text-sm text-white/20 font-mono tracking-wider">项目涉密</p>
-        <p class="text-[10px] md:text-xs text-white/10 mt-1">敬请期待</p>
       </div>
     </div>
 
@@ -108,7 +114,7 @@ function onPause() {
           VIDEO
         </span>
         <span
-          v-if="imgError"
+          v-if="!props.work.thumbnail"
           class="text-[10px] text-amber-500/50 border border-amber-500/20 rounded px-1.5 py-px"
         >
           NDA
