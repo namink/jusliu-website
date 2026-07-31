@@ -17,43 +17,15 @@ const nezhaIdx = computed(() => {
   return idx >= 0 ? idx : 0
 })
 
+const nezhaDelay = computed(() => {
+  const total = featured.value.length || 1
+  return `-${30 * nezhaIdx.value / total}s`
+})
+
 const trackRef = ref<HTMLDivElement>()
 const paused = ref(false)
 const dragging = ref(false)
 let startX = 0, startTx = 0, currentTx = 0
-
-const showAnim = ref(false)
-
-onMounted(() => {
-  setTimeout(() => {
-    const el = trackRef.value
-    if (!el) return
-    const cardW = el.firstElementChild?.clientWidth ?? 300
-    const gapW = 16
-    const parentW = el.parentElement?.clientWidth ?? 800
-    const center = parentW / 2
-    const idx = nezhaIdx.value < 12 ? nezhaIdx.value : 0
-    const target = cardW * idx + gapW * idx + cardW / 2
-    // Temporarily disable animation, snap to position
-    el.style.animation = 'none'
-    el.style.transform = `translateX(${-(target - center)}px)`
-    requestAnimationFrame(() => {
-      requestAnimationFrame(() => {
-        el.style.transform = ''
-        el.style.animation = ''
-        showAnim.value = true
-      })
-    })
-  }, 200)
-
-  window.addEventListener('mousemove', onMove)
-  window.addEventListener('mouseup', onUp)
-})
-
-onUnmounted(() => {
-  window.removeEventListener('mousemove', onMove)
-  window.removeEventListener('mouseup', onUp)
-})
 
 function onDown(e: MouseEvent) {
   dragging.value = true; paused.value = true
@@ -67,41 +39,63 @@ function onMove(e: MouseEvent) {
   trackRef.value.style.animation = 'none'
 }
 function onUp() {
+  dragging.value = false
   if (!trackRef.value) return
-  dragging.value = false; paused.value = false
   const halfW = trackRef.value.scrollWidth / 2
-  currentTx = currentTx % halfW; if (currentTx > 0) currentTx -= halfW
+  currentTx = ((currentTx % halfW) + halfW) % halfW - halfW / 2
+  const delay = (30 * currentTx) / halfW
+  trackRef.value.style.animation = 'none'
+  trackRef.value.style.transform = `translateX(${currentTx}px)`
+  requestAnimationFrame(() => {
+    if (!trackRef.value) return
+    trackRef.value.style.animation = 'carouselScroll 30s linear infinite'
+    trackRef.value.style.animationDelay = `${delay}s`
+    trackRef.value.style.transform = ''
+    paused.value = false
+  })
 }
 function onEnter() { if (!dragging.value) paused.value = true }
 function onLeave() { if (!dragging.value) paused.value = false }
+
+onMounted(() => {
+  window.addEventListener('mousemove', onMove)
+  window.addEventListener('mouseup', onUp)
+})
+onUnmounted(() => {
+  window.removeEventListener('mousemove', onMove)
+  window.removeEventListener('mouseup', onUp)
+})
 </script>
 
 <template>
-  <div class="relative w-full" @mouseenter="onEnter" @mouseleave="onLeave">
-    <div
-      ref="trackRef"
-      class="flex gap-4 carousel-track"
-      :class="{ 'animate-scroll': showAnim, '[animation-play-state:paused]': paused && showAnim }"
-      @mousedown.prevent="onDown"
-      style="cursor:grab"
-    >
+  <div class="relative w-full max-w-[95vw] mx-auto" @mouseenter="onEnter" @mouseleave="onLeave">
+    <div class="film-reel relative rounded-2xl overflow-hidden border-t-[4px] border-b-[4px] border-white/[0.06] shadow-[inset_0_4px_12px_rgba(0,0,0,0.2)]">
+      <div class="absolute top-0 left-2 right-2 h-[4px] z-10 opacity-60" style="background: repeating-linear-gradient(90deg, transparent 0, transparent 10px, rgba(200,162,255,0.25) 10px, rgba(200,162,255,0.25) 16px);" />
+      <div class="absolute bottom-0 left-2 right-2 h-[4px] z-10 opacity-60" style="background: repeating-linear-gradient(90deg, transparent 0, transparent 10px, rgba(200,162,255,0.25) 10px, rgba(200,162,255,0.25) 16px);" />
+
       <div
-        v-for="(w, i) in looped"
-        :key="`${w.id}-${i}`"
-        class="film-card flex-shrink-0 w-[42vw] md:w-[38vw] rounded-2xl overflow-hidden border-t-[3px] border-b-[3px] bg-white/[0.02] transition-all duration-300 hover:border-indigo-400/30 select-none relative shadow-[inset_0_2px_6px_rgba(0,0,0,0.15)]"
-        :class="i === 0 || i === looped.length / 2 ? 'border-indigo-400/20' : 'border-white/[0.06]'"
+        ref="trackRef"
+        class="flex gap-2 carousel-track py-3"
+        :class="{ '[animation-play-state:paused]': paused }"
+        :style="{ animationDelay: nezhaDelay }"
+        @mousedown.prevent="onDown"
+        style="cursor:grab"
       >
-        <div class="absolute top-0 left-0 right-0 h-[6px] z-10" style="background: repeating-linear-gradient(90deg, transparent 0, transparent 6px, #0f0f1a 6px, #0f0f1a 11px);" />
-        <div class="aspect-[16/9] overflow-hidden mx-[6px]">
-          <img v-if="w.thumbnail" :src="w.thumbnail" :alt="w.title" class="w-full h-full object-cover pointer-events-none" loading="lazy" />
-          <div v-else class="w-full h-full flex items-center justify-center bg-gradient-to-br from-[#0f0f2e] to-[#13133a]">
-            <svg class="w-6 h-6 text-white/10" fill="none" stroke="currentColor" stroke-width="1" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
+        <div
+          v-for="(w, i) in looped"
+          :key="`${w.id}-${i}`"
+          class="film-frame flex-shrink-0 w-[42vw] md:w-[38vw] overflow-hidden bg-white/[0.02] transition-all duration-300 hover:bg-white/[0.04] select-none border-x border-white/[0.04]"
+        >
+          <div class="aspect-[16/9] overflow-hidden">
+            <img v-if="w.thumbnail" :src="w.thumbnail" :alt="w.title" class="w-full h-full object-cover pointer-events-none" loading="lazy" />
+            <div v-else class="w-full h-full flex items-center justify-center bg-gradient-to-br from-[#0f0f2e] to-[#13133a]">
+              <svg class="w-6 h-6 text-white/10" fill="none" stroke="currentColor" stroke-width="1" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
+            </div>
           </div>
-        </div>
-        <div class="absolute bottom-0 left-0 right-0 h-[6px] z-10" style="background: repeating-linear-gradient(90deg, transparent 0, transparent 6px, #0f0f1a 6px, #0f0f1a 11px);" />
-        <div class="p-3 md:p-4">
-          <span class="text-[9px] md:text-[10px] font-mono tracking-wider text-indigo-400/70 uppercase">{{ w.category }}</span>
-          <h4 class="text-xs md:text-base font-medium text-white mt-1.5 leading-tight line-clamp-1">{{ w.title }}</h4>
+          <div class="p-3 md:p-4">
+            <span class="text-[9px] md:text-[10px] font-mono tracking-wider text-indigo-400/70 uppercase">{{ w.category }}</span>
+            <h4 class="text-xs md:text-base font-medium text-white mt-1.5 leading-tight line-clamp-1">{{ w.title }}</h4>
+          </div>
         </div>
       </div>
     </div>
@@ -110,6 +104,5 @@ function onLeave() { if (!dragging.value) paused.value = false }
 
 <style scoped>
 @keyframes carouselScroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
-.animate-scroll { animation: carouselScroll 30s linear infinite; }
-.carousel-track { will-change: transform; }
+.carousel-track { will-change: transform; animation: carouselScroll 30s linear infinite; }
 </style>
