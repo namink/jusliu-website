@@ -84,6 +84,15 @@
   animation: dotPulse 0.5s ease-out;
 }
 
+@keyframes timelineBreathe {
+  0%, 100% { box-shadow: 0 0 8px 2px rgba(129, 140, 248, 0.4); }
+  50% { box-shadow: 0 0 16px 4px rgba(129, 140, 248, 0.7); }
+}
+
+.timeline-dot-active {
+  animation: timelineBreathe 2.5s ease-in-out infinite;
+}
+
 .btn-press {
   @apply transition-transform duration-100 active:scale-95;
 }

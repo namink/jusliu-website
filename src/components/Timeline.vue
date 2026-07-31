@@ -52,6 +52,7 @@ const items: TimelineItem[] = [
   }
 ]
 
+const reverseItems = [...items].reverse()
 const visible = ref(false)
 
 onMounted(() => {
@@ -60,33 +61,78 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="flex gap-4 overflow-x-auto pb-4 -mx-2 px-2">
+  <div class="relative hidden md:block py-12">
+    <div class="absolute left-0 right-0 top-1/2 h-[2px] -translate-y-px bg-gradient-to-r from-indigo-400/40 via-white/10 to-indigo-400/40" />
+
+    <div class="grid grid-cols-4 gap-4 relative">
+      <div
+        v-for="(item, i) in reverseItems"
+        :key="i"
+        class="relative flex flex-col items-center transition-all duration-700"
+        :class="visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'"
+        :style="{ transitionDelay: `${i * 120}ms` }"
+      >
+        <div class="w-px h-8 border-l border-dashed" :class="i % 2 === 0 ? 'order-2 border-t-0' : 'order-0 border-t-0'" />
+        <div class="w-3 h-3 rounded-full border-2 flex-shrink-0 z-10"
+          :class="[
+            i === 0 ? 'w-4 h-4 bg-indigo-400 border-indigo-400 timeline-dot-active' : 'bg-[#0a0a1a] border-indigo-400/60',
+            i % 2 === 0 ? 'order-2 -mt-1.5' : 'order-0 -mt-1.5',
+            'absolute top-1/2 -translate-y-1/2'
+          ]"
+          :style="{
+            left: '50%',
+            transform: i % 2 === 0 ? 'translate(-50%, calc(-50% - 4px))' : 'translate(-50%, calc(-50% - 4px))'
+          }"
+        />
+        <div class="w-px h-8 border-l border-dashed" :class="i % 2 === 0 ? 'order-0' : 'order-2'" />
+
+        <div
+          class="rounded-xl border p-4 w-full transition-all duration-300 hover:-translate-y-0.5"
+          :class="[
+            i % 2 === 0 ? 'order-0 -mt-3' : 'order-2 -mt-3',
+            i === 0
+              ? 'bg-indigo-500/[0.04] border-indigo-400/20'
+              : 'bg-white/[0.02] border-white/[0.05] hover:border-white/10'
+          ]"
+        >
+          <span class="text-[10px] font-mono tracking-widest text-indigo-400/70 uppercase">{{ item.period }}</span>
+          <h4 class="text-sm font-semibold text-white mt-1.5 leading-tight">{{ item.role }}</h4>
+          <p class="text-xs text-white/35 mt-0.5 mb-2">{{ item.company }}</p>
+          <div class="w-6 h-px bg-gradient-to-r from-indigo-400/30 to-transparent mb-2" />
+          <ul class="space-y-1">
+            <li
+              v-for="(d, di) in item.details"
+              :key="di"
+              class="text-[11px] text-white/30 leading-relaxed"
+            >
+              · {{ d }}
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="md:hidden relative">
+    <div class="absolute left-[7px] top-2 bottom-2 w-px bg-gradient-to-b from-indigo-400/60 via-white/10 to-transparent" />
     <div
       v-for="(item, i) in items"
       :key="i"
-      class="min-w-[240px] md:min-w-[260px] rounded-xl border p-5 flex-shrink-0 transition-all duration-700"
-      :class="[
-        visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8',
-        i === 0
-          ? 'bg-indigo-500/[0.04] border-indigo-400/20'
-          : 'bg-white/[0.02] border-white/[0.06] hover:border-white/15'
-      ]"
+      class="relative mb-8 last:mb-0 transition-all duration-700"
+      :class="visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'"
       :style="{ transitionDelay: `${i * 100}ms` }"
     >
-      <span class="text-[10px] md:text-xs font-mono tracking-widest text-indigo-400/70 uppercase">{{ item.period }}</span>
-      <h4 class="text-sm md:text-base font-semibold text-white mt-2">{{ item.role }}</h4>
-      <p class="text-xs md:text-sm text-white/40 mt-1 mb-3">{{ item.company }}</p>
-      <div class="w-8 h-px bg-gradient-to-r from-indigo-400/40 to-transparent mb-3" />
-      <ul class="space-y-1.5">
-        <li
-          v-for="(d, di) in item.details"
-          :key="di"
-          class="text-[11px] md:text-xs text-white/35 leading-relaxed flex items-start gap-1.5"
-        >
-          <span class="text-indigo-400/40 mt-0.5 text-[8px]">●</span>
-          {{ d }}
-        </li>
-      </ul>
+      <div class="absolute left-0 top-2 w-3 h-3 rounded-full border-2 bg-[#0a0a1a] z-10"
+        :class="i === 0 ? 'border-indigo-400 timeline-dot-active !bg-indigo-400' : 'border-indigo-400/60'"
+      />
+      <div class="pl-8">
+        <span class="text-xs font-mono text-indigo-400/80 tracking-wider">{{ item.period }}</span>
+        <h4 class="text-base font-semibold text-white mt-1">{{ item.role }}</h4>
+        <p class="text-sm text-white/40">{{ item.company }}</p>
+        <ul class="mt-2 space-y-1">
+          <li v-for="(d, di) in item.details" :key="di" class="text-xs text-white/30">· {{ d }}</li>
+        </ul>
+      </div>
     </div>
   </div>
 </template>
