@@ -10,8 +10,7 @@ useScrollNav()
   <section class="min-h-screen w-full flex items-center justify-center relative px-6 py-20 md:py-24">
     <div class="w-full max-w-5xl mx-auto">
       <div class="text-center mb-12 md:mb-16">
-        <p class="text-xs md:text-sm font-mono tracking-[0.3em] text-indigo-400 mb-4">ABOUT</p>
-        <h2 class="text-3xl md:text-5xl font-bold text-white">关于我</h2>
+        <p class="text-[10px] md:text-xs font-mono tracking-[0.3em] text-indigo-400/60 mb-2">ABOUT / 关于</p>
       </div>
 
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 md:gap-16">
@@ -26,7 +25,7 @@ useScrollNav()
               借助 AI 辅助完成日常开发任务。具备 PyQt 桌面应用开发与 Unreal Python API 使用经验。
             </p>
             <p>
-               独立完成 AI 内容生成平台的完整前端界面构建，包括节点式工作流编辑器、3D 实时导演台、
+              独立完成 AI 内容生成平台的完整前端界面构建，包括节点式工作流编辑器、3D 实时导演台、
               PBR 材质编辑器等功能模块。
             </p>
             <p>

@@ -7,9 +7,9 @@ const route = useRoute()
 const router = useRouter()
 
 const routes = [
-  { name: 'home', label: 'Home', path: '/' },
-  { name: 'works', label: 'Works', path: '/works' },
-  { name: 'about', label: 'About', path: '/about' }
+  { name: 'home', label: 'Home', path: '/', color: 'indigo' },
+  { name: 'works', label: 'Works', path: '/works', color: 'violet' },
+  { name: 'about', label: 'About', path: '/about', color: 'emerald' }
 ]
 
 const activeIndex = computed(() => {
@@ -39,8 +39,11 @@ function navigate(index: number) {
       :aria-label="r.label"
     >
       <span
-        class="text-xs md:text-sm font-mono tracking-widest opacity-0 group-hover:opacity-100 transition-opacity duration-300 text-white/70"
-        :class="{ 'opacity-100 !text-white': i === activeIndex }"
+        class="text-xs md:text-sm font-mono tracking-widest opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+        :class="[
+          i === activeIndex ? 'opacity-100' : '',
+          r.color === 'indigo' ? 'text-indigo-300' : r.color === 'violet' ? 'text-violet-300' : 'text-emerald-300'
+        ]"
       >
         {{ r.label }}
       </span>
@@ -48,7 +51,9 @@ function navigate(index: number) {
         class="block w-2.5 h-2.5 md:w-3 md:h-3 rounded-full border transition-all duration-500"
         :class="[
           i === activeIndex
-            ? 'bg-indigo-400 border-indigo-400 scale-125 shadow-[0_0_12px_rgba(129,140,248,0.6)]'
+            ? r.color === 'indigo' ? 'bg-indigo-400 border-indigo-400 scale-125 shadow-[0_0_12px_rgba(129,140,248,0.6)]' :
+              r.color === 'violet' ? 'bg-violet-400 border-violet-400 scale-125 shadow-[0_0_12px_rgba(167,139,250,0.6)]' :
+              'bg-emerald-400 border-emerald-400 scale-125 shadow-[0_0_12px_rgba(52,211,153,0.6)]'
             : 'bg-white/20 border-white/30 hover:bg-white/50 hover:border-white/50',
           pulsing === i ? 'active-dot-pulse' : ''
         ]"

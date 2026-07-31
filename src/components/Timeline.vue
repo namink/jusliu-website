@@ -99,7 +99,7 @@ onMounted(() => {
           :class="[
             i === reverseItems.length - 1
               ? 'bg-indigo-400 border-indigo-400 w-3.5 h-3.5 timeline-dot-active'
-              : 'bg-[#0a0a1a] border-white/20'
+              : 'bg-[#0f0f1a] border-white/20'
           ]"
         />
 
@@ -119,7 +119,7 @@ onMounted(() => {
       :class="visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'"
       :style="{ transitionDelay: `${i * 100}ms` }"
     >
-      <div class="absolute left-0 top-2 w-3 h-3 rounded-full border-2 bg-[#0a0a1a] z-10"
+      <div class="absolute left-0 top-2 w-3 h-3 rounded-full border-2 bg-[#0f0f1a] z-10"
         :class="i === 0 ? 'border-indigo-400 bg-indigo-400 timeline-dot-active' : 'border-indigo-400/50'"
       />
       <div class="pl-7">

@@ -53,11 +53,11 @@ const imgError = ref(false)
 
 <template>
   <div
-    class="group relative overflow-hidden rounded-xl transition-all duration-300 active:scale-[0.98] hover:-translate-y-1 cursor-pointer"
+    class="group relative overflow-hidden rounded-2xl backdrop-blur-sm transition-all duration-300 active:scale-[0.98] hover:-translate-y-1 cursor-pointer"
     :class="[
       props.work.videoUrl
-        ? 'bg-white/[0.03] border border-indigo-400/15 hover:border-indigo-400/35 video-card-glow'
-        : 'bg-white/[0.03] border border-white/[0.06] hover:border-indigo-400/30'
+        ? 'bg-white/[0.03] border border-indigo-400/15 hover:border-indigo-400/35 hover:shadow-lg hover:shadow-indigo-500/5 video-card-glow'
+        : 'bg-white/[0.02] border border-white/[0.06] hover:border-white/[0.12] hover:shadow-lg hover:shadow-black/10'
     ]"
     :style="{ transitionDelay: `${props.index * 60}ms` }"
     @mouseleave="onMouseLeave"
