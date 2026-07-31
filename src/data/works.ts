@@ -56,8 +56,7 @@ export const works: Work[] = [
     category: 'AI 平台',
     description: '基于 PyQt 的 AI 生成桌面工具，集成即梦等平台 AI 服务。在神漫文化期间参与，在现有基础上进行功能优化与迭代。',
     thumbnail: '/works/ai-tools/result-asset.jpg',
-    tags: ['Python', 'PyQt', 'AI', '即梦'],
-    videoUrl: '/works/videos/python-add.mp4'
+    tags: ['Python', 'PyQt', 'AI', '即梦']
   },
   {
     id: 'xgen-hair-check',

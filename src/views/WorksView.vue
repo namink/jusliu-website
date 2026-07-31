@@ -3,10 +3,6 @@ import { ref, computed } from 'vue'
 import { works, categories } from '@/data/works'
 import WorkCard from '@/components/WorkCard.vue'
 
-const emit = defineEmits<{
-  play: [src: string]
-}>()
-
 const activeCategory = ref('')
 
 const filteredWorks = computed(() =>
@@ -14,10 +10,6 @@ const filteredWorks = computed(() =>
     ? works.filter(w => w.category === activeCategory.value)
     : works
 )
-
-function onPlay(src: string) {
-  emit('play', src)
-}
 </script>
 
 <template>
@@ -26,7 +18,7 @@ function onPlay(src: string) {
       <div class="text-center mb-12 md:mb-16">
         <p class="text-xs md:text-sm font-mono tracking-[0.3em] text-indigo-400 mb-4">PORTFOLIO</p>
         <h2 class="text-3xl md:text-5xl font-bold text-white">作品集</h2>
-        <p class="text-sm md:text-base text-white/40 mt-4">点击卡片中带 VIDEO 标识的作品可播放演示</p>
+        <p class="text-sm md:text-base text-white/40 mt-4">点击带 VIDEO 标识的卡片可直接播放演示</p>
       </div>
 
       <div class="flex flex-wrap justify-center gap-2 md:gap-3 mb-10 md:mb-14">
@@ -58,7 +50,6 @@ function onPlay(src: string) {
           :key="work.id"
           :work="work"
           :index="i"
-          @play="onPlay"
         />
       </div>
     </div>

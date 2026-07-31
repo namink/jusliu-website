@@ -65,6 +65,15 @@
   animation: pillFloat 3s ease-in-out infinite;
 }
 
+@keyframes videoGlow {
+  0%, 100% { border-color: rgba(129, 140, 248, 0.15); box-shadow: 0 0 0 0 rgba(129, 140, 248, 0); }
+  50% { border-color: rgba(129, 140, 248, 0.3); box-shadow: 0 0 12px 1px rgba(129, 140, 248, 0.06); }
+}
+
+.video-card-glow {
+  animation: videoGlow 3s ease-in-out infinite;
+}
+
 .v-enter-active,
 .v-leave-active {
   transition: all 0s !important;
