@@ -3,6 +3,7 @@ import { ref, provide } from 'vue'
 import { RouterView } from 'vue-router'
 import ParticleBg from '@/components/ParticleBg.vue'
 import NavDots from '@/components/NavDots.vue'
+import AudioPlayer from '@/components/AudioPlayer.vue'
 import { createTransition } from '@/composables/useTransition'
 
 provide('transitionHooks', createTransition())
@@ -43,5 +44,7 @@ function onParticleResume() {
         </Transition>
       </RouterView>
     </main>
+
+    <AudioPlayer />
   </div>
 </template>

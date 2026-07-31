@@ -206,6 +206,15 @@ export const works: Work[] = [
     tags: ['UE5', 'AI', '数字人']
   },
   {
+    id: 'freefire',
+    title: 'Free Fire 游戏买量动画',
+    category: '项目支持',
+    description: 'Free Fire 游戏买量视频 TD 技术支持，负责毛发解算与动画绑定方向的技术指导。',
+    thumbnail: '',
+    tags: ['TD', 'Maya', '毛发解算', '动画绑定'],
+    videoUrl: 'https://pub-4a4da7a40c564edabe95305d5bc9e7a0.r2.dev/works/videos/freefire.mp4'
+  },
+  {
     id: 'nezha',
     title: '哪吒之魔童闹海',
     category: '项目支持',
