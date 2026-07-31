@@ -2,10 +2,12 @@
 import { ref, onMounted, onUnmounted } from 'vue'
 import { useRouter } from 'vue-router'
 import { useScrollNav } from '@/composables/useScrollNav'
+import { useVideoPreload } from '@/composables/useVideoPreload'
 
 const router = useRouter()
 
 useScrollNav()
+useVideoPreload()
 
 const visible = ref(false)
 const pills = ref<number[]>([])

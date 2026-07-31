@@ -24,7 +24,11 @@ const filteredWorks = computed(() => {
   const list = activeCategory.value
     ? works.filter(w => w.category === activeCategory.value)
     : works
-  return list
+  return [...list].sort((a, b) => {
+    if (a.videoUrl && !b.videoUrl) return -1
+    if (!a.videoUrl && b.videoUrl) return 1
+    return 0
+  })
 })
 
 const totalPages = computed(() => Math.max(1, Math.ceil(filteredWorks.value.length / perPage)))
