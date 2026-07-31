@@ -1,39 +1,37 @@
-<script setup lang="ts">
-import { ref, onMounted } from 'vue'
-
-const tags = [
-  'UE5', 'Maya', 'Python', 'PyQt',
-  'SpeedTree', 'Gaea', 'ZBrush', 'SP',
-  'WorldCreator', 'ComfyUI', 'PS', 'PR',
-  'AE', 'Deadline', 'Git', 'rez',
-  'C++', 'C#'
-]
-
-const visible = ref<number[]>([])
-
-onMounted(() => {
-  tags.forEach((_, i) => {
-    setTimeout(() => visible.value.push(i), 300 + i * 40)
-  })
-})
-</script>
-
 <template>
-  <div class="flex flex-wrap justify-center gap-1.5 md:gap-2 max-w-3xl mx-auto">
-    <span
-      v-for="(t, i) in tags"
-      :key="t"
-      class="skill-pill text-[10px] md:text-[11px] px-2.5 py-1 rounded-md border backdrop-blur-sm transition-all duration-500 select-none"
-      :class="[
-        visible.includes(i) ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-3',
-        'bg-white/[0.01] border-white/[0.04] text-white/30 hover:border-indigo-400/20 hover:text-indigo-300'
-      ]"
-      :style="{
-        animationDelay: `${i * 0.2}s`,
-        animationDuration: `${2.5 + (i % 3) * 0.6}s`
-      }"
-    >
-      {{ t }}
-    </span>
+  <div class="fixed inset-0 z-0 pointer-events-none select-none overflow-hidden">
+    <div class="absolute top-[28%] -left-[10%] -right-[10%] h-0 flex items-center" style="transform: rotate(-7deg);">
+      <span class="text-[2.5vw] font-bold text-white/[0.035] tracking-[0.5em] whitespace-nowrap cloud-slide-1">UE5&nbsp;&nbsp;Maya&nbsp;&nbsp;Python&nbsp;&nbsp;PyQt&nbsp;&nbsp;SpeedTree&nbsp;&nbsp;Gaea&nbsp;&nbsp;UE5&nbsp;&nbsp;Maya&nbsp;&nbsp;Python&nbsp;&nbsp;PyQt&nbsp;&nbsp;SpeedTree&nbsp;&nbsp;Gaea</span>
+    </div>
+    <div class="absolute top-[45%] -left-[10%] -right-[10%] h-0 flex items-center" style="transform: rotate(5deg);">
+      <span class="text-[2.2vw] font-bold text-white/[0.03] tracking-[0.4em] whitespace-nowrap cloud-slide-2">ZBrush&nbsp;&nbsp;SP&nbsp;&nbsp;WorldCreator&nbsp;&nbsp;ComfyUI&nbsp;&nbsp;PS&nbsp;&nbsp;PR&nbsp;&nbsp;ZBrush&nbsp;&nbsp;SP&nbsp;&nbsp;WorldCreator&nbsp;&nbsp;ComfyUI&nbsp;&nbsp;PS&nbsp;&nbsp;PR</span>
+    </div>
+    <div class="absolute top-[63%] -left-[10%] -right-[10%] h-0 flex items-center" style="transform: rotate(-9deg);">
+      <span class="text-[2vw] font-bold text-white/[0.03] tracking-[0.5em] whitespace-nowrap cloud-slide-3">AE&nbsp;&nbsp;Deadline&nbsp;&nbsp;Git&nbsp;&nbsp;rez&nbsp;&nbsp;C++&nbsp;&nbsp;C#&nbsp;&nbsp;AE&nbsp;&nbsp;Deadline&nbsp;&nbsp;Git&nbsp;&nbsp;rez&nbsp;&nbsp;C++&nbsp;&nbsp;C#</span>
+    </div>
   </div>
 </template>
+
+<style scoped>
+.cloud-slide-1 {
+  animation: cloud1 16s ease-in-out infinite alternate;
+}
+.cloud-slide-2 {
+  animation: cloud2 18s ease-in-out infinite alternate;
+}
+.cloud-slide-3 {
+  animation: cloud3 20s ease-in-out infinite alternate;
+}
+@keyframes cloud1 {
+  from { transform: rotate(-7deg) translateX(-4%); }
+  to   { transform: rotate(-7deg) translateX(4%); }
+}
+@keyframes cloud2 {
+  from { transform: rotate(5deg) translateX(4%); }
+  to   { transform: rotate(5deg) translateX(-4%); }
+}
+@keyframes cloud3 {
+  from { transform: rotate(-9deg) translateX(-5%); }
+  to   { transform: rotate(-9deg) translateX(5%); }
+}
+</style>

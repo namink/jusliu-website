@@ -5,6 +5,7 @@ import ParticleBg from '@/components/ParticleBg.vue'
 import NavDots from '@/components/NavDots.vue'
 import GeoBg from '@/components/GeoBg.vue'
 import GridDots from '@/components/GridDots.vue'
+import SkillCloud from '@/components/SkillCloud.vue'
 import AudioPlayer from '@/components/AudioPlayer.vue'
 import ImageViewer from '@/components/ImageViewer.vue'
 import { createTransition } from '@/composables/useTransition'
@@ -39,6 +40,8 @@ function closePreview() { showPreview.value = false }
 
     <div class="fixed top-[15%] left-[5%] right-[5%] h-px z-0 pointer-events-none bg-gradient-to-r from-transparent via-white/[0.03] to-transparent" />
     <div class="fixed bottom-[20%] left-[5%] right-[5%] h-px z-0 pointer-events-none bg-gradient-to-r from-transparent via-white/[0.02] to-transparent" />
+
+    <SkillCloud />
 
     <div class="fixed inset-0 z-0 pointer-events-none select-none overflow-hidden">
       <div class="absolute top-[8%] -left-[10%] -right-[10%] h-0 flex items-center" style="transform: rotate(-8deg);">
