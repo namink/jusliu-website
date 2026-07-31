@@ -37,12 +37,13 @@ function closePreview() { showPreview.value = false }
 
     <div class="fixed top-0 left-0 right-0 h-72 z-0 pointer-events-none opacity-40" style="background: radial-gradient(ellipse at 50% 0%, rgba(136,168,255,0.08) 0%, transparent 70%);" />
 
-    <div class="fixed left-6 top-1/2 -translate-y-1/2 z-0 pointer-events-none select-none">
-      <span class="block text-[6vw] font-black text-white/[0.025] leading-[0.85] float-v">JUSLIU</span>
+    <div class="fixed top-6 left-8 z-0 pointer-events-none select-none">
+      <p class="text-[10px] font-mono tracking-[0.3em] text-indigo-400/25 leading-relaxed">TECHNICAL ARTIST</p>
+      <p class="text-[10px] font-mono tracking-[0.3em] text-indigo-400/25 leading-relaxed">TECHNICAL DIRECTOR</p>
     </div>
 
-    <div class="fixed right-6 top-1/2 -translate-y-1/2 z-0 pointer-events-none select-none">
-      <span class="block text-[2.5vw] font-bold text-white/[0.015] leading-[1.2] float-v-rev">TECHNICAL ARTIST TECHNICAL DIRECTOR</span>
+    <div class="fixed bottom-16 left-1/2 -translate-x-1/2 z-0 pointer-events-none select-none">
+      <span class="block text-[10vw] font-black text-white/[0.015] leading-none tracking-[0.25em] brand-breathe">JUSLIU</span>
     </div>
 
     <NavDots />
@@ -77,14 +78,11 @@ function closePreview() { showPreview.value = false }
 </template>
 
 <style>
-.float-v {
-  animation: floatUp 8s ease-in-out infinite;
+.brand-breathe {
+  animation: brandBreathe 10s ease-in-out infinite;
 }
-.float-v-rev {
-  animation: floatUp 10s ease-in-out infinite reverse;
-}
-@keyframes floatUp {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-12px); }
+@keyframes brandBreathe {
+  0%, 100% { opacity: 0.01; }
+  50% { opacity: 0.025; }
 }
 </style>
