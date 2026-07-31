@@ -9,15 +9,19 @@ const mouseX = ref(0)
 const mouseY = ref(0)
 
 const skillPills = [
-  { label: 'UE 场景', color: 'indigo' },
-  { label: '材质研发', color: 'violet' },
-  { label: 'AI平台开发', color: 'sky' },
-  { label: '管线工具', color: 'emerald' }
+  { label: 'UE 场景', category: '场景渲染', color: 'indigo' },
+  { label: '材质研发', category: '材质研发', color: 'violet' },
+  { label: 'AI平台开发', category: 'AI 平台', color: 'sky' },
+  { label: '管线工具', category: '工具开发', color: 'emerald' }
 ]
 
 function onMouseMove(e: MouseEvent) {
   mouseX.value = (e.clientX / window.innerWidth - 0.5) * 16
   mouseY.value = (e.clientY / window.innerHeight - 0.5) * 16
+}
+
+function goToCategory(category: string) {
+  router.push({ path: '/works', query: { category } })
 }
 
 onMounted(() => {
@@ -61,7 +65,8 @@ function goTo(path: string) {
         <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-48 h-48 md:w-64 md:h-64 rounded-full bg-[radial-gradient(ellipse,rgba(129,140,248,0.04)_0%,transparent_70%)] animate-[spin_25s_linear_infinite_reverse]" />
 
         <h1
-          class="relative flex items-center gap-3 md:gap-5 text-5xl md:text-7xl lg:text-8xl font-black text-shimmer select-none"
+          class="relative flex items-center gap-3 md:gap-5 text-5xl md:text-7xl lg:text-8xl font-bold text-shimmer select-none"
+          style="font-family: 'LXGW WenKai', serif; line-height: 1.2;"
           :style="{ transform: `translate(${mouseX * 0.15}px, ${mouseY * 0.15}px)` }"
         >
           <span
@@ -86,7 +91,7 @@ function goTo(path: string) {
         <span
           v-for="(pill, i) in skillPills"
           :key="pill.label"
-          class="skill-pill px-4 py-1.5 md:px-5 md:py-2 text-xs md:text-sm rounded-full border backdrop-blur-sm transition-all duration-700 ease-out cursor-default"
+          class="skill-pill px-4 py-1.5 md:px-5 md:py-2 text-xs md:text-sm rounded-full border backdrop-blur-sm transition-all duration-700 ease-out cursor-pointer"
           :class="[
             pills.includes(i) ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4',
             i === 0 ? 'bg-indigo-500/10 border-indigo-400/25 text-indigo-300 hover:bg-indigo-500/20 hover:border-indigo-400/50' : '',
@@ -98,6 +103,7 @@ function goTo(path: string) {
             animationDelay: `${i * 0.3}s`,
             animationDuration: `${2.8 + i * 0.5}s`
           }"
+          @click="goToCategory(pill.category)"
         >
           {{ pill.label }}
         </span>

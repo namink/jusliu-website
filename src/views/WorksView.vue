@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import { ref, computed } from 'vue'
+import { ref, computed, watch } from 'vue'
+import { useRoute } from 'vue-router'
 import { works, categories } from '@/data/works'
 import WorkCard from '@/components/WorkCard.vue'
 
@@ -8,7 +9,12 @@ const emit = defineEmits<{
   particleResume: []
 }>()
 
-const activeCategory = ref('')
+const route = useRoute()
+const activeCategory = ref((route.query.category as string) || '')
+
+watch(() => route.query.category, (val) => {
+  activeCategory.value = (val as string) || ''
+})
 
 const filteredWorks = computed(() =>
   activeCategory.value
