@@ -8,16 +8,16 @@ interface Skill {
 }
 
 const skills: Skill[] = [
-  { name: 'Unreal Engine 5/4', level: 95, icon: '/works/icons/ue.png' },
-  { name: 'Maya', level: 85, icon: '/works/icons/maya.png' },
-  { name: 'Python / AI 辅助开发', level: 85, icon: '/works/icons/python.png' },
-  { name: 'SpeedTree', level: 80, icon: '/works/icons/speedtree.png' },
-  { name: 'ComfyUI / AI 流程', level: 80, icon: '/works/icons/comfyui.png' },
-  { name: 'Substance Painter', level: 75, icon: '/works/icons/substancepainter.png' },
-  { name: 'Gaea / WorldCreator', level: 75, icon: '/works/icons/gaea.png' },
-  { name: 'Deadline 渲染农场', level: 75, icon: '/works/icons/deadline.png' },
-  { name: 'Git / rez 包管理', level: 70, icon: '/works/icons/git.png' },
-  { name: 'ZBrush', level: 65, icon: '/works/icons/zbrush.png' }
+  { name: 'Unreal Engine 5/4', level: 95, icon: 'https://pub-4a4da7a40c564edabe95305d5bc9e7a0.r2.dev/works/icons/ue.png' },
+  { name: 'Maya', level: 85, icon: 'https://pub-4a4da7a40c564edabe95305d5bc9e7a0.r2.dev/works/icons/maya.png' },
+  { name: 'Python / AI 辅助开发', level: 85, icon: 'https://pub-4a4da7a40c564edabe95305d5bc9e7a0.r2.dev/works/icons/python.png' },
+  { name: 'SpeedTree', level: 80, icon: 'https://pub-4a4da7a40c564edabe95305d5bc9e7a0.r2.dev/works/icons/speedtree.png' },
+  { name: 'ComfyUI / AI 流程', level: 80, icon: 'https://pub-4a4da7a40c564edabe95305d5bc9e7a0.r2.dev/works/icons/comfyui.png' },
+  { name: 'Substance Painter', level: 75, icon: 'https://pub-4a4da7a40c564edabe95305d5bc9e7a0.r2.dev/works/icons/substancepainter.png' },
+  { name: 'Gaea / WorldCreator', level: 75, icon: 'https://pub-4a4da7a40c564edabe95305d5bc9e7a0.r2.dev/works/icons/gaea.png' },
+  { name: 'Deadline 渲染农场', level: 75, icon: 'https://pub-4a4da7a40c564edabe95305d5bc9e7a0.r2.dev/works/icons/deadline.png' },
+  { name: 'Git / rez 包管理', level: 70, icon: 'https://pub-4a4da7a40c564edabe95305d5bc9e7a0.r2.dev/works/icons/git.png' },
+  { name: 'ZBrush', level: 65, icon: 'https://pub-4a4da7a40c564edabe95305d5bc9e7a0.r2.dev/works/icons/zbrush.png' }
 ]
 
 const tools = [
