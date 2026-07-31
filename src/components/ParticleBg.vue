@@ -6,7 +6,7 @@ const canvasRef = ref<HTMLCanvasElement>()
 const paused = ref(false)
 let animationId = 0
 
-const PARTICLE_COUNT = 2000
+const PARTICLE_COUNT = 2500
 
 defineExpose({
   setPaused(v: boolean) { paused.value = v }
@@ -40,8 +40,8 @@ onMounted(() => {
   ]
 
   for (let i = 0; i < PARTICLE_COUNT; i++) {
-    positions[i * 3] = (Math.random() - 0.5) * 110
-    positions[i * 3 + 1] = (Math.random() - 0.5) * 70
+    positions[i * 3] = (Math.random() - 0.5) * 130
+    positions[i * 3 + 1] = (Math.random() - 0.5) * 84
     positions[i * 3 + 2] = (Math.random() - 0.5) * 40
     const c = palette[Math.floor(Math.random() * palette.length)]
     colorsArr[i * 3] = c.r
@@ -114,9 +114,9 @@ onMounted(() => {
       posArray[i * 3 + 1] -= speeds[i]
       posArray[i * 3] += Math.sin(time * 0.6 + offsets[i]) * 0.015 + mouse.x * speeds[i] * 0.2
 
-      if (posArray[i * 3 + 1] < -35) {
-        posArray[i * 3 + 1] = 35
-        posArray[i * 3] = (Math.random() - 0.5) * 110
+      if (posArray[i * 3 + 1] < -42) {
+        posArray[i * 3 + 1] = 42
+        posArray[i * 3] = (Math.random() - 0.5) * 130
       }
     }
     geometry.attributes.position.needsUpdate = true
