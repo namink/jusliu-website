@@ -41,7 +41,7 @@ onUnmounted(() => { window.removeEventListener('mousemove', onMove); window.remo
 </script>
 
 <template>
-  <div class="relative w-full overflow-hidden px-[2vw]" @mouseenter="onEnter" @mouseleave="onLeave">
+  <div class="relative w-full" @mouseenter="onEnter" @mouseleave="onLeave">
     <div ref="trackRef" class="flex gap-4 carousel-track animate-scroll" :class="{ '[animation-play-state:paused]': paused }" @mousedown.prevent="onDown" style="cursor:grab">
       <div v-for="(w, i) in looped" :key="`${w.id}-${i}`" class="flex-shrink-0 w-[42vw] md:w-[38vw] rounded-2xl overflow-hidden border border-white/[0.06] bg-white/[0.02] transition-all duration-300 hover:border-white/[0.12] select-none">
         <div class="aspect-[16/9] overflow-hidden">

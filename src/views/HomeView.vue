@@ -17,7 +17,7 @@ const visible = ref(false)
 const pills = ref<number[]>([])
 const scrollRef = ref<HTMLDivElement>()
 
-const allPills = [  { label: t('all'), category: '' }, ...categories.map(c => ({ label: c, category: c }))]
+const allPills = categories.map(c => ({ label: c, category: c }))
 
 onMounted(() => {
   setTimeout(() => visible.value = true, 200)

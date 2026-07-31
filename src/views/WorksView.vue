@@ -98,7 +98,7 @@ useScrollNav(
       </div>
     </div>
 
-    <div class="w-full max-w-6xl mx-auto px-6 flex-1 flex flex-col justify-center" :style="{ minHeight: '480px' }">
+    <div class="w-full max-w-6xl mx-auto mt-24 px-6 flex-1 flex flex-col justify-center" :style="{ minHeight: '520px' }">
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-5">
         <WorkCard
           v-for="(work, i) in paginatedWorks"
