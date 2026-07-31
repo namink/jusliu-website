@@ -71,7 +71,7 @@ useScrollNav(
 </script>
 
 <template>
-  <section class="min-h-screen w-full relative pb-20 md:pb-24">
+  <section class="min-h-screen w-full flex flex-col relative pb-20 md:pb-24">
     <div class="sticky top-12 z-20 pt-6 pb-3 md:pt-8 md:pb-4 px-6 bg-[#0f0f1a]/80 backdrop-blur-md">
       <div class="w-full max-w-6xl mx-auto">
         <div class="text-center mb-5 md:mb-6">
@@ -95,7 +95,7 @@ useScrollNav(
       </div>
     </div>
 
-    <div class="w-full max-w-6xl mx-auto mt-8 md:mt-10 px-6" :style="{ minHeight: '480px' }">
+    <div class="w-full max-w-6xl mx-auto px-6 flex-1 flex flex-col justify-center" :style="{ minHeight: '480px' }">
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-5">
         <WorkCard
           v-for="(work, i) in paginatedWorks"
