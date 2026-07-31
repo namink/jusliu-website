@@ -43,7 +43,7 @@ onUnmounted(() => { window.removeEventListener('mousemove', onMove); window.remo
 <template>
   <div class="relative w-full overflow-hidden px-[5vw]" @mouseenter="onEnter" @mouseleave="onLeave">
     <div ref="trackRef" class="flex gap-4 carousel-track animate-scroll" :class="{ '[animation-play-state:paused]': paused }" @mousedown.prevent="onDown" style="cursor:grab">
-      <div v-for="(w, i) in looped" :key="`${w.id}-${i}`" class="flex-shrink-0 w-[40vw] md:w-[30vw] rounded-2xl overflow-hidden border border-white/[0.06] bg-white/[0.02] transition-all duration-300 hover:border-white/[0.12] select-none">
+      <div v-for="(w, i) in looped" :key="`${w.id}-${i}`" class="flex-shrink-0 w-[35vw] md:w-[25vw] rounded-2xl overflow-hidden border border-white/[0.06] bg-white/[0.02] transition-all duration-300 hover:border-white/[0.12] select-none">
         <div class="aspect-[16/9] overflow-hidden">
           <img v-if="w.thumbnail" :src="w.thumbnail" :alt="w.title" class="w-full h-full object-cover pointer-events-none" loading="lazy" />
           <div v-else class="w-full h-full flex items-center justify-center bg-gradient-to-br from-[#0f0f2e] to-[#13133a]">
