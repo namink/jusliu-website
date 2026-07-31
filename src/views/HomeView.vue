@@ -1,8 +1,12 @@
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted } from 'vue'
 import { useRouter } from 'vue-router'
+import { useScrollNav } from '@/composables/useScrollNav'
 
 const router = useRouter()
+
+useScrollNav()
+
 const visible = ref(false)
 const pills = ref<number[]>([])
 const mouseX = ref(0)
@@ -42,7 +46,7 @@ function goTo(path: string) {
 </script>
 
 <template>
-  <section class="min-h-screen w-full flex items-center justify-center relative px-6">
+  <section class="min-h-screen w-full flex items-center justify-center relative px-6 pb-24">
     <div
       class="text-center max-w-2xl mx-auto transition-all duration-1000 ease-out"
       :class="visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'"

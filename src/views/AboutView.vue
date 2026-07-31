@@ -1,6 +1,9 @@
 <script setup lang="ts">
 import Timeline from '@/components/Timeline.vue'
 import SkillBar from '@/components/SkillBar.vue'
+import { useScrollNav } from '@/composables/useScrollNav'
+
+useScrollNav()
 </script>
 
 <template>
