@@ -17,11 +17,6 @@ const nezhaIdx = computed(() => {
   return idx >= 0 ? idx : 0
 })
 
-const nezhaDelay = computed(() => {
-  const total = featured.value.length || 1
-  return `-${30 * (nezhaIdx.value - 0.5) / total}s`
-})
-
 const trackRef = ref<HTMLDivElement>()
 const paused = ref(false)
 const dragging = ref(false)
@@ -60,7 +55,31 @@ function onLeave() { if (!dragging.value) paused.value = false }
 onMounted(() => {
   window.addEventListener('mousemove', onMove)
   window.addEventListener('mouseup', onUp)
+
+  // Snap Nezha to center, then start CSS animation
+  setTimeout(() => {
+    const el = trackRef.value
+    if (!el) return
+    const parentW = el.parentElement?.clientWidth ?? window.innerWidth
+    const center = parentW / 2
+    const cardW = el.firstElementChild?.clientWidth ?? 300
+    const gapW = 8 // gap-2 = 0.5rem = 8px
+    const target = cardW * nezhaIdx.value + gapW * nezhaIdx.value + cardW / 2
+    el.style.transition = 'none'
+    el.style.animation = 'none'
+    el.style.transform = `translateX(${-(target - center)}px)`
+    currentTx = -(target - center)
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        if (!el) return
+        el.style.transform = ''
+        el.style.animation = ''
+        el.style.transition = ''
+      })
+    })
+  }, 200)
 })
+
 onUnmounted(() => {
   window.removeEventListener('mousemove', onMove)
   window.removeEventListener('mouseup', onUp)
@@ -70,8 +89,10 @@ onUnmounted(() => {
 <template>
   <div class="relative w-full">
     <div class="film-reel relative rounded-2xl overflow-hidden border-t-[4px] border-b-[4px] border-x-[4px] border-white/[0.06] shadow-[inset_0_4px_12px_rgba(0,0,0,0.2)]" @mouseenter="onEnter" @mouseleave="onLeave">
+      <div class="absolute top-0 left-1 right-1 h-[4px] z-10 opacity-80" style="background: repeating-linear-gradient(90deg, transparent 0, transparent 6px, rgba(200,162,255,0.3) 6px, rgba(200,162,255,0.3) 12px);" />
+      <div class="absolute bottom-0 left-1 right-1 h-[4px] z-10 opacity-80" style="background: repeating-linear-gradient(90deg, transparent 0, transparent 6px, rgba(200,162,255,0.3) 6px, rgba(200,162,255,0.3) 12px);" />
 
-    <div ref="trackRef" class="flex gap-2 carousel-track py-3" :class="{ '[animation-play-state:paused]': paused }" :style="{ animationDelay: nezhaDelay }" @mousedown.prevent="onDown" style="cursor:grab">
+      <div ref="trackRef" class="flex gap-2 carousel-track py-3" :class="{ '[animation-play-state:paused]': paused }" @mousedown.prevent="onDown" style="cursor:grab">
         <div
           v-for="(w, i) in looped"
           :key="`${w.id}-${i}`"
