@@ -20,8 +20,20 @@ const zh = {
   workExp: 'WORK EXPERIENCE', education: 'EDUCATION',
   eduSchool: '江西软件职业技术大学', eduDegree: '计算机应用工程 · 本科 · 2019 - 2023',
 
+  audioOn: 'ON', audioOff: 'OFF',
+  audioPause: '暂停音乐', audioPlay: '播放音乐',
+  ndaLabel: '项目涉密', ndaHint: '敬请期待',
+  previewHint: '点击图片可放大 · 点击 VIDEO 播放演示',
+  langBtn: '中',
+
+  bio1: '4 年影视游戏行业工作经验，涵盖 UE 技术美术、材质研发、管线工具开发，以及 AI 内容生成平台从 0 到 1 的构建。',
+  bio2: '编程基础为 C++ / C# / C，工作中主要使用 Python，借助 AI 辅助完成日常开发任务。具备 PyQt 桌面应用开发与 Unreal Python API 使用经验。',
+  bio3: '独立完成 AI 内容生成平台的完整前端界面构建，包括节点式工作流编辑器、3D 实时导演台、PBR 材质编辑器等功能模块。',
+  bio4: '参与过哪吒之魔童闹海、熊出没之重启未来、王者荣耀 CG 动画等知名项目，积累了丰富的影视级资产制作与技术支持经验。',
+
   skills: ['Unreal Engine 5/4', 'Maya', 'Python / AI 辅助开发', 'SpeedTree', 'ComfyUI / AI 流程', 'Substance Painter', 'Gaea / WorldCreator', 'Deadline 渲染农场', 'Git / rez 包管理', 'ZBrush'],
 
+  timelinePeriods: ['2025.12 - 至今', '2023.10 - 2025.11', '2023.02 - 2023.06', '2022.06 - 2023.01'],
   timelineRoles: ['TD (技术指导)', 'UE 美术', '平面设计师助理', 'UE 美术'],
   timelineComps: ['长沙神漫文化科技有限公司', '湖南极也视界文化艺术有限公司', '有只蚂蚁品牌设计有限公司', '北京原子比特科技有限公司'],
   timelineDetails: [
@@ -29,12 +41,7 @@ const zh = {
     ['三渲二风格材质研发', 'UE 场景搭建与渲染', 'AI 数字人流程研发', '参与哪吒、熊出没、王者荣耀 CG 等项目'],
     ['产品图建模渲染', '海报与详情页设计'],
     ['根据分镜搭建 UE 白盒场景', '灯光、雾效、后处理氛围塑造', 'Sequence 动画与 360 全景序列帧图输出']
-  ],
-
-  audioOn: 'ON', audioOff: 'OFF',
-
-  previewHint: '点击图片可放大 · 点击 VIDEO 播放演示',
-  langBtn: '中'
+  ]
 }
 
 const en = {
@@ -57,21 +64,28 @@ const en = {
   workExp: 'WORK EXPERIENCE', education: 'EDUCATION',
   eduSchool: 'Jiangxi Software University', eduDegree: 'Computer Engineering · Bachelor · 2019 - 2023',
 
+  audioOn: 'ON', audioOff: 'OFF',
+  audioPause: 'Pause Music', audioPlay: 'Play Music',
+  ndaLabel: 'Confidential', ndaHint: 'Coming Soon',
+  previewHint: 'Click to preview · Click VIDEO to play',
+  langBtn: 'EN',
+
+  bio1: '4 years in film, TV & game industry, covering UE tech art, material R&D, pipeline tooling, and building an AI content platform from 0 to 1.',
+  bio2: 'Programming foundation in C++/C#/C. Primarily use Python at work, leveraging AI-assisted development. Experienced with PyQt desktop apps and Unreal Python API.',
+  bio3: 'Independently built the full frontend of an AI content platform, including a node-based workflow editor, real-time 3D director, and PBR material editor.',
+  bio4: 'Contributed to major projects including Nezha, Boonie Bears, and Honor of Kings CG animation, gaining extensive asset production and technical support experience.',
+
   skills: ['Unreal Engine 5/4', 'Maya', 'Python / AI-assisted Dev', 'SpeedTree', 'ComfyUI / AI Pipeline', 'Substance Painter', 'Gaea / WorldCreator', 'Deadline Render Farm', 'Git / rez Package Mgmt', 'ZBrush'],
 
+  timelinePeriods: ['2025.12 - Present', '2023.10 - 2025.11', '2023.02 - 2023.06', '2022.06 - 2023.01'],
   timelineRoles: ['TD (Technical Director)', 'UE Artist', 'Graphic Designer Asst.', 'UE Artist'],
-  timelineComps: ['Changsha Shenman Culture Technology', 'Hunan Jiye Vision Culture Art', 'Youzhi Ant Brand Design', 'Beijing Atom Bit Technology'],
+  timelineComps: ['Changsha Shenman Culture Tech', 'Hunan Jiye Vision Culture Art', 'Youzhi Ant Brand Design', 'Beijing Atom Bit Tech'],
   timelineDetails: [
-    ['DCC tooling & pipeline optimization', 'Python/PyQt pipeline development', 'Deadline render farm management', 'AI generation web UI development'],
-    ['Anime-style NPR material R&D', 'UE scene building & rendering', 'AI digital human pipeline R&D', 'Supported Nezha, Boonie Bears, Honor of Kings CG projects'],
+    ['DCC tooling & pipeline optimization', 'Python/PyQt pipeline dev', 'Deadline render farm mgmt', 'AI web UI development'],
+    ['NPR material R&D', 'UE scene building & rendering', 'AI digital human pipeline', 'Supported Nezha, Boonie Bears, HOK CG'],
     ['Product image modeling & rendering', 'Poster & detail page design'],
-    ['UE white-box scene building from storyboards', 'Lighting, fog & post-processing atmosphere', 'Sequence animation & 360° panoramic export']
-  ],
-
-  audioOn: 'ON', audioOff: 'OFF',
-
-  previewHint: 'Click to preview · Click VIDEO to play',
-  langBtn: 'EN'
+    ['UE white-box from storyboards', 'Lighting, fog & post-processing', 'Sequence anim & 360° panorama export']
+  ]
 }
 
 type Locale = 'zh' | 'en'

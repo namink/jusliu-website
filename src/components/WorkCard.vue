@@ -1,6 +1,9 @@
 <script setup lang="ts">
 import type { Work } from '@/data/works'
 import { ref } from 'vue'
+import { useI18n } from '@/composables/useI18n'
+
+const { t } = useI18n()
 
 const props = defineProps<{
   work: Work
@@ -99,8 +102,8 @@ const imgError = ref(false)
             <circle cx="12" cy="8" r="1.5" fill="currentColor" opacity="0.3" />
           </svg>
         </div>
-        <p class="text-sm md:text-base text-white/15 font-mono tracking-[0.3em] select-none">项目涉密</p>
-        <p class="text-[10px] md:text-xs text-white/07 mt-2 tracking-wider select-none">敬请期待</p>
+        <p class="text-sm md:text-base text-white/15 font-mono tracking-[0.3em] select-none">{{ t('ndaLabel') }}</p>
+        <p class="text-[10px] md:text-xs text-white/07 mt-2 tracking-wider select-none">{{ t('ndaHint') }}</p>
         <div class="mt-5 w-16 h-px bg-gradient-to-r from-transparent via-white/06 to-transparent" />
       </div>
 

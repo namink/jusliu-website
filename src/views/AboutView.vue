@@ -18,22 +18,10 @@ const { t } = useI18n()
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 md:gap-16">
         <div class="lg:pr-8">
           <div class="space-y-6 text-white/50 text-sm md:text-base leading-relaxed border-l border-white/[0.04] pl-5">
-            <p class="pb-5 border-b border-white/[0.03]">
-              4 年影视游戏行业工作经验，涵盖 UE 技术美术、材质研发、管线工具开发，
-              以及 AI 内容生成平台从 0 到 1 的构建。
-            </p>
-            <p class="pb-5 border-b border-white/[0.03]">
-              编程基础为 C++ / C# / C，工作中主要使用 Python，
-              借助 AI 辅助完成日常开发任务。具备 PyQt 桌面应用开发与 Unreal Python API 使用经验。
-            </p>
-            <p class="pb-5 border-b border-white/[0.03]">
-              独立完成 AI 内容生成平台的完整前端界面构建，包括节点式工作流编辑器、3D 实时导演台、
-              PBR 材质编辑器等功能模块。
-            </p>
-            <p>
-              参与过哪吒之魔童闹海、熊出没之重启未来、王者荣耀 CG 动画等知名项目，
-              积累了丰富的影视级资产制作与技术支持经验。
-            </p>
+            <p class="pb-5 border-b border-white/[0.03]">{{ t('bio1') }}</p>
+            <p class="pb-5 border-b border-white/[0.03]">{{ t('bio2') }}</p>
+            <p class="pb-5 border-b border-white/[0.03]">{{ t('bio3') }}</p>
+            <p>{{ t('bio4') }}</p>
           </div>
 
           <div class="mt-8 flex flex-wrap gap-3">

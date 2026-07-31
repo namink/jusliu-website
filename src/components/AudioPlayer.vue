@@ -34,7 +34,7 @@ function toggle() {
     @click="toggle"
     class="fixed bottom-6 left-6 z-50 flex items-center gap-2 px-3 py-2 rounded-full border backdrop-blur-sm transition-all duration-300 hover:border-white/[0.15]"
     :class="playing ? 'bg-white/[0.04] border-white/[0.10] text-white/50 hover:text-white/65' : 'bg-white/[0.02] border-white/[0.04] text-white/30 hover:text-white/45'"
-    :title="playing ? '暂停音乐' : '播放音乐'"
+    :title="playing ? t('audioPause') : t('audioPlay')"
   >
     <svg class="w-3.5 h-3.5" :class="playing ? 'opacity-60' : 'opacity-30'" fill="currentColor" viewBox="0 0 24 24">
       <template v-if="playing">
