@@ -121,8 +121,6 @@ onMounted(() => {
     }
     geometry.attributes.position.needsUpdate = true
 
-    points.rotation.y += 0.0003 + mouse.x * 0.0001
-
     renderer.render(scene, camera)
   }
 
