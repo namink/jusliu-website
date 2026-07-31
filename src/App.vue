@@ -38,8 +38,8 @@ function closePreview() { showPreview.value = false }
     <div class="fixed bottom-[20%] left-[5%] right-[5%] h-px z-0 pointer-events-none bg-gradient-to-r from-transparent via-white/[0.02] to-transparent" />
     <SkillCloud />
     <div class="fixed inset-0 z-0 pointer-events-none select-none overflow-hidden">
-      <div class="absolute top-[8%] -left-[10%] -right-[10%] h-0 flex items-center" style="transform: rotate(-8deg);"><span class="text-[3.5vw] font-bold text-white/[0.035] tracking-[0.6em] whitespace-nowrap strip-slide-1">TECHNICAL ARTIST&nbsp;&nbsp;&nbsp;TECHNICAL ARTIST&nbsp;&nbsp;&nbsp;TECHNICAL ARTIST</span></div>
-      <div class="absolute top-[88%] -left-[10%] -right-[10%] h-0 flex items-center" style="transform: rotate(-6deg);"><span class="text-[3.5vw] font-bold text-white/[0.03] tracking-[0.6em] whitespace-nowrap strip-slide-2">TECHNICAL DIRECTOR&nbsp;&nbsp;&nbsp;TECHNICAL DIRECTOR&nbsp;&nbsp;&nbsp;TECHNICAL DIRECTOR</span></div>
+      <div class="absolute top-[8%] -left-[10%] -right-[10%] h-0 flex items-center" style="transform: rotate(-8deg);"><span class="text-[3.5vw] font-mono font-bold text-white/[0.035] tracking-[0.6em] whitespace-nowrap strip-slide-1">TECHNICAL ARTIST&nbsp;&nbsp;&nbsp;TECHNICAL ARTIST&nbsp;&nbsp;&nbsp;TECHNICAL ARTIST</span></div>
+      <div class="absolute top-[88%] -left-[10%] -right-[10%] h-0 flex items-center" style="transform: rotate(-8deg);"><span class="text-[3.5vw] font-mono font-bold text-white/[0.03] tracking-[0.6em] whitespace-nowrap strip-slide-2">TECHNICAL DIRECTOR&nbsp;&nbsp;&nbsp;TECHNICAL DIRECTOR&nbsp;&nbsp;&nbsp;TECHNICAL DIRECTOR</span></div>
     </div>
     <div class="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-0 pointer-events-none select-none">
       <div class="flex items-center gap-1 md:gap-2 text-[12vw] font-black leading-none tracking-[0.15em]" style="font-family: 'Cinzel', serif;">
@@ -70,5 +70,5 @@ function closePreview() { showPreview.value = false }
 .strip-slide-1 { animation: slideStrip1 16s ease-in-out infinite alternate; }
 .strip-slide-2 { animation: slideStrip2 18s ease-in-out infinite alternate; }
 @keyframes slideStrip1 { from { transform: rotate(-8deg) translateX(-6%); } to { transform: rotate(-8deg) translateX(6%); } }
-@keyframes slideStrip2 { from { transform: rotate(-6deg) translateX(6%); } to { transform: rotate(-6deg) translateX(-6%); } }
+@keyframes slideStrip2 { from { transform: rotate(-8deg) translateX(6%); } to { transform: rotate(-8deg) translateX(-6%); } }
 </style>
