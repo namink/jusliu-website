@@ -9,13 +9,13 @@ const { t } = useI18n()
 </script>
 
 <template>
-  <section class="min-h-screen w-full flex items-center justify-center relative px-6 py-20 md:py-24">
+  <section class="min-h-screen w-full flex items-center justify-center relative px-6 pt-[10vh] pb-24">
     <div class="w-full max-w-5xl mx-auto">
       <div class="text-center mb-12 md:mb-16">
         <p class="text-[10px] md:text-xs font-mono tracking-[0.3em] text-indigo-400/60 mb-2">{{ t('aboutTitle') }} / {{ t('aboutSub') }}</p>
       </div>
 
-      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 md:gap-16">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20">
         <div class="lg:pr-8">
           <div class="space-y-6 text-white/50 text-sm md:text-base leading-relaxed border-l border-white/[0.04] pl-5">
             <p class="pb-5 border-b border-white/[0.03]">{{ t('bio1') }}</p>

@@ -75,7 +75,7 @@ useScrollNav(
 
 <template>
   <section class="min-h-screen w-full flex flex-col relative pb-20 md:pb-24">
-    <div class="sticky top-12 z-20 pt-6 pb-3 md:pt-8 md:pb-4 px-6 bg-[#0f0f1a]/80 backdrop-blur-md">
+    <div class="sticky top-12 z-20 pt-4 pb-2 md:pt-6 md:pb-2 px-6 bg-[#0f0f1a]/80 backdrop-blur-md">
       <div class="w-full max-w-6xl mx-auto">
         <div class="text-center mb-5 md:mb-6">
           <p class="text-[10px] md:text-xs font-mono tracking-[0.3em] text-indigo-400/60 mb-1.5">{{ t('portfolio') }} / {{ t('portfolioSub') }}</p>
