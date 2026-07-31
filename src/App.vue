@@ -1,16 +1,26 @@
 <script setup lang="ts">
-import { provide } from 'vue'
+import { ref, provide } from 'vue'
 import { RouterView } from 'vue-router'
 import ParticleBg from '@/components/ParticleBg.vue'
 import NavDots from '@/components/NavDots.vue'
 import { createTransition } from '@/composables/useTransition'
 
 provide('transitionHooks', createTransition())
+
+const particleRef = ref<InstanceType<typeof ParticleBg>>()
+
+function onParticlePause() {
+  particleRef.value?.pause()
+}
+
+function onParticleResume() {
+  particleRef.value?.resume()
+}
 </script>
 
 <template>
   <div class="relative w-full min-h-screen bg-[#0a0a1a] text-white overflow-hidden">
-    <ParticleBg />
+    <ParticleBg ref="particleRef" />
 
     <div class="absolute inset-0 z-[1] bg-gradient-to-b from-transparent via-transparent to-[#0a0a1a]/80 pointer-events-none" />
 
@@ -25,7 +35,11 @@ provide('transitionHooks', createTransition())
           @leave="($event, $done) => createTransition().onLeave($event, $done)"
           mode="out-in"
         >
-          <component :is="Component" />
+          <component
+            :is="Component"
+            @particle-pause="onParticlePause"
+            @particle-resume="onParticleResume"
+          />
         </Transition>
       </RouterView>
     </main>

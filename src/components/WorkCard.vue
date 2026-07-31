@@ -7,20 +7,28 @@ const props = defineProps<{
   index: number
 }>()
 
+const emit = defineEmits<{
+  particlePause: []
+  particleResume: []
+}>()
+
 const playing = ref(false)
 const videoRef = ref<HTMLVideoElement>()
 
 function onPlay() {
   playing.value = true
+  emit('particlePause')
   setTimeout(() => videoRef.value?.play(), 50)
 }
 
-function onPause() {
-  if (videoRef.value) {
-    videoRef.value.pause()
-    videoRef.value.currentTime = 0
-    playing.value = false
-  }
+function onVideoPause() {
+  playing.value = false
+  emit('particleResume')
+}
+
+function onVideoEnded() {
+  playing.value = false
+  emit('particleResume')
 }
 
 function onKeydown(e: KeyboardEvent) {
@@ -35,8 +43,12 @@ function onKeydown(e: KeyboardEvent) {
 function onMouseLeave() {
   if (videoRef.value && !videoRef.value.paused) {
     videoRef.value.pause()
+    playing.value = false
+    emit('particleResume')
   }
 }
+
+const imgError = ref(false)
 </script>
 
 <template>
@@ -61,8 +73,8 @@ function onMouseLeave() {
         playsinline
         tabindex="0"
         class="w-full h-full object-contain bg-black/60 outline-none"
-        @pause="onPause"
-        @ended="onPause"
+        @pause="onVideoPause"
+        @ended="onVideoEnded"
       />
 
       <img
@@ -71,6 +83,7 @@ function onMouseLeave() {
         :alt="props.work.title"
         class="w-full h-full object-contain transition-transform duration-700 group-hover:scale-105 bg-black/40"
         loading="lazy"
+        @error="imgError = true"
       />
 
       <div
@@ -90,7 +103,7 @@ function onMouseLeave() {
       </div>
 
       <div
-        v-if="props.work.videoUrl && !playing"
+        v-if="props.work.videoUrl && !playing && !imgError"
         class="absolute inset-0 flex items-center justify-center opacity-80 group-hover:opacity-100 transition-opacity duration-300"
         @click.stop="onPlay"
       >

@@ -3,6 +3,11 @@ import { ref, computed } from 'vue'
 import { works, categories } from '@/data/works'
 import WorkCard from '@/components/WorkCard.vue'
 
+const emit = defineEmits<{
+  particlePause: []
+  particleResume: []
+}>()
+
 const activeCategory = ref('')
 
 const filteredWorks = computed(() =>
@@ -50,6 +55,8 @@ const filteredWorks = computed(() =>
           :key="work.id"
           :work="work"
           :index="i"
+          @particle-pause="emit('particlePause')"
+          @particle-resume="emit('particleResume')"
         />
       </div>
     </div>
