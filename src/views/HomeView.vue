@@ -44,10 +44,11 @@ function goTo(path: string) {
       :class="visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'"
     >
       <p class="text-sm font-mono tracking-[0.3em] text-white/25 mb-6">{{ t('since') }}</p>
-
-      <div class="my-8">
-        <FeaturedCarousel />
       </div>
+
+      <FeaturedCarousel />
+
+      <div class="text-center max-w-5xl mx-auto mt-8">
 
       <div class="mb-10 mt-10">
         <div ref="scrollRef" class="flex gap-2 md:gap-3 overflow-x-auto snap-x snap-mandatory scrollbar-none mx-auto"
