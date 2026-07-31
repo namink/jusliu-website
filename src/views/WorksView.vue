@@ -73,8 +73,8 @@ useScrollNav(
 </script>
 
 <template>
-  <section class="min-h-screen w-full relative px-6 pb-20 md:pb-24">
-    <div class="sticky top-0 z-20 pt-6 pb-3 md:pt-8 md:pb-4 -mx-6 px-6 bg-[#0a0a1a]/80 backdrop-blur-md">
+  <section class="min-h-screen w-full relative pb-20 md:pb-24">
+    <div class="sticky top-0 z-20 pt-6 pb-3 md:pt-8 md:pb-4 px-6 bg-[#0a0a1a]/80 backdrop-blur-md">
       <div class="w-full max-w-6xl mx-auto">
         <div class="text-center mb-5 md:mb-6">
           <p class="text-xs md:text-sm font-mono tracking-[0.3em] text-indigo-400 mb-2">PORTFOLIO</p>
@@ -98,7 +98,7 @@ useScrollNav(
       </div>
     </div>
 
-    <div class="w-full max-w-6xl mx-auto mt-8 md:mt-10" :style="{ minHeight: '520px' }">
+    <div class="w-full max-w-6xl mx-auto mt-8 md:mt-10 px-6" :style="{ minHeight: '520px' }">
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-5">
         <WorkCard
           v-for="(work, i) in paginatedWorks"

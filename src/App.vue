@@ -22,7 +22,7 @@ function onParticleResume() {
   <div class="relative w-full min-h-screen bg-[#0a0a1a] text-white overflow-hidden">
     <ParticleBg ref="particleRef" />
 
-    <div class="absolute inset-0 z-[1] bg-gradient-to-b from-transparent via-transparent to-[#0a0a1a]/80 pointer-events-none" />
+    <div class="absolute inset-0 z-[1] bg-gradient-to-b from-transparent via-transparent to-[#0a0a1a]/30 pointer-events-none" />
 
     <NavDots />
 
