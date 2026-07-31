@@ -4,6 +4,7 @@ import { useRouter } from 'vue-router'
 import { useScrollNav } from '@/composables/useScrollNav'
 import { useVideoPreload } from '@/composables/useVideoPreload'
 import { categories } from '@/data/works'
+import FeaturedCarousel from '@/components/FeaturedCarousel.vue'
 
 const router = useRouter()
 
@@ -12,21 +13,21 @@ useVideoPreload()
 
 const visible = ref(false)
 const pills = ref<number[]>([])
-const mouseX = ref(0)
-const mouseY = ref(0)
+const scrollRef = ref<HTMLDivElement>()
 
 const allPills = [{ label: '全部作品', category: '', color: 'slate' }, ...categories.map(c => ({
   label: c,
   category: c,
-  color: c === 'AI 平台' ? 'sky' : c === '工具开发' ? 'emerald' : c === '场景渲染' ? 'indigo' : c === '材质研发' ? 'violet' : c === '程序化' ? 'amber' : c === '技术研发' ? 'cyan' : c === '项目支持' ? 'orange' : 'slate'
 }))]
 
-const scrollRef = ref<HTMLDivElement>()
+onMounted(() => {
+  setTimeout(() => visible.value = true, 200)
+  allPills.forEach((_, i) => {
+    setTimeout(() => pills.value.push(i), 400 + i * 60)
+  })
+})
 
-function onMouseMove(e: MouseEvent) {
-  mouseX.value = (e.clientX / window.innerWidth - 0.5) * 16
-  mouseY.value = (e.clientY / window.innerHeight - 0.5) * 16
-}
+onUnmounted(() => {})
 
 function goToCategory(category: string) {
   router.push({ path: '/works', query: { category } })
@@ -35,18 +36,6 @@ function goToCategory(category: string) {
 function goTo(path: string) {
   router.push(path)
 }
-
-onMounted(() => {
-  setTimeout(() => visible.value = true, 200)
-  allPills.forEach((_, i) => {
-    setTimeout(() => pills.value.push(i), 400 + i * 60)
-  })
-  window.addEventListener('mousemove', onMouseMove)
-})
-
-onUnmounted(() => {
-  window.removeEventListener('mousemove', onMouseMove)
-})
 </script>
 
 <template>
@@ -69,12 +58,11 @@ onUnmounted(() => {
       </div>
 
       <div class="relative mb-8">
-        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-72 h-72 md:w-96 md:h-96 rounded-full bg-[radial-gradient(ellipse,rgba(99,102,241,0.05)_0%,transparent_70%)] animate-[spin_20s_linear_infinite]" />
-        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-56 h-56 md:w-72 md:h-72 rounded-full bg-[radial-gradient(ellipse,rgba(129,140,248,0.03)_0%,transparent_70%)] animate-[spin_25s_linear_infinite_reverse]" />
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-72 h-72 md:w-96 md:h-96 rounded-full bg-[radial-gradient(ellipse,rgba(200,162,255,0.05)_0%,transparent_70%)] animate-[spin_20s_linear_infinite]" />
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-56 h-56 md:w-72 md:h-72 rounded-full bg-[radial-gradient(ellipse,rgba(136,168,255,0.03)_0%,transparent_70%)] animate-[spin_25s_linear_infinite_reverse]" />
 
         <h1
           class="relative flex items-center justify-center gap-2 md:gap-4 text-4xl md:text-6xl lg:text-7xl font-black tracking-[0.2em] text-shimmer text-breathe select-none"
-          :style="{ transform: `translate(${mouseX * 0.12}px, ${mouseY * 0.12}px)` }"
         >
           <span class="inline-block transition-all duration-1000 ease-out" :class="visible ? 'opacity-100 translate-y-0 blur-0' : 'opacity-0 translate-y-8 blur-sm'" style="transition-delay: 200ms">J</span>
           <span class="inline-block transition-all duration-1000 ease-out" :class="visible ? 'opacity-100 translate-y-0 blur-0' : 'opacity-0 translate-y-8 blur-sm'" style="transition-delay: 300ms">U</span>
@@ -86,9 +74,11 @@ onUnmounted(() => {
         </h1>
       </div>
 
-      <p class="text-[11px] font-mono tracking-[0.3em] text-white/15 mb-12">since 2022</p>
+      <p class="text-[11px] font-mono tracking-[0.3em] text-white/15 mb-8">since 2022</p>
 
-      <div class="relative mb-14">
+      <FeaturedCarousel />
+
+      <div class="mb-10 mt-10">
         <div ref="scrollRef" class="flex gap-2 md:gap-3 overflow-x-auto snap-x snap-mandatory scrollbar-none mx-auto max-w-lg md:max-w-2xl"
           @wheel.prevent="scrollRef && (scrollRef.scrollLeft += $event.deltaY)">
           <span
@@ -107,12 +97,29 @@ onUnmounted(() => {
         </div>
       </div>
 
-      <div class="flex items-center justify-center gap-4 mb-12">
+      <div class="flex items-center justify-center gap-4 mb-10">
         <span class="block w-14 md:w-18 h-px bg-gradient-to-r from-transparent via-white/12 to-transparent" />
         <p class="text-base md:text-lg text-white/30 leading-relaxed whitespace-nowrap">
           从&nbsp;0&nbsp;到&nbsp;1，连接艺术与技术的桥梁
         </p>
         <span class="block w-14 md:w-18 h-px bg-gradient-to-r from-transparent via-white/12 to-transparent" />
+      </div>
+
+      <div class="flex items-center justify-center gap-5 mb-10">
+        <a href="mailto:conti_717@163.com" class="group flex items-center gap-1.5 text-xs text-white/30 hover:text-white/55 transition-colors duration-200">
+          <svg class="w-3.5 h-3.5 opacity-40 group-hover:opacity-70 transition-opacity" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+            <rect x="2" y="4" width="20" height="16" rx="2" />
+            <path d="M22 4L12 13L2 4" />
+          </svg>
+          conti_717@163.com
+        </a>
+        <span class="w-px h-3 bg-white/[0.06]" />
+        <a href="tel:18070154965" class="group flex items-center gap-1.5 text-xs text-white/30 hover:text-white/55 transition-colors duration-200">
+          <svg class="w-3.5 h-3.5 opacity-40 group-hover:opacity-70 transition-opacity" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+            <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6A19.79 19.79 0 012.12 4.18 2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z" />
+          </svg>
+          18070154965
+        </a>
       </div>
 
       <div class="flex flex-col sm:flex-row gap-4 justify-center">

@@ -7,9 +7,9 @@ const route = useRoute()
 const router = useRouter()
 
 const routes = [
-  { name: 'home', label: 'Home', path: '/', color: 'indigo' },
-  { name: 'works', label: 'Works', path: '/works', color: 'violet' },
-  { name: 'about', label: 'About', path: '/about', color: 'emerald' }
+  { name: 'home', label: 'Home', path: '/' },
+  { name: 'works', label: 'Works', path: '/works' },
+  { name: 'about', label: 'About', path: '/about' }
 ]
 
 const activeIndex = computed(() => {
@@ -21,7 +21,7 @@ const pulsing = ref(-1)
 
 watch(activeIndex, (val) => {
   pulsing.value = val
-  setTimeout(() => pulsing.value = -1, 500)
+  setTimeout(() => pulsing.value = -1, 600)
 })
 
 function navigate(index: number) {
@@ -30,34 +30,20 @@ function navigate(index: number) {
 </script>
 
 <template>
-  <nav class="fixed right-6 md:right-10 top-1/2 -translate-y-1/2 z-50 flex flex-col items-center gap-4 md:gap-6">
+  <nav class="fixed top-4 md:top-6 left-1/2 -translate-x-1/2 z-50 flex items-center gap-1.5 md:gap-2">
     <button
       v-for="(r, i) in routes"
       :key="r.name"
       @click="navigate(i)"
-      class="group relative flex items-center gap-3"
-      :aria-label="r.label"
+      class="px-4 py-1.5 md:px-5 md:py-2 text-[11px] md:text-xs font-mono tracking-wider rounded-full border transition-all duration-300 backdrop-blur-sm"
+      :class="[
+        i === activeIndex
+          ? 'bg-white/[0.06] border-white/[0.12] text-white/90'
+          : 'bg-white/[0.02] border-white/[0.05] text-white/35 hover:text-white/60 hover:border-white/[0.10]',
+        pulsing === i ? 'dot-ripple' : ''
+      ]"
     >
-      <span
-        class="text-xs md:text-sm font-mono tracking-widest opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-        :class="[
-          i === activeIndex ? 'opacity-100' : '',
-          r.color === 'indigo' ? 'text-indigo-300' : r.color === 'violet' ? 'text-violet-300' : 'text-emerald-300'
-        ]"
-      >
-        {{ r.label }}
-      </span>
-      <span
-        class="block w-2.5 h-2.5 md:w-3 md:h-3 rounded-full border transition-all duration-500"
-        :class="[
-          i === activeIndex
-            ? r.color === 'indigo' ? 'bg-indigo-400 border-indigo-400 scale-125 shadow-[0_0_12px_rgba(129,140,248,0.6)]' :
-              r.color === 'violet' ? 'bg-violet-400 border-violet-400 scale-125 shadow-[0_0_12px_rgba(167,139,250,0.6)]' :
-              'bg-emerald-400 border-emerald-400 scale-125 shadow-[0_0_12px_rgba(52,211,153,0.6)]'
-            : 'bg-white/20 border-white/30 hover:bg-white/50 hover:border-white/50',
-          pulsing === i ? 'dot-ripple' : ''
-        ]"
-      />
+      {{ r.label }}
     </button>
   </nav>
 </template>
