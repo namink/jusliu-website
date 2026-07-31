@@ -23,9 +23,10 @@ const SPEED = 0.35
 function tick() {
   const el = scrollRef.value
   if (!el) { raf = requestAnimationFrame(tick); return }
+  if (el.scrollWidth <= el.clientWidth + 10) { raf = requestAnimationFrame(tick); return }
   if (!hovered.value && !dragging.value) {
     el.scrollLeft += SPEED
-    if (el.scrollLeft >= el.scrollWidth / 2) {
+    if (el.scrollLeft >= el.scrollWidth / 2 + 5) {
       el.scrollLeft -= el.scrollWidth / 2
     }
   }
