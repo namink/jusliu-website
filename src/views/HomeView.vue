@@ -18,11 +18,10 @@ const mouseY = ref(0)
 const allPills = [{ label: '全部作品', category: '', color: 'slate' }, ...categories.map(c => ({
   label: c,
   category: c,
-  color: c === 'AI 平台' ? 'sky' : c === '工具开发' ? 'emerald' : c === '场景渲染' ? 'indigo' : c === '材质研发' ? 'violet' : c === '风格化' ? 'rose' : c === '程序化' ? 'amber' : c === '技术研发' ? 'cyan' : c === '项目支持' ? 'orange' : 'slate'
+  color: c === 'AI 平台' ? 'sky' : c === '工具开发' ? 'emerald' : c === '场景渲染' ? 'indigo' : c === '材质研发' ? 'violet' : c === '程序化' ? 'amber' : c === '技术研发' ? 'cyan' : c === '项目支持' ? 'orange' : 'slate'
 }))]
 
 const scrollRef = ref<HTMLDivElement>()
-let carouselTimer = 0
 
 function onMouseMove(e: MouseEvent) {
   mouseX.value = (e.clientX / window.innerWidth - 0.5) * 16
@@ -37,35 +36,16 @@ function goTo(path: string) {
   router.push(path)
 }
 
-function scrollCarousel(dir: number) {
-  if (!scrollRef.value) return
-  scrollRef.value.scrollBy({ left: dir * 160, behavior: 'smooth' })
-}
-
-function startCarousel() {
-  carouselTimer = window.setInterval(() => {
-    if (!scrollRef.value) return
-    const max = scrollRef.value.scrollWidth - scrollRef.value.clientWidth
-    if (scrollRef.value.scrollLeft >= max - 5) {
-      scrollRef.value.scrollTo({ left: 0, behavior: 'smooth' })
-    } else {
-      scrollCarousel(1)
-    }
-  }, 3000)
-}
-
 onMounted(() => {
   setTimeout(() => visible.value = true, 200)
   allPills.forEach((_, i) => {
     setTimeout(() => pills.value.push(i), 400 + i * 60)
   })
   window.addEventListener('mousemove', onMouseMove)
-  startCarousel()
 })
 
 onUnmounted(() => {
   window.removeEventListener('mousemove', onMouseMove)
-  clearInterval(carouselTimer)
 })
 </script>
 
@@ -93,7 +73,7 @@ onUnmounted(() => {
         <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-56 h-56 md:w-72 md:h-72 rounded-full bg-[radial-gradient(ellipse,rgba(129,140,248,0.03)_0%,transparent_70%)] animate-[spin_25s_linear_infinite_reverse]" />
 
         <h1
-          class="relative flex items-center justify-center gap-2 md:gap-4 text-4xl md:text-6xl lg:text-7xl font-black tracking-[0.2em] text-shimmer select-none"
+          class="relative flex items-center justify-center gap-2 md:gap-4 text-4xl md:text-6xl lg:text-7xl font-black tracking-[0.2em] text-shimmer text-breathe select-none"
           :style="{ transform: `translate(${mouseX * 0.12}px, ${mouseY * 0.12}px)` }"
         >
           <span class="inline-block transition-all duration-1000 ease-out" :class="visible ? 'opacity-100 translate-y-0 blur-0' : 'opacity-0 translate-y-8 blur-sm'" style="transition-delay: 200ms">J</span>

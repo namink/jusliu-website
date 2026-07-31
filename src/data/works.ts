@@ -118,7 +118,7 @@ export const works: Work[] = [
   {
     id: 'arcane-style',
     title: '双城之战风格',
-    category: '风格化',
+    category: '材质研发',
     description: 'UE 中还原《双城之战》风格化渲染效果，探索 NPR 渲染在游戏引擎中的实现',
     thumbnail: 'https://pub-4a4da7a40c564edabe95305d5bc9e7a0.r2.dev/works/stylized/arcane01.jpg',
     tags: ['UE5', '风格化', 'NPR']
@@ -204,6 +204,14 @@ export const works: Work[] = [
     description: 'UE5 驱动的实时 AI 数字人系统，支持语音对话与直播间评论接入',
     thumbnail: '',
     tags: ['UE5', 'AI', '数字人']
+  },
+  {
+    id: 'houdini-pcg',
+    title: 'Houdini 程序化都市场景生成',
+    category: '技术研发',
+    description: '基于 Houdini 的程序化生成流程，实现开放世界都市场景的自动布局与建筑生成。',
+    thumbnail: '',
+    tags: ['Houdini', 'PCG', '程序化', '都市']
   },
   {
     id: 'freefire',

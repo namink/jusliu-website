@@ -22,7 +22,7 @@ function onParticleResume() { particleRef.value?.setPaused(false) }
     <GeoBg />
     <ParticleBg ref="particleRef" />
 
-    <div class="absolute inset-0 z-[1] bg-gradient-to-b from-transparent via-transparent to-[#0f0f1a]/30 pointer-events-none" />
+    <div class="fixed top-0 left-0 right-0 h-72 z-0 pointer-events-none opacity-40" style="background: radial-gradient(ellipse at 50% 0%, rgba(136,168,255,0.08) 0%, transparent 70%);" />
 
     <NavDots />
 

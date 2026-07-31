@@ -15,16 +15,16 @@ useScrollNav()
 
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 md:gap-16">
         <div class="lg:pr-8">
-          <div class="space-y-6 text-white/50 text-sm md:text-base leading-relaxed">
-            <p>
+          <div class="space-y-6 text-white/50 text-sm md:text-base leading-relaxed border-l border-white/[0.04] pl-5">
+            <p class="pb-5 border-b border-white/[0.03]">
               4 年影视游戏行业工作经验，涵盖 UE 技术美术、材质研发、管线工具开发，
               以及 AI 内容生成平台从 0 到 1 的构建。
             </p>
-            <p>
+            <p class="pb-5 border-b border-white/[0.03]">
               编程基础为 C++ / C# / C，工作中主要使用 Python，
               借助 AI 辅助完成日常开发任务。具备 PyQt 桌面应用开发与 Unreal Python API 使用经验。
             </p>
-            <p>
+            <p class="pb-5 border-b border-white/[0.03]">
               独立完成 AI 内容生成平台的完整前端界面构建，包括节点式工作流编辑器、3D 实时导演台、
               PBR 材质编辑器等功能模块。
             </p>

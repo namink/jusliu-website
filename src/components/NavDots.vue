@@ -55,7 +55,7 @@ function navigate(index: number) {
               r.color === 'violet' ? 'bg-violet-400 border-violet-400 scale-125 shadow-[0_0_12px_rgba(167,139,250,0.6)]' :
               'bg-emerald-400 border-emerald-400 scale-125 shadow-[0_0_12px_rgba(52,211,153,0.6)]'
             : 'bg-white/20 border-white/30 hover:bg-white/50 hover:border-white/50',
-          pulsing === i ? 'active-dot-pulse' : ''
+          pulsing === i ? 'dot-ripple' : ''
         ]"
       />
     </button>
