@@ -6,7 +6,6 @@ import NavDots from '@/components/NavDots.vue'
 import GeoBg from '@/components/GeoBg.vue'
 import GridDots from '@/components/GridDots.vue'
 import SkillCloud from '@/components/SkillCloud.vue'
-import GlitchBg from '@/components/GlitchBg.vue'
 import AudioPlayer from '@/components/AudioPlayer.vue'
 import ImageViewer from '@/components/ImageViewer.vue'
 import { createTransition } from '@/composables/useTransition'
@@ -33,7 +32,7 @@ function closePreview() { showPreview.value = false }
 
 <template>
   <div class="relative w-full min-h-screen bg-[#0f0f1a] text-white overflow-hidden">
-    <GridDots /><GeoBg /><GlitchBg /><ParticleBg ref="particleRef" />
+    <GridDots /><GeoBg /><ParticleBg ref="particleRef" />
     <div class="fixed top-0 left-0 right-0 h-72 z-0 pointer-events-none opacity-40" style="background: radial-gradient(ellipse at 50% 0%, rgba(136,168,255,0.08) 0%, transparent 70%);" />
     <div class="fixed top-[15%] left-[5%] right-[5%] h-px z-0 pointer-events-none bg-gradient-to-r from-transparent via-white/[0.03] to-transparent" />
     <div class="fixed bottom-[20%] left-[5%] right-[5%] h-px z-0 pointer-events-none bg-gradient-to-r from-transparent via-white/[0.02] to-transparent" />

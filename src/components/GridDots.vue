@@ -8,12 +8,8 @@
       <pattern id="bigdots" x="0" y="0" width="40" height="40" patternUnits="userSpaceOnUse">
         <circle cx="20" cy="20" r="3" fill="#c4b5fd" opacity="0.3" />
       </pattern>
-      <pattern id="benday" x="0" y="0" width="12" height="12" patternUnits="userSpaceOnUse">
-        <circle cx="6" cy="6" r="4" fill="#ff3ca0" opacity="0.25" />
-      </pattern>
     </defs>
     <rect width="100%" height="100%" fill="url(#dots)" />
     <rect width="100%" height="100%" fill="url(#bigdots)" />
-    <rect width="100%" height="100%" fill="url(#benday)" />
   </svg>
 </template>
