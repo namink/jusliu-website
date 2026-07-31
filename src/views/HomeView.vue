@@ -95,7 +95,7 @@ function goTo(path: string) {
         <span
           v-for="(pill, i) in skillPills"
           :key="pill.label"
-          class="skill-pill px-4 py-1.5 md:px-5 md:py-2 text-xs md:text-sm rounded-full border backdrop-blur-sm transition-all duration-700 ease-out cursor-pointer"
+          class="skill-pill px-4 py-1.5 md:px-5 md:py-2 text-xs md:text-sm rounded-full border backdrop-blur-sm transition-all duration-150 active:scale-95 cursor-pointer"
           :class="[
             pills.includes(i) ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4',
             i === 0 ? 'bg-indigo-500/10 border-indigo-400/25 text-indigo-300 hover:bg-indigo-500/20 hover:border-indigo-400/50' : '',
@@ -124,7 +124,7 @@ function goTo(path: string) {
       <div class="flex flex-col sm:flex-row gap-4 justify-center">
         <button
           @click="goTo('/works')"
-          class="relative px-8 py-3 rounded-full text-white/90 hover:text-white transition-all duration-300 text-sm font-medium overflow-hidden group"
+          class="relative px-8 py-3 rounded-full text-white/90 hover:text-white transition-all duration-150 active:scale-95 text-sm font-medium overflow-hidden group"
           style="background: linear-gradient(#0a0a1a, #0a0a1a) padding-box, linear-gradient(135deg, #6366f1, #818cf8) border-box; border: 1px solid transparent;"
         >
           <span class="relative z-10">浏览作品</span>
@@ -134,7 +134,7 @@ function goTo(path: string) {
         </button>
         <button
           @click="goTo('/about')"
-          class="px-8 py-3 rounded-full bg-white/[0.04] border border-white/[0.08] text-white/45 hover:text-white/75 hover:border-white/15 transition-all duration-300 text-sm backdrop-blur-sm"
+          class="px-8 py-3 rounded-full bg-white/[0.04] border border-white/[0.08] text-white/45 hover:text-white/75 hover:border-white/15 transition-all duration-150 active:scale-95 text-sm backdrop-blur-sm"
         >
           了解更多
         </button>

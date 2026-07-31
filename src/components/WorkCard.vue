@@ -53,7 +53,7 @@ const imgError = ref(false)
 
 <template>
   <div
-    class="group relative overflow-hidden rounded-xl transition-all duration-500 hover:-translate-y-1 cursor-pointer"
+    class="group relative overflow-hidden rounded-xl transition-all duration-300 active:scale-[0.98] hover:-translate-y-1 cursor-pointer"
     :class="[
       props.work.videoUrl
         ? 'bg-white/[0.03] border border-indigo-400/15 hover:border-indigo-400/35 video-card-glow'

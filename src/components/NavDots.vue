@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useRoute, useRouter } from 'vue-router'
-import { computed } from 'vue'
+import { computed, ref, watch } from 'vue'
 import { getRouteIndex } from '@/router'
 
 const route = useRoute()
@@ -15,6 +15,13 @@ const routes = [
 const activeIndex = computed(() => {
   const name = route.name as string
   return getRouteIndex(name)
+})
+
+const pulsing = ref(-1)
+
+watch(activeIndex, (val) => {
+  pulsing.value = val
+  setTimeout(() => pulsing.value = -1, 500)
 })
 
 function navigate(index: number) {
@@ -39,9 +46,12 @@ function navigate(index: number) {
       </span>
       <span
         class="block w-2.5 h-2.5 md:w-3 md:h-3 rounded-full border transition-all duration-500"
-        :class="i === activeIndex
-          ? 'bg-indigo-400 border-indigo-400 scale-125 shadow-[0_0_12px_rgba(129,140,248,0.6)]'
-          : 'bg-white/20 border-white/30 hover:bg-white/50 hover:border-white/50'"
+        :class="[
+          i === activeIndex
+            ? 'bg-indigo-400 border-indigo-400 scale-125 shadow-[0_0_12px_rgba(129,140,248,0.6)]'
+            : 'bg-white/20 border-white/30 hover:bg-white/50 hover:border-white/50',
+          pulsing === i ? 'active-dot-pulse' : ''
+        ]"
       />
     </button>
   </nav>

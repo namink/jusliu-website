@@ -74,6 +74,20 @@
   animation: videoGlow 3s ease-in-out infinite;
 }
 
+@keyframes dotPulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.6); }
+  100% { transform: scale(1.25); }
+}
+
+.active-dot-pulse {
+  animation: dotPulse 0.5s ease-out;
+}
+
+.btn-press {
+  @apply transition-transform duration-100 active:scale-95;
+}
+
 .v-enter-active,
 .v-leave-active {
   transition: all 0s !important;

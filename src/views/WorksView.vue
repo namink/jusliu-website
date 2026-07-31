@@ -87,7 +87,7 @@ useScrollNav(
             v-for="(tab, ti) in allTabs"
             :key="ti"
             @click="activeCategory = tab"
-            class="text-xs md:text-sm px-4 py-2 rounded-full border transition-all duration-300"
+            class="text-xs md:text-sm px-4 py-2 rounded-full border transition-all duration-200 active:scale-95"
             :class="activeCategory === tab
               ? 'bg-indigo-500/20 border-indigo-400/40 text-indigo-300'
               : 'bg-white/[0.02] border-white/[0.06] text-white/50 hover:border-white/20 hover:text-white/70'"

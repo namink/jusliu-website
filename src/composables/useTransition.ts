@@ -5,7 +5,8 @@ export function createTransition() {
     const htmlEl = el as HTMLElement
     gsap.set(htmlEl, {
       y: '100%',
-      opacity: 0
+      opacity: 0,
+      scale: 0.97
     })
   }
 
@@ -14,8 +15,9 @@ export function createTransition() {
     gsap.to(htmlEl, {
       y: '0%',
       opacity: 1,
-      duration: 0.8,
-      ease: 'power3.inOut',
+      scale: 1,
+      duration: 0.7,
+      ease: 'power4.out',
       onComplete: done
     })
   }
@@ -23,10 +25,11 @@ export function createTransition() {
   const onLeave = (el: Element, done: () => void) => {
     const htmlEl = el as HTMLElement
     gsap.to(htmlEl, {
-      y: '-100%',
+      y: '-80%',
       opacity: 0,
-      duration: 0.6,
-      ease: 'power3.in',
+      scale: 0.97,
+      duration: 0.5,
+      ease: 'power4.in',
       onComplete: done
     })
   }

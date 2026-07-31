@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, onMounted, computed } from 'vue'
+import { ref, onMounted } from 'vue'
 
 interface Skill {
   name: string
@@ -30,19 +30,18 @@ const tools = [
 
 const languageBasis = ['C++', 'C#', 'C']
 
-const activeCount = ref(0)
+const revealed = ref(false)
 
 onMounted(() => {
-  const interval = setInterval(() => {
-    if (activeCount.value < skills.length) {
-      activeCount.value++
-    } else {
-      clearInterval(interval)
-    }
-  }, 100)
+  setTimeout(() => revealed.value = true, 200)
 })
 
-const visibleSkills = computed(() => skills.slice(0, activeCount.value))
+const barStyle = (i: number) => ({
+  width: revealed.value ? `${skills[i].level}%` : '0%',
+  transitionDelay: `${i * 60}ms`,
+  transitionDuration: '1.2s',
+  transitionTimingFunction: 'cubic-bezier(0.34, 1.56, 0.64, 1)'
+})
 </script>
 
 <template>
@@ -50,15 +49,15 @@ const visibleSkills = computed(() => skills.slice(0, activeCount.value))
     <div class="space-y-5">
       <h3 class="text-xs font-mono tracking-[0.2em] text-indigo-400/70 uppercase">Core Skills</h3>
       <div class="space-y-3">
-        <div v-for="s in visibleSkills" :key="s.name" class="group">
+        <div v-for="(s, i) in skills" :key="s.name" class="group">
           <div class="flex justify-between items-baseline mb-1.5">
             <span class="text-sm text-white/70 group-hover:text-white transition-colors">{{ s.name }}</span>
             <span class="text-xs font-mono text-white/30">{{ s.level }}%</span>
           </div>
-          <div class="h-1 bg-white/[0.04] rounded-full overflow-hidden">
+          <div class="h-1.5 bg-white/[0.04] rounded-full overflow-hidden">
             <div
-              class="h-full bg-gradient-to-r from-indigo-500 to-indigo-400 rounded-full transition-all duration-1000 ease-out"
-              :style="{ width: `${s.level}%` }"
+              class="h-full bg-gradient-to-r from-indigo-500 to-indigo-400 rounded-full"
+              :style="barStyle(i)"
             />
           </div>
         </div>

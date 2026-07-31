@@ -47,54 +47,46 @@ const items: TimelineItem[] = [
     details: [
       '根据分镜搭建 UE 白盒场景',
       '灯光、雾效、后处理氛围塑造',
-      'Sequence 动画与 360 全景图输出'
+      'Sequence 动画与 360 全景序列帧图输出'
     ]
   }
 ]
 
-const visibleItems = ref<number[]>([])
+const visible = ref(false)
 
 onMounted(() => {
-  items.forEach((_, i) => {
-    setTimeout(() => visibleItems.value.push(i), i * 150)
-  })
+  setTimeout(() => visible.value = true, 300)
 })
 </script>
 
 <template>
-  <div class="relative">
-    <div class="absolute left-[7px] top-2 bottom-2 w-px bg-gradient-to-b from-indigo-400/60 via-white/10 to-transparent md:left-1/2 md:-translate-x-px" />
-
+  <div class="flex gap-4 overflow-x-auto pb-4 -mx-2 px-2">
     <div
       v-for="(item, i) in items"
       :key="i"
-      class="relative mb-8 md:mb-12 last:mb-0 transition-all duration-700"
+      class="min-w-[240px] md:min-w-[260px] rounded-xl border p-5 flex-shrink-0 transition-all duration-700"
       :class="[
-        visibleItems.includes(i) ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8',
-        i % 2 === 0 ? 'md:pr-[calc(50%+2rem)] md:text-right' : 'md:pl-[calc(50%+2rem)] md:text-left'
+        visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8',
+        i === 0
+          ? 'bg-indigo-500/[0.04] border-indigo-400/20'
+          : 'bg-white/[0.02] border-white/[0.06] hover:border-white/15'
       ]"
+      :style="{ transitionDelay: `${i * 100}ms` }"
     >
-      <div class="absolute left-0 top-2 w-3.5 h-3.5 rounded-full border-2 bg-[#0a0a1a] z-10"
-        :class="[
-          i % 2 === 0 ? 'md:left-1/2 md:-translate-x-1/2' : 'md:left-1/2 md:-translate-x-1/2',
-          'border-indigo-400 shadow-[0_0_8px_rgba(129,140,248,0.5)]'
-        ]"
-      />
-
-      <div class="pl-8 md:pl-0">
-        <span class="text-xs font-mono text-indigo-400/80 tracking-wider">{{ item.period }}</span>
-        <h4 class="text-base md:text-lg font-semibold text-white mt-1">{{ item.role }}</h4>
-        <p class="text-sm text-white/50 font-medium">{{ item.company }}</p>
-        <ul class="mt-2 space-y-1">
-          <li
-            v-for="(d, di) in item.details"
-            :key="di"
-            class="text-xs md:text-sm text-white/40"
-          >
-            {{ d }}
-          </li>
-        </ul>
-      </div>
+      <span class="text-[10px] md:text-xs font-mono tracking-widest text-indigo-400/70 uppercase">{{ item.period }}</span>
+      <h4 class="text-sm md:text-base font-semibold text-white mt-2">{{ item.role }}</h4>
+      <p class="text-xs md:text-sm text-white/40 mt-1 mb-3">{{ item.company }}</p>
+      <div class="w-8 h-px bg-gradient-to-r from-indigo-400/40 to-transparent mb-3" />
+      <ul class="space-y-1.5">
+        <li
+          v-for="(d, di) in item.details"
+          :key="di"
+          class="text-[11px] md:text-xs text-white/35 leading-relaxed flex items-start gap-1.5"
+        >
+          <span class="text-indigo-400/40 mt-0.5 text-[8px]">●</span>
+          {{ d }}
+        </li>
+      </ul>
     </div>
   </div>
 </template>
