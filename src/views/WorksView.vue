@@ -73,28 +73,32 @@ useScrollNav(
 </script>
 
 <template>
-  <section class="min-h-screen w-full flex flex-col items-center justify-center relative px-6 py-20 md:py-24">
-    <div class="w-full max-w-6xl mx-auto">
-      <div class="text-center mb-12 md:mb-16">
-        <p class="text-xs md:text-sm font-mono tracking-[0.3em] text-indigo-400 mb-4">PORTFOLIO</p>
-        <h2 class="text-3xl md:text-5xl font-bold text-white">作品集</h2>
-        <p class="text-sm md:text-base text-white/40 mt-4">滚轮切换分类 · 点击带 VIDEO 标识的卡片可直接播放演示</p>
-      </div>
+  <section class="min-h-screen w-full relative px-6 pb-20 md:pb-24">
+    <div class="sticky top-0 z-20 pt-6 pb-3 md:pt-8 md:pb-4 -mx-6 px-6 bg-[#0a0a1a]/80 backdrop-blur-md">
+      <div class="w-full max-w-6xl mx-auto">
+        <div class="text-center mb-5 md:mb-6">
+          <p class="text-xs md:text-sm font-mono tracking-[0.3em] text-indigo-400 mb-2">PORTFOLIO</p>
+          <h2 class="text-3xl md:text-5xl font-bold text-white">作品集</h2>
+          <p class="text-sm md:text-base text-white/40 mt-2">滚轮切换分类 · 点击带 VIDEO 标识的卡片可直接播放演示</p>
+        </div>
 
-      <div class="flex flex-wrap justify-center gap-2 md:gap-3 mb-10 md:mb-14">
-        <button
-          v-for="(tab, ti) in allTabs"
-          :key="ti"
-          @click="activeCategory = tab"
-          class="text-xs md:text-sm px-4 py-2 rounded-full border transition-all duration-300"
-          :class="activeCategory === tab
-            ? 'bg-indigo-500/20 border-indigo-400/40 text-indigo-300'
-            : 'bg-white/[0.02] border-white/[0.06] text-white/50 hover:border-white/20 hover:text-white/70'"
-        >
-          {{ tab || '全部' }}
-        </button>
+        <div class="flex flex-wrap justify-center gap-2 md:gap-3 pb-2">
+          <button
+            v-for="(tab, ti) in allTabs"
+            :key="ti"
+            @click="activeCategory = tab"
+            class="text-xs md:text-sm px-4 py-2 rounded-full border transition-all duration-300"
+            :class="activeCategory === tab
+              ? 'bg-indigo-500/20 border-indigo-400/40 text-indigo-300'
+              : 'bg-white/[0.02] border-white/[0.06] text-white/50 hover:border-white/20 hover:text-white/70'"
+          >
+            {{ tab || '全部' }}
+          </button>
+        </div>
       </div>
+    </div>
 
+    <div class="w-full max-w-6xl mx-auto mt-8 md:mt-10" :style="{ minHeight: '520px' }">
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-5">
         <WorkCard
           v-for="(work, i) in paginatedWorks"
@@ -106,7 +110,7 @@ useScrollNav(
         />
       </div>
 
-      <div v-if="totalPages > 1" class="flex items-center justify-center gap-1.5 mt-10 md:mt-14">
+      <div v-if="totalPages > 1" class="flex items-center justify-center gap-1.5 mt-10 md:mt-14 pb-8">
         <button
           @click="prevPage"
           :disabled="currentPage === 1"
