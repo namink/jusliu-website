@@ -12,73 +12,66 @@ const featured = computed(() =>
 
 const looped = computed(() => [...featured.value, ...featured.value])
 
-const scrollRef = ref<HTMLDivElement>()
-const hovered = ref(false)
+const trackRef = ref<HTMLDivElement>()
+const paused = ref(false)
 const dragging = ref(false)
-let raf = 0
-let dragStartX = 0
-let dragScrollStart = 0
-const SPEED = 0.35
-
-function tick() {
-  const el = scrollRef.value
-  if (!el) { raf = requestAnimationFrame(tick); return }
-  if (el.scrollWidth <= el.clientWidth + 10) { raf = requestAnimationFrame(tick); return }
-  if (!hovered.value && !dragging.value) {
-    el.scrollLeft += SPEED
-    if (el.scrollLeft >= el.scrollWidth / 2 + 5) {
-      el.scrollLeft -= el.scrollWidth / 2
-    }
-  }
-  raf = requestAnimationFrame(tick)
-}
+let startX = 0
+let startTx = 0
+let currentTx = 0
 
 function onDown(e: MouseEvent) {
   dragging.value = true
-  dragStartX = e.clientX
-  dragScrollStart = scrollRef.value?.scrollLeft ?? 0
-  if (scrollRef.value) scrollRef.value.style.cursor = 'grabbing'
+  paused.value = true
+  startX = e.clientX
+  startTx = currentTx
 }
 
 function onMove(e: MouseEvent) {
-  if (!dragging.value || !scrollRef.value) return
-  scrollRef.value.scrollLeft = dragScrollStart + (dragStartX - e.clientX)
+  if (!dragging.value || !trackRef.value) return
+  const delta = e.clientX - startX
+  const newTx = startTx + delta
+  currentTx = newTx
+  trackRef.value.style.transform = `translateX(${newTx}px)`
+  trackRef.value.style.animation = 'none'
 }
 
 function onUp() {
   dragging.value = false
-  if (scrollRef.value) scrollRef.value.style.cursor = 'grab'
+  paused.value = false
+  if (trackRef.value) {
+    const halfW = trackRef.value.scrollWidth / 2
+    currentTx = currentTx % halfW
+    if (currentTx > 0) currentTx -= halfW
+  }
 }
+
+function onEnter() { if (!dragging.value) paused.value = true }
+function onLeave() { if (!dragging.value) paused.value = false }
 
 onMounted(() => {
   window.addEventListener('mousemove', onMove)
   window.addEventListener('mouseup', onUp)
-  raf = requestAnimationFrame(tick)
 })
 
 onUnmounted(() => {
-  cancelAnimationFrame(raf)
   window.removeEventListener('mousemove', onMove)
   window.removeEventListener('mouseup', onUp)
 })
 </script>
 
 <template>
-  <div
-    class="relative max-w-5xl mx-auto"
-    @mouseenter="hovered = true"
-    @mouseleave="hovered = false"
-  >
+  <div class="relative max-w-5xl mx-auto overflow-hidden" @mouseenter="onEnter" @mouseleave="onLeave">
     <div
-      ref="scrollRef"
-      class="flex gap-3 overflow-x-auto scrollbar-none"
-      style="cursor:grab"
+      ref="trackRef"
+      class="flex gap-3 carousel-track animate-scroll"
+      :class="{ '[animation-play-state:paused]': paused }"
       @mousedown.prevent="onDown"
+      style="cursor:grab"
     >
       <div
         v-for="(w, i) in looped"
         :key="`${w.id}-${i}`"
-        class="flex-shrink-0 w-[200px] md:w-[220px] rounded-2xl overflow-hidden border border-white/[0.06] bg-white/[0.02] transition-all duration-300 hover:border-white/[0.12]"
+        class="flex-shrink-0 w-[200px] md:w-[220px] rounded-2xl overflow-hidden border border-white/[0.06] bg-white/[0.02] transition-all duration-300 hover:border-white/[0.12] select-none"
       >
         <div class="aspect-[16/9] overflow-hidden">
           <img v-if="w.thumbnail" :src="w.thumbnail" :alt="w.title" class="w-full h-full object-cover pointer-events-none" loading="lazy" />
@@ -96,6 +89,16 @@ onUnmounted(() => {
 </template>
 
 <style scoped>
-.scrollbar-none::-webkit-scrollbar { display: none; }
-.scrollbar-none { -ms-overflow-style: none; scrollbar-width: none; }
+@keyframes carouselScroll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+.animate-scroll {
+  animation: carouselScroll 60s linear infinite;
+}
+
+.carousel-track {
+  will-change: transform;
+}
 </style>
