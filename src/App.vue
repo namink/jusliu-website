@@ -10,11 +10,11 @@ provide('transitionHooks', createTransition())
 const particleRef = ref<InstanceType<typeof ParticleBg>>()
 
 function onParticlePause() {
-  particleRef.value?.pause()
+  particleRef.value?.setPaused(true)
 }
 
 function onParticleResume() {
-  particleRef.value?.resume()
+  particleRef.value?.setPaused(false)
 }
 </script>
 

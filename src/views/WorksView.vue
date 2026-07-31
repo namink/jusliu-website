@@ -5,8 +5,6 @@ import { works, categories } from '@/data/works'
 import WorkCard from '@/components/WorkCard.vue'
 import { useScrollNav } from '@/composables/useScrollNav'
 
-useScrollNav()
-
 const emit = defineEmits<{
   particlePause: []
   particleResume: []
@@ -52,6 +50,26 @@ function prevPage() {
 function nextPage() {
   if (currentPage.value < totalPages.value) goPage(currentPage.value + 1)
 }
+
+const allTabs = ['', ...categories]
+const tabIdx = computed(() => allTabs.indexOf(activeCategory.value))
+
+useScrollNav(
+  () => {
+    if (tabIdx.value < allTabs.length - 1) {
+      activeCategory.value = allTabs[tabIdx.value + 1]
+      return true
+    }
+    return false
+  },
+  () => {
+    if (tabIdx.value > 0) {
+      activeCategory.value = allTabs[tabIdx.value - 1]
+      return true
+    }
+    return false
+  }
+)
 </script>
 
 <template>
@@ -60,29 +78,20 @@ function nextPage() {
       <div class="text-center mb-12 md:mb-16">
         <p class="text-xs md:text-sm font-mono tracking-[0.3em] text-indigo-400 mb-4">PORTFOLIO</p>
         <h2 class="text-3xl md:text-5xl font-bold text-white">作品集</h2>
-        <p class="text-sm md:text-base text-white/40 mt-4">点击带 VIDEO 标识的卡片可直接播放演示</p>
+        <p class="text-sm md:text-base text-white/40 mt-4">滚轮切换分类 · 点击带 VIDEO 标识的卡片可直接播放演示</p>
       </div>
 
       <div class="flex flex-wrap justify-center gap-2 md:gap-3 mb-10 md:mb-14">
         <button
-          @click="activeCategory = ''"
+          v-for="(tab, ti) in allTabs"
+          :key="ti"
+          @click="activeCategory = tab"
           class="text-xs md:text-sm px-4 py-2 rounded-full border transition-all duration-300"
-          :class="activeCategory === ''
+          :class="activeCategory === tab
             ? 'bg-indigo-500/20 border-indigo-400/40 text-indigo-300'
             : 'bg-white/[0.02] border-white/[0.06] text-white/50 hover:border-white/20 hover:text-white/70'"
         >
-          全部
-        </button>
-        <button
-          v-for="cat in categories"
-          :key="cat"
-          @click="activeCategory = cat"
-          class="text-xs md:text-sm px-4 py-2 rounded-full border transition-all duration-300"
-          :class="activeCategory === cat
-            ? 'bg-indigo-500/20 border-indigo-400/40 text-indigo-300'
-            : 'bg-white/[0.02] border-white/[0.06] text-white/50 hover:border-white/20 hover:text-white/70'"
-        >
-          {{ cat }}
+          {{ tab || '全部' }}
         </button>
       </div>
 

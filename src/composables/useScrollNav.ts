@@ -7,7 +7,7 @@ function getIndex(path: string): number {
   return Math.max(0, routes.indexOf(path))
 }
 
-export function useScrollNav() {
+export function useScrollNav(onNext?: () => boolean, onPrev?: () => boolean) {
   const router = useRouter()
   const route = useRoute()
   let ticking = false
@@ -15,7 +15,7 @@ export function useScrollNav() {
   function onWheel(e: WheelEvent) {
     if (ticking) return
     ticking = true
-    setTimeout(() => ticking = false, 1000)
+    setTimeout(() => ticking = false, 800)
 
     const { scrollTop, scrollHeight, clientHeight } = document.documentElement
     const atTop = scrollTop <= 5
@@ -23,12 +23,24 @@ export function useScrollNav() {
 
     const currentIdx = getIndex(route.path)
 
-    if (e.deltaY > 0 && atBottom && currentIdx < routes.length - 1) {
-      e.preventDefault()
-      router.push(routes[currentIdx + 1])
-    } else if (e.deltaY < 0 && atTop && currentIdx > 0) {
-      e.preventDefault()
-      router.push(routes[currentIdx - 1])
+    if (e.deltaY > 0 && atBottom) {
+      if (onNext?.()) {
+        e.preventDefault()
+        return
+      }
+      if (currentIdx < routes.length - 1) {
+        e.preventDefault()
+        router.push(routes[currentIdx + 1])
+      }
+    } else if (e.deltaY < 0 && atTop) {
+      if (onPrev?.()) {
+        e.preventDefault()
+        return
+      }
+      if (currentIdx > 0) {
+        e.preventDefault()
+        router.push(routes[currentIdx - 1])
+      }
     }
   }
 

@@ -3,117 +3,65 @@ import { onMounted, onUnmounted, ref } from 'vue'
 import * as THREE from 'three'
 
 const canvasRef = ref<HTMLCanvasElement>()
+const paused = ref(false)
 let animationId = 0
-let renderer: THREE.WebGLRenderer | null = null
-let scene: THREE.Scene | null = null
-let camera: THREE.PerspectiveCamera | null = null
-let geometry: THREE.BufferGeometry | null = null
-let material: THREE.PointsMaterial | null = null
-let points: THREE.Points | null = null
-let mouse: { x: number; y: number; targetX: number; targetY: number } = { x: 0, y: 0, targetX: 0, targetY: 0 }
-let speeds: Float32Array | null = null
-let cleanup: (() => void) | null = null
-let isAnimating = false
 
-const PARTICLE_COUNT = 2000
+const COLORS = ['#6366f1', '#8b5cf6', '#06b6d4']
+const PARTICLE_COUNT = 1500
 
-function createGlowTexture(): THREE.Texture {
-  const size = 64
-  const canvas2 = document.createElement('canvas')
-  canvas2.width = size
-  canvas2.height = size
-  const ctx = canvas2.getContext('2d')!
-  const gradient = ctx.createRadialGradient(size / 2, size / 2, 0, size / 2, size / 2, size / 2)
-  gradient.addColorStop(0, 'rgba(255,255,255,1)')
-  gradient.addColorStop(0.1, 'rgba(255,255,255,0.8)')
-  gradient.addColorStop(0.4, 'rgba(99,102,241,0.3)')
-  gradient.addColorStop(1, 'rgba(99,102,241,0)')
-  ctx.fillStyle = gradient
-  ctx.fillRect(0, 0, size, size)
-  return new THREE.CanvasTexture(canvas2)
-}
-
-function tick() {
-  if (!isAnimating || !geometry || !material || !points || !renderer || !scene || !camera) return
-  animationId = requestAnimationFrame(tick)
-
-  mouse.x += (mouse.targetX - mouse.x) * 0.05
-  mouse.y += (mouse.targetY - mouse.y) * 0.05
-
-  points.rotation.x += 0.0003
-  points.rotation.y += 0.0005
-  points.rotation.x += mouse.y * 0.0002
-  points.rotation.y += mouse.x * 0.0002
-
-  const posArray = geometry.attributes.position.array as Float32Array
-  for (let i = 0; i < PARTICLE_COUNT; i++) {
-    posArray[i * 3 + 1] += speeds![i]
-    if (posArray[i * 3 + 1] > 40) posArray[i * 3 + 1] = -40
-    if (posArray[i * 3 + 1] < -40) posArray[i * 3 + 1] = 40
-  }
-  geometry.attributes.position.needsUpdate = true
-
-  material.color.set('#818cf8')
-  material.opacity = 0.7
-
-  renderer.render(scene, camera)
-}
-
-function resume() {
-  if (isAnimating) return
-  isAnimating = true
-  tick()
-}
-
-function pause() {
-  isAnimating = false
-  if (animationId) {
-    cancelAnimationFrame(animationId)
-    animationId = 0
-  }
-}
-
-defineExpose({ resume, pause })
+defineExpose({
+  setPaused(v: boolean) { paused.value = v }
+})
 
 onMounted(() => {
   if (!canvasRef.value) return
   const canvas = canvasRef.value
 
-  scene = new THREE.Scene()
-  camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000)
-  camera.position.z = 50
+  const scene = new THREE.Scene()
+  const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000)
+  camera.position.z = 55
 
-  renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true })
+  const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true })
   renderer.setSize(window.innerWidth, window.innerHeight)
   renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
 
   const positions = new Float32Array(PARTICLE_COUNT * 3)
-  speeds = new Float32Array(PARTICLE_COUNT)
+  const colors = new Float32Array(PARTICLE_COUNT * 3)
+  const sizes = new Float32Array(PARTICLE_COUNT)
+  const speeds = new Float32Array(PARTICLE_COUNT)
 
   for (let i = 0; i < PARTICLE_COUNT; i++) {
-    positions[i * 3] = (Math.random() - 0.5) * 120
-    positions[i * 3 + 1] = (Math.random() - 0.5) * 80
-    positions[i * 3 + 2] = (Math.random() - 0.5) * 60
-    speeds[i] = 0.002 + Math.random() * 0.008
+    positions[i * 3] = (Math.random() - 0.5) * 100
+    positions[i * 3 + 1] = (Math.random() - 0.5) * 70
+    positions[i * 3 + 2] = (Math.random() - 0.5) * 50
+    const c = new THREE.Color(COLORS[Math.floor(Math.random() * COLORS.length)])
+    colors[i * 3] = c.r
+    colors[i * 3 + 1] = c.g
+    colors[i * 3 + 2] = c.b
+    sizes[i] = 0.1 + Math.random() * 0.35
+    speeds[i] = 0.003 + Math.random() * 0.012
   }
 
-  geometry = new THREE.BufferGeometry()
+  const geometry = new THREE.BufferGeometry()
   geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3))
+  geometry.setAttribute('color', new THREE.BufferAttribute(colors, 3))
+  geometry.setAttribute('size', new THREE.BufferAttribute(sizes, 1))
 
-  material = new THREE.PointsMaterial({
-    size: 0.25,
-    map: createGlowTexture(),
+  const sprite = createSpriteTexture()
+  const material = new THREE.PointsMaterial({
+    size: 0.3,
+    map: sprite,
     blending: THREE.AdditiveBlending,
     depthWrite: false,
-    color: new THREE.Color('#6366f1'),
+    vertexColors: true,
     transparent: true,
-    opacity: 0.8
+    opacity: 0.85
   })
 
-  points = new THREE.Points(geometry, material)
+  const points = new THREE.Points(geometry, material)
   scene.add(points)
 
-  mouse = { x: 0, y: 0, targetX: 0, targetY: 0 }
+  const mouse = { x: 0, y: 0, targetX: 0, targetY: 0 }
   const onMouseMove = (e: MouseEvent) => {
     mouse.targetX = (e.clientX / window.innerWidth) * 2 - 1
     mouse.targetY = -(e.clientY / window.innerHeight) * 2 + 1
@@ -121,28 +69,62 @@ onMounted(() => {
   window.addEventListener('mousemove', onMouseMove)
 
   const onResize = () => {
-    if (!camera || !renderer) return
     camera.aspect = window.innerWidth / window.innerHeight
     camera.updateProjectionMatrix()
     renderer.setSize(window.innerWidth, window.innerHeight)
   }
   window.addEventListener('resize', onResize)
 
-  cleanup = () => {
-    window.removeEventListener('mousemove', onMouseMove)
-    window.removeEventListener('resize', onResize)
+  function createSpriteTexture(): THREE.Texture {
+    const size = 64
+    const c = document.createElement('canvas')
+    c.width = size
+    c.height = size
+    const ctx = c.getContext('2d')!
+    const g = ctx.createRadialGradient(size / 2, size / 2, 0, size / 2, size / 2, size / 2)
+    g.addColorStop(0, 'rgba(255,255,255,1)')
+    g.addColorStop(0.05, 'rgba(255,255,255,0.9)')
+    g.addColorStop(0.3, 'rgba(129,140,248,0.4)')
+    g.addColorStop(1, 'rgba(129,140,248,0)')
+    ctx.fillStyle = g
+    ctx.fillRect(0, 0, size, size)
+    return new THREE.CanvasTexture(c)
   }
 
-  isAnimating = true
-  tick()
+  function animate() {
+    animationId = requestAnimationFrame(animate)
+
+    if (paused.value) return
+
+    mouse.x += (mouse.targetX - mouse.x) * 0.04
+    mouse.y += (mouse.targetY - mouse.y) * 0.04
+
+    points.rotation.x += 0.0002
+    points.rotation.y += 0.0004
+    points.rotation.x += mouse.y * 0.00015
+    points.rotation.y += mouse.x * 0.00015
+
+    const posArray = geometry.attributes.position.array as Float32Array
+    for (let i = 0; i < PARTICLE_COUNT; i++) {
+      posArray[i * 3 + 1] += speeds[i]
+      if (posArray[i * 3 + 1] > 35) posArray[i * 3 + 1] = -35
+      if (posArray[i * 3 + 1] < -35) posArray[i * 3 + 1] = 35
+      posArray[i * 3] += mouse.x * speeds[i] * 0.3
+      posArray[i * 3 + 2] += mouse.y * speeds[i] * 0.3
+    }
+    geometry.attributes.position.needsUpdate = true
+
+    renderer.render(scene, camera)
+  }
+
+  animate()
 })
 
 onUnmounted(() => {
-  pause()
-  cleanup?.()
+  cancelAnimationFrame(animationId)
 })
 </script>
 
 <template>
-  <canvas ref="canvasRef" class="fixed inset-0 z-0 pointer-events-none" />
+  <canvas ref="canvasRef" class="fixed inset-0 z-0 pointer-events-none" style="mix-blend-mode: screen;" />
 </template>
