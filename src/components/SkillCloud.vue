@@ -16,7 +16,7 @@
 .cloud-slide-1 { animation: cloud1 16s ease-in-out infinite alternate; }
 .cloud-slide-2 { animation: cloud2 18s ease-in-out infinite alternate; }
 .cloud-slide-3 { animation: cloud3 20s ease-in-out infinite alternate; }
-@keyframes cloud1 { from { transform: rotate(-8deg) translateX(-4%); } to { transform: rotate(-8deg) translateX(4%); } }
-@keyframes cloud2 { from { transform: rotate(-8deg) translateX(4%); } to { transform: rotate(-8deg) translateX(-4%); } }
-@keyframes cloud3 { from { transform: rotate(-8deg) translateX(-5%); } to { transform: rotate(-8deg) translateX(5%); } }
+@keyframes cloud1 { from { transform: rotate(-8deg) translateX(-10%); } to { transform: rotate(-8deg) translateX(10%); } }
+@keyframes cloud2 { from { transform: rotate(-8deg) translateX(10%); } to { transform: rotate(-8deg) translateX(-10%); } }
+@keyframes cloud3 { from { transform: rotate(-8deg) translateX(-12%); } to { transform: rotate(-8deg) translateX(12%); } }
 </style>

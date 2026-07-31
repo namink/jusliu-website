@@ -71,7 +71,7 @@ onUnmounted(() => {
       <div
         v-for="(w, i) in looped"
         :key="`${w.id}-${i}`"
-        class="flex-shrink-0 w-[200px] md:w-[220px] rounded-2xl overflow-hidden border border-white/[0.06] bg-white/[0.02] transition-all duration-300 hover:border-white/[0.12] select-none"
+        class="flex-shrink-0 w-[300px] md:w-[330px] rounded-2xl overflow-hidden border border-white/[0.06] bg-white/[0.02] transition-all duration-300 hover:border-white/[0.12] select-none"
       >
         <div class="aspect-[16/9] overflow-hidden">
           <img v-if="w.thumbnail" :src="w.thumbnail" :alt="w.title" class="w-full h-full object-cover pointer-events-none" loading="lazy" />
