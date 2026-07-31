@@ -42,7 +42,7 @@ onMounted(() => {
   for (let i = 0; i < PARTICLE_COUNT; i++) {
     positions[i * 3] = (Math.random() - 0.5) * 130
     positions[i * 3 + 1] = (Math.random() - 0.5) * 84
-    positions[i * 3 + 2] = (Math.random() - 0.5) * 40
+    positions[i * 3 + 2] = (Math.random() - 0.5) * 130
     const c = palette[Math.floor(Math.random() * palette.length)]
     colorsArr[i * 3] = c.r
     colorsArr[i * 3 + 1] = c.g
@@ -120,6 +120,8 @@ onMounted(() => {
       }
     }
     geometry.attributes.position.needsUpdate = true
+
+    points.rotation.y += 0.0003 + mouse.x * 0.0001
 
     renderer.render(scene, camera)
   }
