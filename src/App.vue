@@ -47,7 +47,7 @@ function closePreview() { showPreview.value = false }
     </div>
 
     <div class="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-0 pointer-events-none select-none">
-      <span class="block text-[12vw] font-black text-white/[0.04] leading-none tracking-[0.25em] brand-breathe">JUSLIU</span>
+      <span class="block text-[12vw] font-black leading-none tracking-[0.35em] opacity-80" style="background: linear-gradient(135deg, #a5b4fc 0%, #c4b5fd 30%, #e0e7ff 50%, #c4b5fd 70%, #a5b4fc 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; text-shadow: 0 0 80px rgba(200,162,255,0.06);">JUSLIU</span>
     </div>
 
     <NavDots />
