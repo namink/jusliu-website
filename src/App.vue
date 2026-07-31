@@ -41,13 +41,16 @@ function closePreview() { showPreview.value = false }
     <div class="fixed bottom-[20%] left-[5%] right-[5%] h-px z-0 pointer-events-none bg-gradient-to-r from-transparent via-white/[0.02] to-transparent" />
 
     <div class="fixed inset-0 z-0 pointer-events-none select-none overflow-hidden">
-      <span class="absolute top-[20%] -right-10 text-[4vw] font-bold text-white/[0.04] tracking-[0.5em] whitespace-nowrap strip-slide-1" style="transform: rotate(-10deg);">TECHNICAL ARTIST</span>
-      <span class="absolute top-[48%] -left-10 text-[4vw] font-bold text-white/[0.03] tracking-[0.5em] whitespace-nowrap strip-slide-2" style="transform: rotate(-6deg);">TECHNICAL DIRECTOR</span>
-      <span class="absolute top-[72%] -right-20 text-[3vw] font-bold text-white/[0.02] tracking-[0.8em] whitespace-nowrap strip-slide-3" style="transform: rotate(-14deg);">● ● ● ● ● ● ● ● ● ● ●</span>
+      <div class="absolute top-[8%] -left-[10%] -right-[10%] h-0 flex items-center" style="transform: rotate(-8deg);">
+        <span class="text-[3.5vw] font-bold text-white/[0.035] tracking-[0.6em] whitespace-nowrap strip-slide-1">TECHNICAL ARTIST&nbsp;&nbsp;&nbsp;TECHNICAL ARTIST&nbsp;&nbsp;&nbsp;TECHNICAL ARTIST</span>
+      </div>
+      <div class="absolute top-[88%] -left-[10%] -right-[10%] h-0 flex items-center" style="transform: rotate(-6deg);">
+        <span class="text-[3.5vw] font-bold text-white/[0.03] tracking-[0.6em] whitespace-nowrap strip-slide-2">TECHNICAL DIRECTOR&nbsp;&nbsp;&nbsp;TECHNICAL DIRECTOR&nbsp;&nbsp;&nbsp;TECHNICAL DIRECTOR</span>
+      </div>
     </div>
 
     <div class="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-0 pointer-events-none select-none">
-      <div class="flex items-center gap-1 md:gap-2 text-[12vw] font-black leading-none tracking-[0.15em]">
+      <div class="flex items-center gap-1 md:gap-2 text-[12vw] font-black leading-none tracking-[0.15em]" style="font-family: 'Cinzel', serif;">
         <span style="color: #a5b4fc; opacity: 0.08;">J</span>
         <span style="color: #c4b5fd; opacity: 0.10; transform: translateY(-6px);">U</span>
         <span style="color: #a5b4fc; opacity: 0.08;">S</span>
@@ -98,25 +101,18 @@ function closePreview() { showPreview.value = false }
 }
 
 .strip-slide-1 {
-  animation: slideStrip1 14s ease-in-out infinite alternate;
+  animation: slideStrip1 16s ease-in-out infinite alternate;
 }
 .strip-slide-2 {
-  animation: slideStrip2 16s ease-in-out infinite alternate;
-}
-.strip-slide-3 {
-  animation: slideStrip3 20s ease-in-out infinite alternate;
+  animation: slideStrip2 18s ease-in-out infinite alternate;
 }
 
 @keyframes slideStrip1 {
-  from { transform: rotate(-10deg) translateX(-8%); }
-  to   { transform: rotate(-10deg) translateX(8%); }
+  from { transform: rotate(-8deg) translateX(-6%); }
+  to   { transform: rotate(-8deg) translateX(6%); }
 }
 @keyframes slideStrip2 {
-  from { transform: rotate(-6deg) translateX(8%); }
-  to   { transform: rotate(-6deg) translateX(-8%); }
-}
-@keyframes slideStrip3 {
-  from { transform: rotate(-14deg) translateX(-12%); }
-  to   { transform: rotate(-14deg) translateX(12%); }
+  from { transform: rotate(-6deg) translateX(6%); }
+  to   { transform: rotate(-6deg) translateX(-6%); }
 }
 </style>

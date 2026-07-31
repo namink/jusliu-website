@@ -5,6 +5,7 @@ import { useScrollNav } from '@/composables/useScrollNav'
 import { useVideoPreload } from '@/composables/useVideoPreload'
 import { categories } from '@/data/works'
 import FeaturedCarousel from '@/components/FeaturedCarousel.vue'
+import SkillCloud from '@/components/SkillCloud.vue'
 
 const router = useRouter()
 
@@ -41,9 +42,13 @@ function goTo(path: string) {
       class="text-center max-w-5xl mx-auto transition-all duration-1000 ease-out"
       :class="visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'"
     >
-      <p class="text-[11px] font-mono tracking-[0.3em] text-white/15 mb-10">since 2022</p>
+      <p class="text-[11px] font-mono tracking-[0.3em] text-white/15 mb-6">since 2022</p>
 
-      <FeaturedCarousel />
+      <SkillCloud />
+
+      <div class="my-8">
+        <FeaturedCarousel />
+      </div>
 
       <div class="mb-10 mt-10">
         <div ref="scrollRef" class="flex gap-2 md:gap-3 overflow-x-auto snap-x snap-mandatory scrollbar-none mx-auto max-w-lg md:max-w-2xl"
