@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, computed } from 'vue'
+import { ref, computed, onMounted, onUnmounted } from 'vue'
 import { works } from '@/data/works'
 import { useDragScroll } from '@/composables/useDragScroll'
 
@@ -13,22 +13,40 @@ const featured = computed(() =>
 
 const current = ref(0)
 const scrollRef = ref<HTMLDivElement>()
+const cardW = 212
+const hovered = ref(false)
+let autoTimer = 0
 
-useDragScroll(scrollRef, 0.5)
+useDragScroll(scrollRef)
 
-function setCurrent(i: number) {
-  current.value = i
+function startAuto() {
+  autoTimer = window.setInterval(() => {
+    if (hovered.value) return
+    const el = scrollRef.value
+    if (!el) return
+    const max = el.scrollWidth - el.clientWidth
+    if (el.scrollLeft >= max - 2) {
+      el.scrollTo({ left: 0, behavior: 'smooth' })
+      current.value = 0
+      return
+    }
+    current.value = (current.value + 1) % featured.value.length
+    el.scrollTo({ left: current.value * cardW, behavior: 'smooth' })
+  }, 2000)
 }
+
+onMounted(() => startAuto())
+onUnmounted(() => clearInterval(autoTimer))
 </script>
 
 <template>
-  <div class="relative max-w-5xl mx-auto">
+  <div class="relative max-w-5xl mx-auto" @mouseenter="hovered = true" @mouseleave="hovered = false">
     <div ref="scrollRef" class="flex gap-3 overflow-x-auto snap-x snap-mandatory scrollbar-none scroll-smooth" style="cursor:grab">
       <div
         v-for="(w, i) in featured"
         :key="w.id"
         class="flex-shrink-0 w-[200px] md:w-[220px] snap-center rounded-2xl overflow-hidden border border-white/[0.06] bg-white/[0.02] transition-all duration-300 hover:border-white/[0.12]"
-        @click="setCurrent(i)"
+        @click="current = i"
       >
         <div class="aspect-[16/9] overflow-hidden">
           <img v-if="w.thumbnail" :src="w.thumbnail" :alt="w.title" class="w-full h-full object-cover" loading="lazy" />

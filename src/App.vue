@@ -37,13 +37,21 @@ function closePreview() { showPreview.value = false }
 
     <div class="fixed top-0 left-0 right-0 h-72 z-0 pointer-events-none opacity-40" style="background: radial-gradient(ellipse at 50% 0%, rgba(136,168,255,0.08) 0%, transparent 70%);" />
 
+    <div class="fixed top-[15%] left-[5%] right-[5%] h-px z-0 pointer-events-none bg-gradient-to-r from-transparent via-white/[0.03] to-transparent" />
+    <div class="fixed bottom-[20%] left-[5%] right-[5%] h-px z-0 pointer-events-none bg-gradient-to-r from-transparent via-white/[0.02] to-transparent" />
+
     <div class="fixed top-6 left-8 z-0 pointer-events-none select-none">
       <p class="text-[10px] font-mono tracking-[0.3em] text-indigo-400/25 leading-relaxed">TECHNICAL ARTIST</p>
       <p class="text-[10px] font-mono tracking-[0.3em] text-indigo-400/25 leading-relaxed">TECHNICAL DIRECTOR</p>
     </div>
 
+    <div class="fixed right-8 top-1/2 -translate-y-1/2 z-0 pointer-events-none select-none flex gap-6">
+      <span class="block text-[2.5vw] font-bold text-white/[0.04] leading-[0.85] float-v" style="writing-mode: vertical-rl;">TECHNICAL ARTIST</span>
+      <span class="block text-[2.5vw] font-bold text-white/[0.03] leading-[0.85] float-v-rev" style="writing-mode: vertical-rl;">TECHNICAL DIRECTOR</span>
+    </div>
+
     <div class="fixed bottom-24 left-1/2 -translate-x-1/2 z-0 pointer-events-none select-none">
-      <span class="block text-[10vw] font-black text-white/[0.05] leading-none tracking-[0.25em] brand-breathe">JUSLIU</span>
+      <span class="block text-[10vw] font-black text-white/[0.08] leading-none tracking-[0.25em] brand-breathe">JUSLIU</span>
     </div>
 
     <NavDots />
@@ -79,10 +87,20 @@ function closePreview() { showPreview.value = false }
 
 <style>
 .brand-breathe {
-  animation: brandBreathe 10s ease-in-out infinite;
+  animation: brandBreathe 8s ease-in-out infinite;
+}
+.float-v {
+  animation: floatUp 7s ease-in-out infinite;
+}
+.float-v-rev {
+  animation: floatUp 9s ease-in-out infinite reverse;
 }
 @keyframes brandBreathe {
-  0%, 100% { opacity: 0.03; }
-  50% { opacity: 0.07; }
+  0%, 100% { opacity: 0.06; }
+  50% { opacity: 0.14; }
+}
+@keyframes floatUp {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
 }
 </style>
