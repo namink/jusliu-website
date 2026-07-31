@@ -50,12 +50,12 @@ function goTo(path: string) {
       </div>
 
       <div class="mb-10 mt-10">
-        <div ref="scrollRef" class="flex gap-2 md:gap-3 overflow-x-auto snap-x snap-mandatory scrollbar-none mx-auto max-w-lg md:max-w-2xl"
+        <div ref="scrollRef" class="flex gap-2 md:gap-3 overflow-x-auto snap-x snap-mandatory scrollbar-none mx-auto"
           @wheel.prevent="scrollRef && (scrollRef.scrollLeft += $event.deltaY)">
           <span
             v-for="(pill, i) in allPills"
             :key="pill.label"
-            class="skill-pill px-3.5 py-1.5 md:px-4 md:py-2 text-xs md:text-sm rounded-full border backdrop-blur-sm transition-all duration-300 cursor-pointer flex-shrink-0 snap-start whitespace-nowrap"
+            class="px-3.5 py-1.5 md:px-4 md:py-2 text-xs md:text-sm rounded-full border backdrop-blur-sm transition-all duration-300 cursor-pointer flex-shrink-0 snap-start whitespace-nowrap"
             :class="[
               pills.includes(i) ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-3',
               i === pills.length - 1 ? 'bg-indigo-500/10 border-indigo-400/25 text-indigo-300 hover:bg-indigo-500/20' : 'bg-white/[0.02] border-white/[0.06] text-white/45 hover:text-white/70 hover:border-white/15'

@@ -17,12 +17,43 @@ const nezhaIdx = computed(() => {
   return idx >= 0 ? idx : 0
 })
 
-const animDelay = computed(() => `-${30 * nezhaIdx.value / (featured.value.length || 1)}s`)
-
 const trackRef = ref<HTMLDivElement>()
 const paused = ref(false)
 const dragging = ref(false)
 let startX = 0, startTx = 0, currentTx = 0
+
+const showAnim = ref(false)
+
+onMounted(() => {
+  setTimeout(() => {
+    const el = trackRef.value
+    if (!el) return
+    const cardW = el.firstElementChild?.clientWidth ?? 300
+    const gapW = 16
+    const parentW = el.parentElement?.clientWidth ?? 800
+    const center = parentW / 2
+    const idx = nezhaIdx.value < 12 ? nezhaIdx.value : 0
+    const target = cardW * idx + gapW * idx + cardW / 2
+    // Temporarily disable animation, snap to position
+    el.style.animation = 'none'
+    el.style.transform = `translateX(${-(target - center)}px)`
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        el.style.transform = ''
+        el.style.animation = ''
+        showAnim.value = true
+      })
+    })
+  }, 200)
+
+  window.addEventListener('mousemove', onMove)
+  window.addEventListener('mouseup', onUp)
+})
+
+onUnmounted(() => {
+  window.removeEventListener('mousemove', onMove)
+  window.removeEventListener('mouseup', onUp)
+})
 
 function onDown(e: MouseEvent) {
   dragging.value = true; paused.value = true
@@ -43,21 +74,31 @@ function onUp() {
 }
 function onEnter() { if (!dragging.value) paused.value = true }
 function onLeave() { if (!dragging.value) paused.value = false }
-
-onMounted(() => { window.addEventListener('mousemove', onMove); window.addEventListener('mouseup', onUp) })
-onUnmounted(() => { window.removeEventListener('mousemove', onMove); window.removeEventListener('mouseup', onUp) })
 </script>
 
 <template>
   <div class="relative w-full" @mouseenter="onEnter" @mouseleave="onLeave">
-    <div ref="trackRef" class="flex gap-4 carousel-track animate-scroll" :class="{ '[animation-play-state:paused]': paused }" :style="{ animationDelay: animDelay }" @mousedown.prevent="onDown" style="cursor:grab">
-      <div v-for="(w, i) in looped" :key="`${w.id}-${i}`" class="flex-shrink-0 w-[42vw] md:w-[38vw] rounded-2xl overflow-hidden border border-white/[0.06] bg-white/[0.02] transition-all duration-300 hover:border-white/[0.12] select-none">
-        <div class="aspect-[16/9] overflow-hidden">
+    <div
+      ref="trackRef"
+      class="flex gap-4 carousel-track"
+      :class="{ 'animate-scroll': showAnim, '[animation-play-state:paused]': paused && showAnim }"
+      @mousedown.prevent="onDown"
+      style="cursor:grab"
+    >
+      <div
+        v-for="(w, i) in looped"
+        :key="`${w.id}-${i}`"
+        class="film-card flex-shrink-0 w-[42vw] md:w-[38vw] rounded-2xl overflow-hidden border-t-[3px] border-b-[3px] bg-white/[0.02] transition-all duration-300 hover:border-indigo-400/30 select-none relative shadow-[inset_0_2px_6px_rgba(0,0,0,0.15)]"
+        :class="i === 0 || i === looped.length / 2 ? 'border-indigo-400/20' : 'border-white/[0.06]'"
+      >
+        <div class="absolute top-0 left-0 right-0 h-[6px] z-10" style="background: repeating-linear-gradient(90deg, transparent 0, transparent 6px, #0f0f1a 6px, #0f0f1a 11px);" />
+        <div class="aspect-[16/9] overflow-hidden mx-[6px]">
           <img v-if="w.thumbnail" :src="w.thumbnail" :alt="w.title" class="w-full h-full object-cover pointer-events-none" loading="lazy" />
           <div v-else class="w-full h-full flex items-center justify-center bg-gradient-to-br from-[#0f0f2e] to-[#13133a]">
             <svg class="w-6 h-6 text-white/10" fill="none" stroke="currentColor" stroke-width="1" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
           </div>
         </div>
+        <div class="absolute bottom-0 left-0 right-0 h-[6px] z-10" style="background: repeating-linear-gradient(90deg, transparent 0, transparent 6px, #0f0f1a 6px, #0f0f1a 11px);" />
         <div class="p-3 md:p-4">
           <span class="text-[9px] md:text-[10px] font-mono tracking-wider text-indigo-400/70 uppercase">{{ w.category }}</span>
           <h4 class="text-xs md:text-base font-medium text-white mt-1.5 leading-tight line-clamp-1">{{ w.title }}</h4>
