@@ -100,15 +100,17 @@ onUnmounted(() => {
         <div
           v-for="(w, i) in looped"
           :key="`${w.id}-${i}`"
-          class="film-frame flex-shrink-0 w-[42vw] md:w-[38vw] rounded-lg overflow-hidden bg-[#0f0f1a]/40 transition-all duration-300 hover:bg-[#0f0f1a]/60 hover:ring-1 hover:ring-indigo-400/10 select-none border-x border-white/[0.04]"
+          class="film-frame flex-shrink-0 w-[44vw] md:w-[40vw] rounded-xl overflow-hidden border-x border-indigo-400/[0.06] transition-all duration-300 hover:scale-[1.02] hover:shadow-[0_0_20px_rgba(200,162,255,0.12)] select-none"
+          style="background: linear-gradient(to bottom, rgba(15,15,26,0.3), rgba(15,15,26,0.5));"
         >
-          <div class="aspect-[16/9] overflow-hidden">
+          <div class="aspect-[16/9] overflow-hidden relative">
             <img v-if="w.thumbnail" :src="w.thumbnail" :alt="w.title" class="w-full h-full object-cover pointer-events-none" loading="lazy" />
             <div v-else class="w-full h-full flex items-center justify-center bg-gradient-to-br from-[#0f0f2e] to-[#13133a]">
               <svg class="w-6 h-6 text-white/10" fill="none" stroke="currentColor" stroke-width="1" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
             </div>
+            <div class="absolute inset-0 bg-gradient-to-t from-[#0f0f1a]/60 to-transparent pointer-events-none" />
           </div>
-          <div class="p-3 md:p-4">
+          <div class="p-3 md:p-4 border-t border-white/[0.04]">
             <span class="text-[9px] md:text-[10px] font-mono tracking-wider text-indigo-400/70 uppercase">{{ w.category }}</span>
             <h4 class="text-xs md:text-base font-medium text-white mt-1.5 leading-tight line-clamp-1">{{ w.title }}</h4>
           </div>
