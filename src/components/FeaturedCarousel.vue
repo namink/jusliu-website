@@ -20,7 +20,7 @@ const trackRef = ref<HTMLDivElement>()
 const paused = ref(false)
 const dragging = ref(false)
 let rafId = 0, offset = 0, startX = 0, startTx = 0
-const MAX_SPEED = 0.6
+const MAX_SPEED = 4.5
 let currentSpeed = 0
 let velocity = 0, prevX = 0
 let momentumRaf = 0
@@ -70,6 +70,7 @@ function onUp() {
       while (offset < -2 * thirdW) offset += thirdW
       while (offset > 0) offset -= thirdW
       el.style.transform = `translateX(${offset}px)`
+      currentSpeed = MAX_SPEED
       paused.value = false
       return
     }
@@ -131,7 +132,7 @@ onUnmounted(() => {
             </div>
             <div class="absolute inset-0 bg-gradient-to-t from-[#0f0f1a]/60 to-transparent pointer-events-none" />
           </div>
-          <div class="p-3 md:p-4 flex-1 flex flex-col justify-center">
+          <div class="p-3 md:p-4 h-[60px] md:h-[68px] flex flex-col justify-center">
             <span class="text-[9px] md:text-[10px] font-mono tracking-wider text-indigo-400/60 uppercase">{{ w.category }}</span>
             <h4 class="text-xs md:text-base font-medium text-white/80 mt-1.5 leading-tight line-clamp-1">{{ w.title }}</h4>
           </div>
