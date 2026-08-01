@@ -35,12 +35,11 @@ function tick() {
 }
 
 function onDown(e: MouseEvent) {
-  dragging.value = true; paused.value = true
+  dragging.value = true
   startX = e.clientX
   if (trackRef.value) {
     const matrix = new DOMMatrixReadOnly(getComputedStyle(trackRef.value).transform)
     startTx = matrix.m41
-    offset = startTx
   }
 }
 function onMove(e: MouseEvent) {
@@ -51,6 +50,8 @@ function onMove(e: MouseEvent) {
 function onUp() {
   dragging.value = false; paused.value = false
   if (!trackRef.value) return
+  const m = new DOMMatrixReadOnly(getComputedStyle(trackRef.value).transform)
+  offset = m.m41
   const halfW = trackRef.value.scrollWidth / 2
   offset = ((offset % halfW) + halfW) % halfW - halfW / 2
   trackRef.value.style.transform = `translateX(${offset}px)`
@@ -62,7 +63,7 @@ onMounted(() => {
   window.addEventListener('mousemove', onMove)
   window.addEventListener('mouseup', onUp)
   // Center on Nezha
-  setTimeout(() => {
+  requestAnimationFrame(() => requestAnimationFrame(() => {
     const el = trackRef.value; if (!el) return
     const parentW = el.parentElement?.clientWidth ?? window.innerWidth
     const cardW = el.firstElementChild?.clientWidth ?? 300
@@ -70,7 +71,7 @@ onMounted(() => {
     const target = cardW * nezhaIdx.value + gapW * nezhaIdx.value + cardW / 2
     offset = -(target - parentW / 2)
     el.style.transform = `translateX(${offset}px)`
-  }, 200)
+  }))
   rafId = requestAnimationFrame(tick)
 })
 
