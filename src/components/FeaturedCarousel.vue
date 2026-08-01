@@ -132,9 +132,9 @@ onUnmounted(() => {
             </div>
             <div class="absolute inset-0 bg-gradient-to-t from-[#0f0f1a]/60 to-transparent pointer-events-none" />
           </div>
-          <div class="p-3 md:p-4 h-[60px] md:h-[68px] flex flex-col items-center justify-center">
+          <div class="p-3 md:p-4 h-[72px] md:h-[80px] flex flex-col items-center justify-center">
             <span class="text-[9px] md:text-[10px] font-mono tracking-wider text-indigo-400/60 uppercase text-center">{{ w.category }}</span>
-            <h4 class="text-xs md:text-base font-medium text-white/80 mt-1.5 leading-tight line-clamp-1 text-center">{{ w.title }}</h4>
+            <h4 class="text-xs md:text-base font-medium text-white/80 mt-1 leading-tight line-clamp-1 text-center">{{ w.title }}</h4>
           </div>
           <div class="film-sprocket-bottom" />
         </div>
