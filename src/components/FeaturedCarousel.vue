@@ -10,7 +10,7 @@ const featured = computed(() =>
   )
 )
 
-const looped = computed(() => [...featured.value, ...featured.value])
+const looped = computed(() => [...featured.value, ...featured.value, ...featured.value])
 const nezhaIdx = computed(() => {
   const idx = featured.value.findIndex(w => w.id === 'nezha')
   return idx >= 0 ? idx : 0
@@ -27,8 +27,9 @@ function tick() {
   if (!el) { rafId = requestAnimationFrame(tick); return }
   if (!paused.value && !dragging.value) {
     offset -= SPEED
-    const halfW = el.scrollWidth / 2
-    if (offset <= -halfW) offset += halfW
+    const thirdW = el.scrollWidth / 3
+    while (offset < -2 * thirdW) offset += thirdW
+    while (offset > 0) offset -= thirdW
     el.style.transform = `translateX(${offset}px)`
   }
   rafId = requestAnimationFrame(tick)
@@ -52,10 +53,9 @@ function onUp() {
   if (!trackRef.value) return
   const m = new DOMMatrixReadOnly(getComputedStyle(trackRef.value).transform)
   offset = m.m41
-  const halfW = trackRef.value.scrollWidth / 2
-  offset = offset % halfW
-  if (offset > halfW / 2) offset -= halfW
-  if (offset < -halfW / 2) offset += halfW
+  const thirdW = trackRef.value.scrollWidth / 3
+  while (offset < -2 * thirdW) offset += thirdW
+  while (offset > 0) offset -= thirdW
   trackRef.value.style.transform = `translateX(${offset}px)`
 }
 function onEnter() { paused.value = true }
@@ -71,7 +71,8 @@ onMounted(() => {
     const cardW = el.firstElementChild?.clientWidth ?? 300
     const gapW = 8
     const target = cardW * nezhaIdx.value + gapW * nezhaIdx.value + cardW / 2
-    offset = -(target - parentW / 2)
+    const thirdW = el.scrollWidth / 3
+    offset = -(target - parentW / 2) - thirdW
     el.style.transform = `translateX(${offset}px)`
   }))
   rafId = requestAnimationFrame(tick)
