@@ -20,7 +20,7 @@ const trackRef = ref<HTMLDivElement>()
 const paused = ref(false)
 const dragging = ref(false)
 let rafId = 0, offset = 0, startX = 0, startTx = 0
-const MAX_SPEED = 4.5
+const MAX_SPEED = 0.6
 let currentSpeed = 0
 let velocity = 0, prevX = 0
 let momentumRaf = 0
