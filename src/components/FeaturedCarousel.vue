@@ -24,7 +24,12 @@ let startX = 0, startTx = 0, currentTx = 0
 
 function onDown(e: MouseEvent) {
   dragging.value = true; paused.value = true
-  startX = e.clientX; startTx = currentTx
+  startX = e.clientX
+  if (trackRef.value) {
+    const matrix = new DOMMatrixReadOnly(getComputedStyle(trackRef.value).transform)
+    startTx = matrix.m41
+    currentTx = startTx
+  }
 }
 function onMove(e: MouseEvent) {
   if (!dragging.value || !trackRef.value) return
@@ -110,7 +115,7 @@ onUnmounted(() => {
             </div>
             <div class="absolute inset-0 bg-gradient-to-t from-[#0f0f1a]/60 to-transparent pointer-events-none" />
           </div>
-          <div class="p-3 md:p-4 border-t border-white/[0.04]">
+          <div class="p-3 md:p-4 border-t border-white/[0.04] flex flex-col justify-center min-h-[72px] md:min-h-[80px]">
             <span class="text-[9px] md:text-[10px] font-mono tracking-wider text-indigo-400/70 uppercase">{{ w.category }}</span>
             <h4 class="text-xs md:text-base font-medium text-white mt-1.5 leading-tight line-clamp-1">{{ w.title }}</h4>
           </div>
