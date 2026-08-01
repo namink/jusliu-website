@@ -20,13 +20,17 @@ const trackRef = ref<HTMLDivElement>()
 const paused = ref(false)
 const dragging = ref(false)
 let rafId = 0, offset = 0, startX = 0, startTx = 0
-const SPEED = 0.6
+const MAX_SPEED = 0.6
+let currentSpeed = 0
+let velocity = 0, prevX = 0
+let momentumRaf = 0
 
 function tick() {
   const el = trackRef.value
   if (!el) { rafId = requestAnimationFrame(tick); return }
   if (!paused.value && !dragging.value) {
-    offset -= SPEED
+    if (currentSpeed < MAX_SPEED) currentSpeed = Math.min(MAX_SPEED, currentSpeed + 0.02)
+    offset -= currentSpeed
     const thirdW = el.scrollWidth / 3
     while (offset < -2 * thirdW) offset += thirdW
     while (offset > 0) offset -= thirdW
@@ -36,8 +40,9 @@ function tick() {
 }
 
 function onDown(e: MouseEvent) {
-  dragging.value = true
-  startX = e.clientX
+  dragging.value = true; paused.value = true; currentSpeed = 0
+  cancelAnimationFrame(momentumRaf)
+  startX = e.clientX; prevX = e.clientX
   if (trackRef.value) {
     const matrix = new DOMMatrixReadOnly(getComputedStyle(trackRef.value).transform)
     startTx = matrix.m41
@@ -45,18 +50,40 @@ function onDown(e: MouseEvent) {
 }
 function onMove(e: MouseEvent) {
   if (!dragging.value) return
+  velocity = prevX - e.clientX
+  prevX = e.clientX
   offset = startTx + (e.clientX - startX)
   if (trackRef.value) trackRef.value.style.transform = `translateX(${offset}px)`
 }
 function onUp() {
-  dragging.value = false; paused.value = false
+  dragging.value = false
   if (!trackRef.value) return
   const m = new DOMMatrixReadOnly(getComputedStyle(trackRef.value).transform)
   offset = m.m41
-  const thirdW = trackRef.value.scrollWidth / 3
-  while (offset < -2 * thirdW) offset += thirdW
-  while (offset > 0) offset -= thirdW
-  trackRef.value.style.transform = `translateX(${offset}px)`
+  // Momentum inertia
+  function momentum() {
+    if (Math.abs(velocity) < 0.1 || dragging.value) {
+      const el = trackRef.value; if (!el) return
+      const m2 = new DOMMatrixReadOnly(getComputedStyle(el).transform)
+      offset = m2.m41
+      const thirdW = el.scrollWidth / 3
+      while (offset < -2 * thirdW) offset += thirdW
+      while (offset > 0) offset -= thirdW
+      el.style.transform = `translateX(${offset}px)`
+      paused.value = false
+      return
+    }
+    offset += velocity
+    velocity *= 0.94
+    if (trackRef.value) {
+      const thirdW = trackRef.value.scrollWidth / 3
+      while (offset < -2 * thirdW) offset += thirdW
+      while (offset > 0) offset -= thirdW
+      trackRef.value.style.transform = `translateX(${offset}px)`
+    }
+    momentumRaf = requestAnimationFrame(momentum)
+  }
+  momentum()
 }
 function onEnter() { paused.value = true }
 function onLeave() { if (!dragging.value) paused.value = false }
@@ -80,6 +107,7 @@ onMounted(() => {
 
 onUnmounted(() => {
   cancelAnimationFrame(rafId)
+  cancelAnimationFrame(momentumRaf)
   window.removeEventListener('mousemove', onMove)
   window.removeEventListener('mouseup', onUp)
 })
