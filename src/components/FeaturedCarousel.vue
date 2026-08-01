@@ -53,7 +53,9 @@ function onUp() {
   const m = new DOMMatrixReadOnly(getComputedStyle(trackRef.value).transform)
   offset = m.m41
   const halfW = trackRef.value.scrollWidth / 2
-  offset = ((offset % halfW) + halfW) % halfW - halfW / 2
+  offset = offset % halfW
+  if (offset > halfW / 2) offset -= halfW
+  if (offset < -halfW / 2) offset += halfW
   trackRef.value.style.transform = `translateX(${offset}px)`
 }
 function onEnter() { paused.value = true }
