@@ -91,8 +91,7 @@ function goTo(path: string) {
         </span>
       </div>
 
-      <div class="max-w-xs mx-auto bg-white/[0.02] rounded-2xl p-4"> 
-        <div class="flex flex-row gap-2 justify-center">
+      <div class="flex flex-row gap-2 justify-center">
           <button
             @click="goTo('/works')"
             class="px-4 py-2 rounded-full text-white text-xs font-medium transition-all duration-200 hover:scale-105 active:scale-95 shadow-[0_0_20px_rgba(200,162,255,0.15)] flex items-center gap-1.5"
@@ -110,7 +109,6 @@ function goTo(path: string) {
             {{ t('about') }}
           </button>
         </div>
-      </div>
 
       <div
         @click="goTo('/works')"
