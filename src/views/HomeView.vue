@@ -95,17 +95,15 @@ function goTo(path: string) {
         <div class="flex flex-col sm:flex-row gap-4 justify-center">
           <button
             @click="goTo('/works')"
-            class="relative px-8 py-3 rounded-full text-white/90 hover:text-white transition-all duration-150 active:scale-95 text-sm font-medium overflow-hidden group"
-            style="background: linear-gradient(#0f0f1a, #0f0f1a) padding-box, linear-gradient(135deg, #6366f1, #818cf8) border-box; border: 1px solid transparent;"
+            class="px-8 py-3 rounded-full text-white text-sm font-medium transition-all duration-200 hover:scale-105 active:scale-95 shadow-[0_0_20px_rgba(200,162,255,0.15)]"
+            style="background: linear-gradient(135deg, rgba(139,92,246,0.5), rgba(99,102,241,0.4));"
           >
-            <span class="relative z-10">{{ t('browseWorks') }}</span>
-            <div class="absolute inset-0 bg-gradient-to-r from-indigo-500/20 to-indigo-400/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-            <div class="absolute inset-0 rounded-full opacity-0 group-hover:opacity-100 transition-all duration-500"
-              style="box-shadow: 0 0 40px 8px rgba(99,102,241,0.15), 0 0 20px 4px rgba(129,140,248,0.1)" />
+            {{ t('browseWorks') }}
           </button>
           <button
             @click="goTo('/about')"
-            class="px-8 py-3 rounded-full bg-white/[0.04] border border-white/[0.08] text-white/45 hover:text-white/75 hover:border-white/15 transition-all duration-150 active:scale-95 text-sm backdrop-blur-sm"
+            class="px-8 py-3 rounded-full text-white/55 hover:text-white/80 transition-all duration-200 hover:scale-105 active:scale-95 text-sm font-medium backdrop-blur-sm"
+            style="background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06);"
           >
             {{ t('learnMore') }}
           </button>
