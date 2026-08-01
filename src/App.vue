@@ -54,7 +54,14 @@ function closePreview() { showPreview.value = false }
     </div>
     <NavDots />
 
-    <button @click="toggleLocale" class="fixed top-4 md:top-6 right-6 z-50 px-3 py-1.5 text-[10px] md:text-xs font-mono tracking-wider rounded-full border backdrop-blur-sm transition-all duration-200" :class="locale === 'zh' ? 'bg-white/[0.04] border-white/[0.08] text-white/50 hover:text-white/70' : 'bg-white/[0.04] border-white/[0.08] text-white/50 hover:text-white/70'">{{ locale === 'zh' ? '中' : 'EN' }}</button>
+    <button
+      @click="toggleLocale"
+      class="fixed top-4 md:top-6 right-6 z-50 flex items-center gap-1.5 px-2.5 py-2 rounded-full border backdrop-blur-sm transition-all duration-200 group text-white/40 hover:text-white/60"
+      :style="locale === 'zh' ? { background: 'rgba(255,255,255,0.03)', borderColor: 'rgba(255,255,255,0.05)' } : { background: 'rgba(255,255,255,0.03)', borderColor: 'rgba(255,255,255,0.05)' }"
+    >
+      <svg class="w-3.5 h-3.5 flex-shrink-0 opacity-50 group-hover:opacity-70" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10M12 2a15.3 15.3 0 00-4 10 15.3 15.3 0 004 10"/></svg>
+      <span class="text-[10px] md:text-xs font-mono tracking-wider">{{ locale === 'zh' ? '中' : 'EN' }}</span>
+    </button>
 
     <main class="relative z-[2]">
       <RouterView v-slot="{ Component }">
