@@ -91,22 +91,22 @@ function goTo(path: string) {
         </span>
       </div>
 
-      <div class="max-w-xs mx-auto backdrop-blur-sm bg-[#0f0f1a]/40 rounded-2xl p-6"> 
-        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+      <div class="max-w-xs mx-auto bg-white/[0.02] rounded-2xl p-4"> 
+        <div class="flex flex-row gap-2 justify-center">
           <button
             @click="goTo('/works')"
-            class="px-6 py-3 rounded-full text-white text-sm font-medium transition-all duration-200 hover:scale-105 active:scale-95 shadow-[0_0_20px_rgba(200,162,255,0.15)] flex items-center gap-2"
+            class="px-4 py-2 rounded-full text-white text-xs font-medium transition-all duration-200 hover:scale-105 active:scale-95 shadow-[0_0_20px_rgba(200,162,255,0.15)] flex items-center gap-1.5"
             style="background: linear-gradient(135deg, rgba(139,92,246,0.5), rgba(99,102,241,0.4));"
           >
-            <svg class="w-4 h-4 opacity-80" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+            <svg class="w-3.5 h-3.5 opacity-80" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
             {{ t('works') }}
           </button>
           <button
             @click="goTo('/about')"
-            class="px-6 py-3 rounded-full text-white/55 hover:text-white/80 transition-all duration-200 hover:scale-105 active:scale-95 text-sm font-medium backdrop-blur-sm flex items-center gap-2"
+            class="px-4 py-2 rounded-full text-white/55 hover:text-white/80 transition-all duration-200 hover:scale-105 active:scale-95 text-xs font-medium backdrop-blur-sm flex items-center gap-1.5"
             style="background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06);"
           >
-            <svg class="w-4 h-4 opacity-50" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            <svg class="w-3.5 h-3.5 opacity-50" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
             {{ t('about') }}
           </button>
         </div>
