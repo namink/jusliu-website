@@ -29,7 +29,7 @@ function navigate(index: number) {
 </script>
 
 <template>
-  <nav class="fixed top-4 md:top-6 left-1/2 -translate-x-1/2 z-50 flex items-center gap-1.5 md:gap-2">
+  <nav class="fixed top-3 md:top-4 left-1/2 -translate-x-1/2 z-50 flex items-center gap-1 md:gap-1.5">
     <button
       v-for="(r, i) in routes"
       :key="r.name"
@@ -38,8 +38,8 @@ function navigate(index: number) {
       class="relative transition-all duration-200 backdrop-blur-sm rounded-full flex items-center gap-1.5 group"
       :class="[
         i === activeIndex
-          ? 'px-4 py-2 md:px-5 md:py-2.5 shadow-[0_0_16px_rgba(200,162,255,0.15)]'
-          : 'px-3 py-2 md:px-4 md:py-2.5 opacity-70 hover:opacity-100',
+          ? 'px-3 py-1.5 md:px-4 md:py-2 shadow-[0_0_16px_rgba(200,162,255,0.15)]'
+          : 'px-2.5 py-1.5 md:px-3.5 md:py-2 opacity-70 hover:opacity-100',
         i === activeIndex
           ? 'text-white'
           : 'text-white/40 hover:text-white/70',
@@ -47,10 +47,10 @@ function navigate(index: number) {
       ]"
       :style="i === activeIndex ? { background: 'linear-gradient(135deg, rgba(139,92,246,0.35), rgba(99,102,241,0.3))' } : { background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.05)' }"
     >
-      <svg v-if="r.name === 'home'" class="w-3.5 h-3.5 md:w-4 md:h-4 flex-shrink-0" :class="i === activeIndex ? 'opacity-90' : 'opacity-50 group-hover:opacity-70'" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
-      <svg v-if="r.name === 'works'" class="w-3.5 h-3.5 md:w-4 md:h-4 flex-shrink-0" :class="i === activeIndex ? 'opacity-90' : 'opacity-50 group-hover:opacity-70'" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
-      <svg v-if="r.name === 'about'" class="w-3.5 h-3.5 md:w-4 md:h-4 flex-shrink-0" :class="i === activeIndex ? 'opacity-90' : 'opacity-50 group-hover:opacity-70'" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-      <span class="hidden md:inline text-xs md:text-sm font-medium tracking-wide">{{ t(r.key) }}</span>
+      <svg v-if="r.name === 'home'" class="w-3 h-3 md:w-3.5 md:h-3.5 flex-shrink-0" :class="i === activeIndex ? 'opacity-90' : 'opacity-50 group-hover:opacity-70'" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+      <svg v-if="r.name === 'works'" class="w-3 h-3 md:w-3.5 md:h-3.5 flex-shrink-0" :class="i === activeIndex ? 'opacity-90' : 'opacity-50 group-hover:opacity-70'" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+      <svg v-if="r.name === 'about'" class="w-3 h-3 md:w-3.5 md:h-3.5 flex-shrink-0" :class="i === activeIndex ? 'opacity-90' : 'opacity-50 group-hover:opacity-70'" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+      <span class="hidden md:inline text-[11px] md:text-xs font-medium tracking-wide">{{ t(r.key) }}</span>
     </button>
   </nav>
 </template>
