@@ -86,12 +86,35 @@ function onUp() {
   }
   momentum()
 }
+
+function onTouchStart(e: TouchEvent) {
+  e.preventDefault()
+  dragging.value = true; paused.value = true; currentSpeed = 0
+  cancelAnimationFrame(momentumRaf)
+  startX = e.touches[0].clientX; prevX = e.touches[0].clientX
+  if (trackRef.value) {
+    const matrix = new DOMMatrixReadOnly(getComputedStyle(trackRef.value).transform)
+    startTx = matrix.m41
+  }
+}
+function onTouchMove(e: TouchEvent) {
+  if (!dragging.value) return
+  offset = startTx + (e.touches[0].clientX - startX) * 3
+  velocity = prevX - e.touches[0].clientX
+  prevX = e.touches[0].clientX
+  if (trackRef.value) trackRef.value.style.transform = `translateX(${offset}px)`
+}
+function onTouchEnd() {
+  onUp()
+}
 function onEnter() { paused.value = true }
 function onLeave() { if (!dragging.value) paused.value = false }
 
 onMounted(() => {
   window.addEventListener('mousemove', onMove)
   window.addEventListener('mouseup', onUp)
+  window.addEventListener('touchmove', onTouchMove, { passive: false })
+  window.addEventListener('touchend', onTouchEnd)
   // Center on Nezha
   requestAnimationFrame(() => requestAnimationFrame(() => {
     const el = trackRef.value; if (!el) return
@@ -111,13 +134,15 @@ onUnmounted(() => {
   cancelAnimationFrame(momentumRaf)
   window.removeEventListener('mousemove', onMove)
   window.removeEventListener('mouseup', onUp)
+  window.removeEventListener('touchmove', onTouchMove)
+  window.removeEventListener('touchend', onTouchEnd)
 })
 </script>
 
 <template>
   <div class="relative w-full">
     <div class="film-reel relative rounded-2xl overflow-hidden border-t-[6px] border-b-[6px] border-x-[4px] border-indigo-400/[0.08] shadow-[inset_0_4px_12px_rgba(0,0,0,0.25)]" @mouseenter="onEnter" @mouseleave="onLeave">
-      <div ref="trackRef" class="flex gap-2 py-3" @mousedown.prevent="onDown" style="cursor:grab; will-change: transform;">
+      <div ref="trackRef" class="flex gap-2 py-3" @mousedown.prevent="onDown" @touchstart.prevent="onTouchStart" style="cursor:grab; will-change: transform;">
         <div
           v-for="(w, i) in looped"
           :key="`${w.id}-${i}`"
