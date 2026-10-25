@@ -164,15 +164,15 @@ onUnmounted(() => {
           :key="`${w.id}-${i}`"
           :aria-hidden="i < featured.length || i >= featured.length * 2"
           class="film-frame flex-shrink-0 w-[78vw] md:w-[40vw] overflow-hidden select-none flex flex-col relative"
-          style="background: linear-gradient(135deg, rgba(15,15,26,0.95), rgba(20,18,40,0.95));"
+          style="background: linear-gradient(135deg, rgba(17,19,21,0.95), rgba(27,30,32,0.95));"
         >
           <div class="film-sprocket-top" />
           <div class="aspect-[16/9] overflow-hidden relative mx-[6px]">
             <img v-if="w.thumbnail" :src="w.thumbnail" :alt="w.title" width="960" height="540" decoding="async" class="w-full h-full object-cover pointer-events-none" loading="lazy" />
-            <div v-else class="w-full h-full flex items-center justify-center bg-gradient-to-br from-[#0f0f2e] to-[#13133a]">
+            <div v-else class="w-full h-full flex items-center justify-center bg-gradient-to-br from-[#141719] to-[#1b1e20]">
               <svg class="w-6 h-6 text-white/10" fill="none" stroke="currentColor" stroke-width="1" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
             </div>
-            <div class="absolute inset-0 bg-gradient-to-t from-[#0f0f1a]/60 to-transparent pointer-events-none" />
+            <div class="absolute inset-0 bg-gradient-to-t from-[#111315]/60 to-transparent pointer-events-none" />
           </div>
           <div class="p-3 md:p-4 h-[72px] md:h-[80px] flex flex-col items-center justify-center">
             <span class="text-[9px] md:text-[10px] font-mono tracking-wider text-indigo-200/80 uppercase text-center">{{ w.category }}</span>
@@ -198,14 +198,14 @@ onUnmounted(() => {
 }
 .film-sprocket-top {
   background: repeating-linear-gradient(90deg,
-    #0f0f1a 0, #0f0f1a 5px,
-    rgba(200,162,255,0.2) 5px, rgba(200,162,255,0.2) 11px,
-    #0f0f1a 11px, #0f0f1a 18px);
+    #111315 0, #111315 5px,
+    rgba(196,179,147,0.2) 5px, rgba(196,179,147,0.2) 11px,
+    #111315 11px, #111315 18px);
 }
 .film-sprocket-bottom {
   background: repeating-linear-gradient(90deg,
-    #0f0f1a 0, #0f0f1a 5px,
-    rgba(200,162,255,0.2) 5px, rgba(200,162,255,0.2) 11px,
-    #0f0f1a 11px, #0f0f1a 18px);
+    #111315 0, #111315 5px,
+    rgba(196,179,147,0.2) 5px, rgba(196,179,147,0.2) 11px,
+    #111315 11px, #111315 18px);
 }
 </style>

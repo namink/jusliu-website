@@ -80,8 +80,8 @@ onMounted(() => {
       <div class="flex flex-row gap-2 justify-center">
           <RouterLink
             to="/works"
-            class="min-h-11 px-5 py-2.5 rounded-full text-white text-xs font-medium transition-all duration-200 hover:scale-105 active:scale-95 shadow-[0_0_20px_rgba(200,162,255,0.15)] flex items-center gap-1.5"
-            style="background: linear-gradient(135deg, rgba(139,92,246,0.5), rgba(99,102,241,0.4));"
+            class="primary-link min-h-11 px-5 py-2.5 rounded-full text-white text-xs font-medium transition-all duration-200 hover:scale-105 active:scale-95 shadow-[0_0_20px_rgba(196,179,147,0.15)] flex items-center gap-1.5"
+
           >
             <svg aria-hidden="true" class="w-3.5 h-3.5 opacity-80" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
             {{ t('works') }}

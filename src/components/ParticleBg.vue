@@ -37,11 +37,11 @@ onMounted(() => {
 
   const palette = [
     new THREE.Color('#ffffff'),
-    new THREE.Color('#e0e7ff'),
-    new THREE.Color('#c7d2fe'),
-    new THREE.Color('#a5b4fc'),
-    new THREE.Color('#93c5fd'),
-    new THREE.Color('#c4b5fd'),
+    new THREE.Color('#e7e3db'),
+    new THREE.Color('#d6d1c6'),
+    new THREE.Color('#bdb7a9'),
+    new THREE.Color('#c3c6c2'),
+    new THREE.Color('#c9bba1'),
   ]
 
   for (let i = 0; i < PARTICLE_COUNT; i++) {

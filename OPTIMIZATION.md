@@ -43,3 +43,10 @@ Read both skills, ran Impeccable context and its manual detector, and retrieved 
 - Preview capture: ../preview-artifacts/portfolio-optimized.jpg.
 
 External images/video/fonts still depend on network availability. OS-level reduced-motion switching and physical touchscreen gestures were not separately exercised; the shared pause path and responsive browser layouts were checked.
+
+
+## Palette refinement — 2026-10-25
+
+Backup: backup/pre-palette-refinement-20261025 (a3ad269).
+
+The shared palette now uses graphite #111315, elevated panels #1b1e20, warm paper #eeeae3, secondary text #b4b1aa and champagne #c4b393. Navigation uses a flat #d4c3a3 selected surface with dark text. Tailwind's existing indigo utility ramp maps to the same accent family, keeping the home, portfolio, skills, timeline, focus, controls and film reel consistent. Artwork and video colors are unchanged. Decorative background saturation and opacity are reduced.

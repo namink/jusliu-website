@@ -33,10 +33,10 @@ function closePreview() { showPreview.value = false }
 </script>
 
 <template>
-  <div class="relative w-full min-h-screen bg-[#0f0f1a] text-white overflow-hidden">
+  <div class="relative w-full min-h-screen bg-[#111315] text-white overflow-hidden">
     <a href="#main-content" class="skip-link">{{ t('skipContent') }}</a>
     <div class="ambient-background" aria-hidden="true"><GridDots /><GeoBg /><ParticleBg />
-    <div class="fixed top-0 left-0 right-0 h-72 z-0 pointer-events-none opacity-40" style="background: radial-gradient(ellipse at 50% 0%, rgba(136,168,255,0.08) 0%, transparent 70%);" />
+    <div class="fixed top-0 left-0 right-0 h-72 z-0 pointer-events-none opacity-40" style="background: radial-gradient(ellipse at 50% 0%, rgba(196,193,182,0.08) 0%, transparent 70%);" />
     <div class="fixed top-[15%] left-[5%] right-[5%] h-px z-0 pointer-events-none bg-gradient-to-r from-transparent via-white/[0.03] to-transparent" />
     <div class="fixed bottom-[20%] left-[5%] right-[5%] h-px z-0 pointer-events-none bg-gradient-to-r from-transparent via-white/[0.02] to-transparent" />
 
@@ -52,7 +52,7 @@ function closePreview() { showPreview.value = false }
     </div>
     <div class="fixed top-1/2 left-[53%] -translate-x-1/2 -translate-y-1/2 z-0 pointer-events-none select-none">
       <div class="flex items-center gap-3 md:gap-5 text-[16vw] font-black leading-none tracking-[0.4em]" style="font-family: 'Cinzel', serif;">
-        <span style="color: #a5b4fc; opacity: 0.08; text-shadow: -2px 0 rgba(255,60,60,0.12), 2px 0 rgba(60,180,255,0.12);">J</span><span style="color: #c4b5fd; opacity: 0.10; transform: translateY(-6px); text-shadow: -2px 0 rgba(255,60,60,0.15), 2px 0 rgba(60,180,255,0.15);">U</span><span style="color: #a5b4fc; opacity: 0.08; text-shadow: -2px 0 rgba(255,60,60,0.12), 2px 0 rgba(60,180,255,0.12);">S</span><span style="color: #c4b5fd; opacity: 0.10; transform: translateY(4px); text-shadow: -2px 0 rgba(255,60,60,0.15), 2px 0 rgba(60,180,255,0.15);">L</span><span style="color: #a5b4fc; opacity: 0.08; text-shadow: -2px 0 rgba(255,60,60,0.12), 2px 0 rgba(60,180,255,0.12);">I</span><span style="color: #c4b5fd; opacity: 0.12; transform: translateY(-2px); text-shadow: -2px 0 rgba(255,60,60,0.15), 2px 0 rgba(60,180,255,0.15);">U</span>
+        <span style="color: #bdb7a9; opacity: 0.08; text-shadow: -2px 0 rgba(255,60,60,0.12), 2px 0 rgba(60,180,255,0.12);">J</span><span style="color: #c9bba1; opacity: 0.10; transform: translateY(-6px); text-shadow: -2px 0 rgba(255,60,60,0.15), 2px 0 rgba(60,180,255,0.15);">U</span><span style="color: #bdb7a9; opacity: 0.08; text-shadow: -2px 0 rgba(255,60,60,0.12), 2px 0 rgba(60,180,255,0.12);">S</span><span style="color: #c9bba1; opacity: 0.10; transform: translateY(4px); text-shadow: -2px 0 rgba(255,60,60,0.15), 2px 0 rgba(60,180,255,0.15);">L</span><span style="color: #bdb7a9; opacity: 0.08; text-shadow: -2px 0 rgba(255,60,60,0.12), 2px 0 rgba(60,180,255,0.12);">I</span><span style="color: #c9bba1; opacity: 0.12; transform: translateY(-2px); text-shadow: -2px 0 rgba(255,60,60,0.15), 2px 0 rgba(60,180,255,0.15);">U</span>
       </div>
     </div>
     </div>
@@ -65,7 +65,7 @@ function closePreview() { showPreview.value = false }
     <button
       :aria-label="locale === 'zh' ? 'Switch to English' : '切换为中文'"
       @click="toggleLocale"
-      class="fixed top-4 md:top-6 right-4 md:right-6 min-h-11 min-w-11 justify-center z-50 flex items-center gap-1.5 px-2.5 py-2 rounded-full border backdrop-blur-sm transition-all duration-200 group text-white/40 hover:text-white/60"
+      class="fixed top-4 md:top-6 right-4 md:right-6 min-h-11 min-w-11 justify-center z-50 flex items-center gap-1.5 px-2.5 py-2 rounded-full border backdrop-blur-sm transition-all duration-200 group text-white/65 hover:text-white/85"
       :style="locale === 'zh' ? { background: 'rgba(255,255,255,0.03)', borderColor: 'rgba(255,255,255,0.05)' } : { background: 'rgba(255,255,255,0.03)', borderColor: 'rgba(255,255,255,0.05)' }"
     >
       <svg class="w-3.5 h-3.5 flex-shrink-0 opacity-50 group-hover:opacity-70" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10M12 2a15.3 15.3 0 00-4 10 15.3 15.3 0 004 10"/></svg>
