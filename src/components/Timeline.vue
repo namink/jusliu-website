@@ -45,17 +45,17 @@ onMounted(() => {
           i === items.length - 1 ? 'bg-indigo-500/[0.05] border-indigo-400/25' : 'bg-white/[0.02] border-white/[0.05] hover:border-white/10'
         ]">
           <h4 class="text-sm font-semibold text-white leading-tight">{{ item.role }}</h4>
-          <p class="text-[11px] text-white/35 mt-0.5">{{ item.company }}</p>
+          <p class="text-[11px] text-white/70 mt-0.5">{{ item.company }}</p>
           <div class="w-5 h-px bg-gradient-to-r from-indigo-400/30 to-transparent my-2" />
           <ul class="space-y-0.5">
-            <li v-for="(d, di) in item.details" :key="di" class="text-[10px] text-white/25 leading-relaxed">· {{ d }}</li>
+            <li v-for="(d, di) in item.details" :key="di" class="text-[10px] text-white/65 leading-relaxed">· {{ d }}</li>
           </ul>
         </div>
         <div class="w-px h-4 border-l border-dashed border-white/10 my-1" />
         <div class="w-2.5 h-2.5 rounded-full border-2 z-10 flex-shrink-0" :class="[
           i === items.length - 1 ? 'bg-indigo-400 border-indigo-400 w-3.5 h-3.5 timeline-dot-active' : 'bg-[#0f0f1a] border-white/20'
         ]" />
-        <span class="text-[10px] font-mono tracking-wider text-white/25 mt-1.5 whitespace-nowrap">{{ item.period }}</span>
+        <span class="text-[10px] font-mono tracking-wider text-white/65 mt-1.5 whitespace-nowrap">{{ item.period }}</span>
       </div>
     </div>
     <div class="absolute left-[10%] right-[10%] top-[calc(100%-6px)] h-[2px] bg-gradient-to-r from-transparent via-white/[0.06] to-transparent pointer-events-none" />
@@ -76,9 +76,9 @@ onMounted(() => {
       <div class="pl-7">
         <span class="text-[10px] font-mono text-indigo-400/70 tracking-wider">{{ item.period }}</span>
         <h4 class="text-sm font-semibold text-white mt-0.5">{{ item.role }}</h4>
-        <p class="text-xs text-white/35">{{ item.company }}</p>
+        <p class="text-xs text-white/70">{{ item.company }}</p>
         <ul class="mt-1.5 space-y-0.5">
-          <li v-for="(d, di) in item.details" :key="di" class="text-[10px] text-white/25">· {{ d }}</li>
+          <li v-for="(d, di) in item.details" :key="di" class="text-[10px] text-white/65">· {{ d }}</li>
         </ul>
       </div>
     </div>

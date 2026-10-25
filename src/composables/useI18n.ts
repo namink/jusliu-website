@@ -1,6 +1,10 @@
 import { reactive, computed } from 'vue'
 
 const zh = {
+  workCount: '件作品', filterWorks: '按分类筛选作品', pagination: '作品分页', previousPage: '上一页', nextPage: '下一页', pageLabel: '第',
+  playDemo: '播放演示', previewImage: '放大预览', closePreview: '关闭预览', technologies: '相关技术', retry: '重试',
+  imageUnavailable: '图片暂时无法加载', imageRetryHint: '请检查网络后重试', videoUnavailable: '视频暂时无法播放。', openVideo: '打开原视频',
+  skipContent: '跳转到主要内容', pauseMotion: '暂停页面动态效果', resumeMotion: '恢复页面动态效果', motionOff: '动态已暂停', motionOn: '动态效果', previousWork: '上一个作品', nextWork: '下一个作品',
   home: '首页', works: '作品', about: '关于',
   browseWorks: '浏览作品', learnMore: '了解更多',
   since: 'since 2022',
@@ -45,6 +49,10 @@ const zh = {
 }
 
 const en = {
+  workCount: 'works', filterWorks: 'Filter works by category', pagination: 'Portfolio pages', previousPage: 'Previous page', nextPage: 'Next page', pageLabel: 'Page',
+  playDemo: 'Play demo', previewImage: 'Preview image', closePreview: 'Close preview', technologies: 'Technologies', retry: 'Retry',
+  imageUnavailable: 'Image unavailable', imageRetryHint: 'Check your connection and retry', videoUnavailable: 'Video could not be played.', openVideo: 'Open original video',
+  skipContent: 'Skip to content', pauseMotion: 'Pause page animations', resumeMotion: 'Resume page animations', motionOff: 'Motion paused', motionOn: 'Motion', previousWork: 'Previous work', nextWork: 'Next work',
   home: 'Home', works: 'Works', about: 'About',
   browseWorks: 'Browse Works', learnMore: 'Learn More',
   since: 'since 2022',

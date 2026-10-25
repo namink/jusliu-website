@@ -1,6 +1,10 @@
 <script setup lang="ts">
 import { ref, computed, onMounted, onUnmounted } from 'vue'
 import { works } from '@/data/works'
+import { useMotion } from '@/composables/useMotion'
+import { useI18n } from '@/composables/useI18n'
+const { reducedMotion } = useMotion()
+const { t } = useI18n()
 
 const featured = computed(() =>
   works.filter(w =>
@@ -28,7 +32,7 @@ let momentumRaf = 0
 function tick() {
   const el = trackRef.value
   if (!el) { rafId = requestAnimationFrame(tick); return }
-  if (!paused.value && !dragging.value) {
+  if (!paused.value && !dragging.value && !reducedMotion.value && !document.hidden) {
     if (currentSpeed < MAX_SPEED) currentSpeed = Math.min(MAX_SPEED, currentSpeed + 0.02)
     offset -= currentSpeed
     const thirdW = el.scrollWidth / 3
@@ -56,13 +60,14 @@ function onMove(e: MouseEvent) {
   if (trackRef.value) trackRef.value.style.transform = `translateX(${offset}px)`
 }
 function onUp() {
+  if (!dragging.value) return
   dragging.value = false
   if (!trackRef.value) return
   const m = new DOMMatrixReadOnly(getComputedStyle(trackRef.value).transform)
   offset = m.m41
   // Momentum inertia
   function momentum() {
-    if (Math.abs(velocity) < 0.1 || dragging.value) {
+    if (Math.abs(velocity) < 0.1 || dragging.value || reducedMotion.value) {
       const el = trackRef.value; if (!el) return
       const m2 = new DOMMatrixReadOnly(getComputedStyle(el).transform)
       offset = m2.m41
@@ -88,7 +93,6 @@ function onUp() {
 }
 
 function onTouchStart(e: TouchEvent) {
-  e.preventDefault()
   dragging.value = true; paused.value = true; currentSpeed = 0
   cancelAnimationFrame(momentumRaf)
   startX = e.touches[0].clientX; prevX = e.touches[0].clientX
@@ -109,6 +113,17 @@ function onTouchEnd() {
 }
 function onEnter() { paused.value = true }
 function onLeave() { if (!dragging.value) paused.value = false }
+function step(direction: number) {
+  const el = trackRef.value
+  if (!el) return
+  cancelAnimationFrame(momentumRaf)
+  const width = el.scrollWidth / 3
+  if (!width) return
+  offset -= direction * ((el.firstElementChild?.clientWidth || 300) + 8)
+  while (offset < -2 * width) offset += width
+  while (offset > 0) offset -= width
+  el.style.transform = `translateX(${offset}px)`
+}
 
 onMounted(() => {
   window.addEventListener('mousemove', onMove)
@@ -141,29 +156,34 @@ onUnmounted(() => {
 
 <template>
   <div class="relative w-full">
-    <div class="film-reel relative rounded-2xl overflow-hidden border-t-[6px] border-b-[6px] border-x-[4px] border-indigo-400/[0.08] shadow-[inset_0_4px_12px_rgba(0,0,0,0.25)]" @mouseenter="onEnter" @mouseleave="onLeave">
-      <div ref="trackRef" class="flex gap-2 py-3" @mousedown.prevent="onDown" @touchstart.prevent="onTouchStart" style="cursor:grab; will-change: transform;">
+    <div class="film-reel relative rounded-2xl overflow-hidden border-t-[6px] border-b-[6px] border-x-[4px] border-indigo-400/[0.08] shadow-[inset_0_4px_12px_rgba(0,0,0,0.25)]" @mouseenter="onEnter" @mouseleave="onLeave" @focusin="onEnter" @focusout="onLeave">
+      <div ref="trackRef" class="flex gap-2 py-3" @mousedown.prevent="onDown" @touchstart="onTouchStart" style="cursor:grab; touch-action: pan-y; will-change: transform;">
         <div
           v-for="(w, i) in looped"
           :key="`${w.id}-${i}`"
-          class="film-frame flex-shrink-0 w-[44vw] md:w-[40vw] overflow-hidden select-none flex flex-col relative"
+          :aria-hidden="i < featured.length || i >= featured.length * 2"
+          class="film-frame flex-shrink-0 w-[78vw] md:w-[40vw] overflow-hidden select-none flex flex-col relative"
           style="background: linear-gradient(135deg, rgba(15,15,26,0.95), rgba(20,18,40,0.95));"
         >
           <div class="film-sprocket-top" />
           <div class="aspect-[16/9] overflow-hidden relative mx-[6px]">
-            <img v-if="w.thumbnail" :src="w.thumbnail" :alt="w.title" class="w-full h-full object-cover pointer-events-none" loading="lazy" />
+            <img v-if="w.thumbnail" :src="w.thumbnail" :alt="w.title" width="960" height="540" decoding="async" class="w-full h-full object-cover pointer-events-none" loading="lazy" />
             <div v-else class="w-full h-full flex items-center justify-center bg-gradient-to-br from-[#0f0f2e] to-[#13133a]">
               <svg class="w-6 h-6 text-white/10" fill="none" stroke="currentColor" stroke-width="1" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
             </div>
             <div class="absolute inset-0 bg-gradient-to-t from-[#0f0f1a]/60 to-transparent pointer-events-none" />
           </div>
           <div class="p-3 md:p-4 h-[72px] md:h-[80px] flex flex-col items-center justify-center">
-            <span class="text-[9px] md:text-[10px] font-mono tracking-wider text-indigo-400/60 uppercase text-center">{{ w.category }}</span>
+            <span class="text-[9px] md:text-[10px] font-mono tracking-wider text-indigo-200/80 uppercase text-center">{{ w.category }}</span>
             <h4 class="text-xs md:text-base font-medium text-white/80 mt-1 leading-tight line-clamp-1 text-center">{{ w.title }}</h4>
           </div>
           <div class="film-sprocket-bottom" />
         </div>
       </div>
+    </div>
+    <div class="reel-controls">
+      <button type="button" :aria-label="t('previousWork')" @click="step(-1)"><svg aria-hidden="true" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="m15 18-6-6 6-6" /></svg></button>
+      <button type="button" :aria-label="t('nextWork')" @click="step(1)"><svg aria-hidden="true" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6" /></svg></button>
     </div>
   </div>
 </template>

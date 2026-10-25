@@ -24,3 +24,6 @@ public/works/
 *.njsproj
 *.sln
 *.sw?
+
+# Local Python tool caches
+__pycache__/

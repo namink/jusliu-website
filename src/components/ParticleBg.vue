@@ -1,12 +1,15 @@
 <script setup lang="ts">
 import { onMounted, onUnmounted, ref } from 'vue'
 import * as THREE from 'three'
+import { useMotion } from '@/composables/useMotion'
 
 const canvasRef = ref<HTMLCanvasElement>()
 const paused = ref(false)
 let animationId = 0
 
-const PARTICLE_COUNT = 2500
+const { reducedMotion } = useMotion()
+let dispose = () => {}
+const PARTICLE_COUNT = window.innerWidth < 768 ? 400 : 1000
 
 defineExpose({
   setPaused(v: boolean) { paused.value = v }
@@ -20,9 +23,11 @@ onMounted(() => {
   const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000)
   camera.position.z = 60
 
-  const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true })
+  let renderer: THREE.WebGLRenderer
+  try { renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: false }) }
+  catch { return }
   renderer.setSize(window.innerWidth, window.innerHeight)
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5))
 
   const positions = new Float32Array(PARTICLE_COUNT * 3)
   const colorsArr = new Float32Array(PARTICLE_COUNT * 3)
@@ -81,6 +86,7 @@ onMounted(() => {
     camera.aspect = window.innerWidth / window.innerHeight
     camera.updateProjectionMatrix()
     renderer.setSize(window.innerWidth, window.innerHeight)
+    renderer.render(scene, camera)
   }
   window.addEventListener('resize', onResize)
 
@@ -103,7 +109,7 @@ onMounted(() => {
   let time = 0
   function animate() {
     animationId = requestAnimationFrame(animate)
-    if (paused.value) return
+    if (paused.value || reducedMotion.value || document.hidden) return
     time += 0.01
 
     mouse.x += (mouse.targetX - mouse.x) * 0.03
@@ -126,14 +132,24 @@ onMounted(() => {
     renderer.render(scene, camera)
   }
 
+  renderer.render(scene, camera)
   animate()
+  dispose = () => {
+    window.removeEventListener('mousemove', onMouseMove)
+    window.removeEventListener('resize', onResize)
+    geometry.dispose()
+    material.dispose()
+    sprite.dispose()
+    renderer.dispose()
+  }
 })
 
 onUnmounted(() => {
   cancelAnimationFrame(animationId)
+  dispose()
 })
 </script>
 
 <template>
-  <canvas ref="canvasRef" class="fixed inset-0 z-0 pointer-events-none" style="mix-blend-mode: screen;" />
+  <canvas aria-hidden="true" ref="canvasRef" class="fixed inset-0 z-0 pointer-events-none" style="mix-blend-mode: screen;" />
 </template>

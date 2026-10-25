@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { ref, provide } from 'vue'
+import { ref, provide, watchEffect, defineAsyncComponent } from 'vue'
 import { RouterView } from 'vue-router'
-import ParticleBg from '@/components/ParticleBg.vue'
+const ParticleBg = defineAsyncComponent(() => import('@/components/ParticleBg.vue'))
 import NavDots from '@/components/NavDots.vue'
 import GeoBg from '@/components/GeoBg.vue'
 import GridDots from '@/components/GridDots.vue'
@@ -9,16 +9,18 @@ import SkillCloud from '@/components/SkillCloud.vue'
 import AudioPlayer from '@/components/AudioPlayer.vue'
 import ImageViewer from '@/components/ImageViewer.vue'
 import { createTransition } from '@/composables/useTransition'
+import { useMotion } from '@/composables/useMotion'
 import { useI18n } from '@/composables/useI18n'
 
-const { toggleLocale, locale } = useI18n()
+const { toggleLocale, locale, t } = useI18n()
+const { reducedMotion, toggleMotion, systemReduced } = useMotion()
+const transition = createTransition()
+watchEffect(() => {
+  document.documentElement.dataset.motion = reducedMotion.value ? 'reduced' : 'full'
+  document.documentElement.lang = locale.value === 'zh' ? 'zh-CN' : 'en'
+})
 provide('i18n', useI18n())
 provide('transitionHooks', createTransition())
-
-const particleRef = ref<InstanceType<typeof ParticleBg>>()
-
-function onParticlePause() { particleRef.value?.setPaused(true) }
-function onParticleResume() { particleRef.value?.setPaused(false) }
 
 const previewSrc = ref('')
 const previewAlt = ref('')
@@ -32,7 +34,8 @@ function closePreview() { showPreview.value = false }
 
 <template>
   <div class="relative w-full min-h-screen bg-[#0f0f1a] text-white overflow-hidden">
-    <GridDots /><GeoBg /><ParticleBg ref="particleRef" />
+    <a href="#main-content" class="skip-link">{{ t('skipContent') }}</a>
+    <div class="ambient-background" aria-hidden="true"><GridDots /><GeoBg /><ParticleBg />
     <div class="fixed top-0 left-0 right-0 h-72 z-0 pointer-events-none opacity-40" style="background: radial-gradient(ellipse at 50% 0%, rgba(136,168,255,0.08) 0%, transparent 70%);" />
     <div class="fixed top-[15%] left-[5%] right-[5%] h-px z-0 pointer-events-none bg-gradient-to-r from-transparent via-white/[0.03] to-transparent" />
     <div class="fixed bottom-[20%] left-[5%] right-[5%] h-px z-0 pointer-events-none bg-gradient-to-r from-transparent via-white/[0.02] to-transparent" />
@@ -52,21 +55,27 @@ function closePreview() { showPreview.value = false }
         <span style="color: #a5b4fc; opacity: 0.08; text-shadow: -2px 0 rgba(255,60,60,0.12), 2px 0 rgba(60,180,255,0.12);">J</span><span style="color: #c4b5fd; opacity: 0.10; transform: translateY(-6px); text-shadow: -2px 0 rgba(255,60,60,0.15), 2px 0 rgba(60,180,255,0.15);">U</span><span style="color: #a5b4fc; opacity: 0.08; text-shadow: -2px 0 rgba(255,60,60,0.12), 2px 0 rgba(60,180,255,0.12);">S</span><span style="color: #c4b5fd; opacity: 0.10; transform: translateY(4px); text-shadow: -2px 0 rgba(255,60,60,0.15), 2px 0 rgba(60,180,255,0.15);">L</span><span style="color: #a5b4fc; opacity: 0.08; text-shadow: -2px 0 rgba(255,60,60,0.12), 2px 0 rgba(60,180,255,0.12);">I</span><span style="color: #c4b5fd; opacity: 0.12; transform: translateY(-2px); text-shadow: -2px 0 rgba(255,60,60,0.15), 2px 0 rgba(60,180,255,0.15);">U</span>
       </div>
     </div>
+    </div>
     <NavDots />
+    <button type="button" class="motion-control" :aria-label="reducedMotion ? t('resumeMotion') : t('pauseMotion')" :aria-pressed="reducedMotion" :disabled="systemReduced" @click="toggleMotion">
+      <svg aria-hidden="true" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path v-if="!reducedMotion" d="M9 5v14M15 5v14" /><path v-else d="m9 5 10 7-10 7z" /></svg>
+      <span>{{ reducedMotion ? t('motionOff') : t('motionOn') }}</span>
+    </button>
 
     <button
+      :aria-label="locale === 'zh' ? 'Switch to English' : '切换为中文'"
       @click="toggleLocale"
-      class="fixed top-4 md:top-6 right-6 z-50 flex items-center gap-1.5 px-2.5 py-2 rounded-full border backdrop-blur-sm transition-all duration-200 group text-white/40 hover:text-white/60"
+      class="fixed top-4 md:top-6 right-4 md:right-6 min-h-11 min-w-11 justify-center z-50 flex items-center gap-1.5 px-2.5 py-2 rounded-full border backdrop-blur-sm transition-all duration-200 group text-white/40 hover:text-white/60"
       :style="locale === 'zh' ? { background: 'rgba(255,255,255,0.03)', borderColor: 'rgba(255,255,255,0.05)' } : { background: 'rgba(255,255,255,0.03)', borderColor: 'rgba(255,255,255,0.05)' }"
     >
       <svg class="w-3.5 h-3.5 flex-shrink-0 opacity-50 group-hover:opacity-70" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10M12 2a15.3 15.3 0 00-4 10 15.3 15.3 0 004 10"/></svg>
       <span class="text-[10px] md:text-xs font-mono tracking-wider">{{ locale === 'zh' ? '中' : 'EN' }}</span>
     </button>
 
-    <main class="relative z-[2]">
+    <main id="main-content" tabindex="-1" class="relative z-[2]">
       <RouterView v-slot="{ Component }">
-        <Transition :css="false" @before-enter="($event) => createTransition().onBeforeEnter($event)" @enter="($event, $done) => createTransition().onEnter($event, $done)" @leave="($event, $done) => createTransition().onLeave($event, $done)" mode="out-in">
-          <component :is="Component" @particle-pause="onParticlePause" @particle-resume="onParticleResume" @preview-image="onPreviewImage" />
+        <Transition :css="false" @before-enter="($event) => transition.onBeforeEnter($event)" @enter="($event, $done) => transition.onEnter($event, $done)" @leave="($event, $done) => transition.onLeave($event, $done)" mode="out-in">
+          <component :is="Component" @preview-image="onPreviewImage" />
         </Transition>
       </RouterView>
     </main>
