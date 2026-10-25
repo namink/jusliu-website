@@ -183,7 +183,10 @@ h1, h2, h3 { text-wrap: balance; }
 #main-content:focus { outline: none; }
 .skip-link { position: fixed; top: 8px; left: 16px; z-index: 1000; padding: 12px 20px; background: var(--ink); color: var(--surface); border-radius: 8px; transform: translateY(-150%); }
 .skip-link:focus { transform: translateY(0); }
-.ambient-background { opacity: .22; filter: saturate(.12); pointer-events: none; }
+/* Keep fixed decoration anchored to the viewport; ancestor filters rebase it. */
+.ambient-background { position: fixed; inset: 0; z-index: 0; pointer-events: none; }
+.ambient-background > svg { opacity: .035; }
+.ambient-background > canvas { opacity: .45; }
 .motion-control { position: fixed; left: 24px; top: 24px; z-index: 50; display: flex; align-items: center; gap: 8px; min-height: 44px; padding: 0 12px; border: 1px solid var(--line); border-radius: 24px; background: #181b1ded; color: var(--muted); font-size: 12px; }
 .motion-control:hover { color: var(--ink); border-color: var(--accent); }
 .motion-control:disabled { cursor: default; }
