@@ -24,7 +24,7 @@ const skills = computed<Skill[]>(() => [
 ])
 
 const tools = ['UE5', 'Maya', 'Python', 'PyQt', 'SpeedTree', 'Gaea', 'ZBrush', 'SP', 'WorldCreator', 'ComfyUI', 'PS', 'PR', 'AE', 'Deadline', 'Git', 'rez', 'C++', 'C#']
-const languageBasis = ['C++', 'C#', 'C']
+const languageBasis = ['C++', 'C#', 'C', 'Python']
 const revealed = ref(false)
 
 onMounted(() => { setTimeout(() => revealed.value = true, 200) })
