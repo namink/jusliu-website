@@ -1,11 +1,13 @@
 <script setup lang="ts">
-import { ref, onMounted, onUnmounted } from 'vue'
+import { ref, onMounted, onUnmounted, watch } from 'vue'
+import { videoPlaying } from '@/composables/useMediaPlayback'
 import { useI18n } from '@/composables/useI18n'
 
 const { t } = useI18n()
 
 const bgmUrl = 'https://pub-4a4da7a40c564edabe95305d5bc9e7a0.r2.dev/audio/bgm.mp3'
 const audio = new Audio(bgmUrl)
+audio.preload = 'none'
 audio.loop = true
 audio.volume = 0.15
 
@@ -17,6 +19,7 @@ onMounted(() => {
   }
 })
 
+watch(videoPlaying, playingVideo => { if (playingVideo && playing.value) { audio.pause(); playing.value = false; localStorage.setItem('bgm-playing', '0') } })
 onUnmounted(() => { audio.pause(); audio.src = '' })
 async function toggle() {
   if (playing.value) {

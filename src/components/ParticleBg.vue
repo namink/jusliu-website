@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onMounted, onUnmounted, ref } from 'vue'
+import { onMounted, onUnmounted, ref, watch } from 'vue'
 import * as THREE from 'three'
 import { useMotion } from '@/composables/useMotion'
 
@@ -7,7 +7,7 @@ const canvasRef = ref<HTMLCanvasElement>()
 const paused = ref(false)
 let animationId = 0
 
-const { reducedMotion } = useMotion()
+const { reducedMotion, documentHidden } = useMotion()
 let dispose = () => {}
 const PARTICLE_COUNT = window.innerWidth < 768 ? 400 : 1000
 
@@ -31,7 +31,6 @@ onMounted(() => {
 
   const positions = new Float32Array(PARTICLE_COUNT * 3)
   const colorsArr = new Float32Array(PARTICLE_COUNT * 3)
-  const sizes = new Float32Array(PARTICLE_COUNT)
   const speeds = new Float32Array(PARTICLE_COUNT)
   const offsets = new Float32Array(PARTICLE_COUNT)
 
@@ -52,7 +51,6 @@ onMounted(() => {
     colorsArr[i * 3] = c.r
     colorsArr[i * 3 + 1] = c.g
     colorsArr[i * 3 + 2] = c.b
-    sizes[i] = 0.08 + Math.random() * 0.45
     speeds[i] = 0.006 + Math.random() * 0.019
     offsets[i] = Math.random() * Math.PI * 2
   }
@@ -106,19 +104,23 @@ onMounted(() => {
     return new THREE.CanvasTexture(c)
   }
 
-  let time = 0
-  function animate() {
-    animationId = requestAnimationFrame(animate)
-    if (paused.value || reducedMotion.value || document.hidden) return
-    time += 0.01
+  let time = 0, lastTime = 0
+  function running() { return !paused.value && !reducedMotion.value && !documentHidden.value }
+  function animate(now: number) {
+    animationId = 0
+    if (!running()) { lastTime = 0; return }
+    const dt = lastTime ? Math.min(now - lastTime, 40) : 0
+    lastTime = now
+    const step = dt / (1000 / 60)
+    time += 0.01 * step
 
-    mouse.x += (mouse.targetX - mouse.x) * 0.03
-    mouse.y += (mouse.targetY - mouse.y) * 0.03
+    mouse.x += (mouse.targetX - mouse.x) * (1 - Math.exp(-dt / 550))
+    mouse.y += (mouse.targetY - mouse.y) * (1 - Math.exp(-dt / 550))
 
     const posArray = geometry.attributes.position.array as Float32Array
     for (let i = 0; i < PARTICLE_COUNT; i++) {
-      posArray[i * 3 + 1] -= speeds[i]
-      posArray[i * 3] += Math.sin(time * 0.6 + offsets[i]) * 0.015 + mouse.x * speeds[i] * 0.2
+      posArray[i * 3 + 1] -= speeds[i] * step
+      posArray[i * 3] += (Math.sin(time * 0.6 + offsets[i]) * 0.015 + mouse.x * speeds[i] * 0.2) * step
 
       if (posArray[i * 3 + 1] < -70) {
         posArray[i * 3 + 1] = 70 + (Math.random() - 0.5) * 6
@@ -127,14 +129,19 @@ onMounted(() => {
     }
     geometry.attributes.position.needsUpdate = true
 
-    points.rotation.y += 0.0003 + mouse.x * 0.0001
+    points.rotation.y += (0.0003 + mouse.x * 0.0001) * step
 
     renderer.render(scene, camera)
+    animationId = requestAnimationFrame(animate)
   }
 
   renderer.render(scene, camera)
-  animate()
+  const stopWatch = watch([paused, reducedMotion, documentHidden], () => {
+    cancelAnimationFrame(animationId); animationId = 0; lastTime = 0
+    if (running()) animationId = requestAnimationFrame(animate)
+  }, { immediate: true })
   dispose = () => {
+    stopWatch()
     window.removeEventListener('mousemove', onMouseMove)
     window.removeEventListener('resize', onResize)
     geometry.dispose()

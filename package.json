@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "vite",
     "build": "vue-tsc -b && vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "check:content": "node tools/verify-portfolio.mjs"
   },
   "dependencies": {
     "gsap": "^3.15.0",

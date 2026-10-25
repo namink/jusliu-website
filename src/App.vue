@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { ref, provide, watchEffect, defineAsyncComponent } from 'vue'
-import { RouterView } from 'vue-router'
+import { ref, provide, watchEffect, defineAsyncComponent, onMounted, onBeforeUnmount } from 'vue'
+import { RouterView, useRoute } from 'vue-router'
 const ParticleBg = defineAsyncComponent(() => import('@/components/ParticleBg.vue'))
 import NavDots from '@/components/NavDots.vue'
 import GeoBg from '@/components/GeoBg.vue'
@@ -10,14 +10,31 @@ import AudioPlayer from '@/components/AudioPlayer.vue'
 import ImageViewer from '@/components/ImageViewer.vue'
 import { createTransition } from '@/composables/useTransition'
 import { useMotion } from '@/composables/useMotion'
+import { works } from '@/data/works'
+import { localizeWork } from '@/data/workContent'
 import { useI18n } from '@/composables/useI18n'
 
 const { toggleLocale, locale, t } = useI18n()
 const { reducedMotion, toggleMotion, systemReduced } = useMotion()
 const transition = createTransition()
+const route = useRoute()
+const allowParticles = ref(false)
+let idle = 0
+let idleTimer: ReturnType<typeof setTimeout> | undefined
+onMounted(() => {
+  const connection = (navigator as Navigator & { connection?: { saveData?: boolean } }).connection
+  if (connection?.saveData) return
+  if ('requestIdleCallback' in window) idle = window.requestIdleCallback(() => { allowParticles.value = true }, { timeout: 1500 })
+  else idleTimer = setTimeout(() => { allowParticles.value = true }, 500)
+})
+onBeforeUnmount(() => { if (idle) window.cancelIdleCallback(idle); clearTimeout(idleTimer) })
 watchEffect(() => {
   document.documentElement.dataset.motion = reducedMotion.value ? 'reduced' : 'full'
   document.documentElement.lang = locale.value === 'zh' ? 'zh-CN' : 'en'
+  const original = works.find(work => work.id === route.params.id)
+  const work = original && localizeWork(original, locale.value)
+  document.title = work ? `${work.title} | jusliu` : `jusliu | ${route.name === 'about' ? t('about') : route.name === 'works' ? t('portfolioSub') : 'TA / TD'}`
+  document.querySelector('meta[name="description"]')?.setAttribute('content', work?.description || t('bio1'))
 })
 provide('i18n', useI18n())
 provide('transitionHooks', createTransition())
@@ -35,7 +52,7 @@ function closePreview() { showPreview.value = false }
 <template>
   <div class="relative w-full min-h-screen bg-[#111315] text-white overflow-hidden">
     <a href="#main-content" class="skip-link">{{ t('skipContent') }}</a>
-    <div class="ambient-background" aria-hidden="true"><GridDots /><GeoBg /><ParticleBg />
+    <div class="ambient-background" aria-hidden="true"><GridDots /><GeoBg /><ParticleBg v-if="allowParticles && !reducedMotion" />
     <div class="fixed top-0 left-0 right-0 h-72 z-0 pointer-events-none opacity-40" style="background: radial-gradient(ellipse at 50% 0%, rgba(196,193,182,0.08) 0%, transparent 70%);" />
     <div class="fixed top-[15%] left-[5%] right-[5%] h-px z-0 pointer-events-none bg-gradient-to-r from-transparent via-white/[0.03] to-transparent" />
     <div class="fixed bottom-[20%] left-[5%] right-[5%] h-px z-0 pointer-events-none bg-gradient-to-r from-transparent via-white/[0.02] to-transparent" />
@@ -73,9 +90,9 @@ function closePreview() { showPreview.value = false }
     </button>
 
     <main id="main-content" tabindex="-1" class="relative z-[2]">
-      <RouterView v-slot="{ Component }">
+      <RouterView v-slot="{ Component, route: viewRoute }">
         <Transition :css="false" @before-enter="($event) => transition.onBeforeEnter($event)" @enter="($event, $done) => transition.onEnter($event, $done)" @leave="($event, $done) => transition.onLeave($event, $done)" mode="out-in">
-          <component :is="Component" @preview-image="onPreviewImage" />
+          <component :is="Component" :key="viewRoute.path" @preview-image="onPreviewImage" />
         </Transition>
       </RouterView>
     </main>

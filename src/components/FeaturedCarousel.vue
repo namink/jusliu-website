@@ -1,185 +1,132 @@
 <script setup lang="ts">
-import { ref, computed, onMounted, onUnmounted } from 'vue'
+import { ref, computed, watch, onMounted, onBeforeUnmount } from 'vue'
+import { RouterLink } from 'vue-router'
 import { works } from '@/data/works'
+import { integrateMomentum } from '@/data/motionMath'
+import { localizeWork } from '@/data/workContent'
 import { useMotion } from '@/composables/useMotion'
 import { useI18n } from '@/composables/useI18n'
-const { reducedMotion } = useMotion()
-const { t } = useI18n()
-
-const featured = computed(() =>
-  works.filter(w =>
-    w.category === 'AIGC' ||
-    w.category === '项目支持' ||
-    w.id === 'node-editor' ||
-    w.id === 'ai-platform'
-  )
-)
-
+const { reducedMotion, documentHidden } = useMotion()
+const { t, locale } = useI18n()
+const featured = computed(() => works.filter(w => w.category === 'AIGC' || w.category === '项目支持' || w.id === 'node-editor' || w.id === 'ai-platform').map(w => localizeWork(w, locale.value)))
 const looped = computed(() => [...featured.value, ...featured.value, ...featured.value])
-const nezhaIdx = computed(() => {
-  const idx = featured.value.findIndex(w => w.id === 'nezha')
-  return idx >= 0 ? idx : 0
-})
-
-const trackRef = ref<HTMLDivElement>()
-const paused = ref(false)
+const centerIndex = featured.value.findIndex(w => w.id === 'nezha')
+const track = ref<HTMLDivElement>()
+const viewport = ref<HTMLDivElement>()
 const dragging = ref(false)
-let rafId = 0, offset = 0, startX = 0, startTx = 0
-const MAX_SPEED = 0.6
-let currentSpeed = 0
-let velocity = 0, prevX = 0
-let momentumRaf = 0
-
-function tick() {
-  const el = trackRef.value
-  if (!el) { rafId = requestAnimationFrame(tick); return }
-  if (!paused.value && !dragging.value && !reducedMotion.value && !document.hidden) {
-    if (currentSpeed < MAX_SPEED) currentSpeed = Math.min(MAX_SPEED, currentSpeed + 0.02)
-    offset -= currentSpeed
-    const thirdW = el.scrollWidth / 3
-    while (offset < -2 * thirdW) offset += thirdW
-    while (offset > 0) offset -= thirdW
-    el.style.transform = `translateX(${offset}px)`
+const hovered = ref(false)
+const focused = ref(false)
+const inView = ref(true)
+let offset = 0, period = 0, frame = 0, lastTime = 0, velocity = 0
+let down: { x: number; y: number; offset: number; time: number; lastX: number; pointerId: number } | null = null
+let moved = false
+let resize: ResizeObserver | undefined
+let visibility: IntersectionObserver | undefined
+function render() {
+  if (!track.value || period <= 0) return
+  while (offset < -2 * period) offset += period
+  while (offset > 0) offset -= period
+  track.value.style.transform = `translate3d(${offset}px,0,0)`
+}
+function shouldRun() {
+  return !documentHidden.value && inView.value && !reducedMotion.value && !dragging.value && (Math.abs(velocity) > 3 || (!hovered.value && !focused.value))
+}
+function tick(time: number) {
+  frame = 0
+  const dt = lastTime ? Math.min(time - lastTime, 40) : 0
+  lastTime = time
+  if (!shouldRun()) { lastTime = 0; return }
+  if (Math.abs(velocity) > 3) { const momentum = integrateMomentum(velocity, dt); offset += momentum.distance; velocity = momentum.velocity }
+  else { velocity = 0; offset -= 36 * dt / 1000 }
+  render()
+  frame = requestAnimationFrame(tick)
+}
+function schedule() {
+  if (!shouldRun()) { cancelAnimationFrame(frame); frame = 0; lastTime = 0; return }
+  if (!frame) frame = requestAnimationFrame(tick)
+}
+watch([reducedMotion, documentHidden, inView, hovered, focused, dragging], () => { if (reducedMotion.value) velocity = 0; schedule() })
+function pointerDown(event: PointerEvent) {
+  if (!event.isPrimary || event.button !== 0) return
+  moved = false; velocity = 0
+  down = { x: event.clientX, y: event.clientY, offset, time: event.timeStamp, lastX: event.clientX, pointerId: event.pointerId }
+}
+function pointerMove(event: PointerEvent) {
+  if (!down) return
+  const dx = event.clientX - down.x, dy = event.clientY - down.y
+  if (!dragging.value) {
+    if (Math.abs(dy) > 8 && Math.abs(dy) > Math.abs(dx)) { down = null; return }
+    if (Math.abs(dx) < 6) return
+    dragging.value = true; moved = true
+    track.value?.setPointerCapture(event.pointerId)
   }
-  rafId = requestAnimationFrame(tick)
+  offset = down.offset + dx
+  const elapsed = event.timeStamp - down.time
+  if (elapsed > 0) velocity = (event.clientX - down.lastX) / elapsed * 1000
+  down.lastX = event.clientX; down.time = event.timeStamp
+  render()
 }
-
-function onDown(e: MouseEvent) {
-  dragging.value = true; paused.value = true; currentSpeed = 0
-  cancelAnimationFrame(momentumRaf)
-  startX = e.clientX; prevX = e.clientX
-  if (trackRef.value) {
-    const matrix = new DOMMatrixReadOnly(getComputedStyle(trackRef.value).transform)
-    startTx = matrix.m41
-  }
-}
-function onMove(e: MouseEvent) {
-  if (!dragging.value) return
-  offset = startTx + (e.clientX - startX) * 3
-  velocity = prevX - e.clientX
-  prevX = e.clientX
-  if (trackRef.value) trackRef.value.style.transform = `translateX(${offset}px)`
-}
-function onUp() {
-  if (!dragging.value) return
+function pointerUp(event: PointerEvent) {
+  if (!down) return
+  if (event.timeStamp - down.time > 100 || reducedMotion.value) velocity = 0
+  down = null
+  if (track.value?.hasPointerCapture(event.pointerId)) track.value.releasePointerCapture(event.pointerId)
   dragging.value = false
-  if (!trackRef.value) return
-  const m = new DOMMatrixReadOnly(getComputedStyle(trackRef.value).transform)
-  offset = m.m41
-  // Momentum inertia
-  function momentum() {
-    if (Math.abs(velocity) < 0.1 || dragging.value || reducedMotion.value) {
-      const el = trackRef.value; if (!el) return
-      const m2 = new DOMMatrixReadOnly(getComputedStyle(el).transform)
-      offset = m2.m41
-      const thirdW = el.scrollWidth / 3
-      while (offset < -2 * thirdW) offset += thirdW
-      while (offset > 0) offset -= thirdW
-      el.style.transform = `translateX(${offset}px)`
-      currentSpeed = MAX_SPEED
-      paused.value = false
-      return
-    }
-    offset += velocity
-    velocity *= 0.94
-    if (trackRef.value) {
-      const thirdW = trackRef.value.scrollWidth / 3
-      while (offset < -2 * thirdW) offset += thirdW
-      while (offset > 0) offset -= thirdW
-      trackRef.value.style.transform = `translateX(${offset}px)`
-    }
-    momentumRaf = requestAnimationFrame(momentum)
-  }
-  momentum()
+  schedule()
 }
-
-function onTouchStart(e: TouchEvent) {
-  dragging.value = true; paused.value = true; currentSpeed = 0
-  cancelAnimationFrame(momentumRaf)
-  startX = e.touches[0].clientX; prevX = e.touches[0].clientX
-  if (trackRef.value) {
-    const matrix = new DOMMatrixReadOnly(getComputedStyle(trackRef.value).transform)
-    startTx = matrix.m41
-  }
+function cancelPointer() { down = null; velocity = 0; dragging.value = false; schedule() }
+function onClick(event: MouseEvent) {
+  if (moved) { event.preventDefault(); event.stopPropagation(); moved = false }
 }
-function onTouchMove(e: TouchEvent) {
-  if (!dragging.value) return
-  offset = startTx + (e.touches[0].clientX - startX) * 3
-  velocity = prevX - e.touches[0].clientX
-  prevX = e.touches[0].clientX
-  if (trackRef.value) trackRef.value.style.transform = `translateX(${offset}px)`
+function focusWork(event: FocusEvent, index: number) {
+  if (!(event.target as HTMLElement).matches(':focus-visible')) return
+  const card = track.value?.firstElementChild?.clientWidth || 300
+  offset = -index * (card + 8) + (viewport.value?.clientWidth || 0) / 2 - card / 2
+  velocity = 0; render()
 }
-function onTouchEnd() {
-  onUp()
-}
-function onEnter() { paused.value = true }
-function onLeave() { if (!dragging.value) paused.value = false }
 function step(direction: number) {
-  const el = trackRef.value
-  if (!el) return
-  cancelAnimationFrame(momentumRaf)
-  const width = el.scrollWidth / 3
-  if (!width) return
-  offset -= direction * ((el.firstElementChild?.clientWidth || 300) + 8)
-  while (offset < -2 * width) offset += width
-  while (offset > 0) offset -= width
-  el.style.transform = `translateX(${offset}px)`
+  velocity = 0
+  offset -= direction * ((track.value?.firstElementChild?.clientWidth || 300) + 8)
+  render()
 }
-
 onMounted(() => {
-  window.addEventListener('mousemove', onMove)
-  window.addEventListener('mouseup', onUp)
-  window.addEventListener('touchmove', onTouchMove, { passive: false })
-  window.addEventListener('touchend', onTouchEnd)
-  // Center on Nezha
-  requestAnimationFrame(() => requestAnimationFrame(() => {
-    const el = trackRef.value; if (!el) return
-    const parentW = el.parentElement?.clientWidth ?? window.innerWidth
-    const cardW = el.firstElementChild?.clientWidth ?? 300
-    const gapW = 8
-    const target = cardW * nezhaIdx.value + gapW * nezhaIdx.value + cardW / 2
-    const thirdW = el.scrollWidth / 3
-    offset = -(target - parentW / 2) - thirdW
-    el.style.transform = `translateX(${offset}px)`
-  }))
-  rafId = requestAnimationFrame(tick)
+  resize = new ResizeObserver(() => {
+    const el = track.value
+    if (!el) return
+    const next = el.scrollWidth / 3
+    if (!next) return
+    if (period) offset *= next / period
+    else offset = -next - Math.max(0, centerIndex) * ((el.firstElementChild?.clientWidth || 300) + 8) + (viewport.value?.clientWidth || 0) / 2 - (el.firstElementChild?.clientWidth || 300) / 2
+    period = next; render(); schedule()
+  })
+  if (viewport.value) {
+    resize.observe(viewport.value)
+    visibility = new IntersectionObserver(entries => { inView.value = !!entries[0]?.isIntersecting })
+    visibility.observe(viewport.value)
+  }
 })
-
-onUnmounted(() => {
-  cancelAnimationFrame(rafId)
-  cancelAnimationFrame(momentumRaf)
-  window.removeEventListener('mousemove', onMove)
-  window.removeEventListener('mouseup', onUp)
-  window.removeEventListener('touchmove', onTouchMove)
-  window.removeEventListener('touchend', onTouchEnd)
-})
+onBeforeUnmount(() => { cancelAnimationFrame(frame); resize?.disconnect(); visibility?.disconnect() })
 </script>
-
 <template>
-  <div class="relative w-full">
-    <div class="film-reel relative rounded-2xl overflow-hidden border-t-[6px] border-b-[6px] border-x-[4px] border-indigo-400/[0.08] shadow-[inset_0_4px_12px_rgba(0,0,0,0.25)]" @mouseenter="onEnter" @mouseleave="onLeave" @focusin="onEnter" @focusout="onLeave">
-      <div ref="trackRef" class="flex gap-2 py-3" @mousedown.prevent="onDown" @touchstart="onTouchStart" style="cursor:grab; touch-action: pan-y; will-change: transform;">
-        <div
-          v-for="(w, i) in looped"
-          :key="`${w.id}-${i}`"
-          :aria-hidden="i < featured.length || i >= featured.length * 2"
-          class="film-frame flex-shrink-0 w-[78vw] md:w-[40vw] overflow-hidden select-none flex flex-col relative"
-          style="background: linear-gradient(135deg, rgba(17,19,21,0.95), rgba(27,30,32,0.95));"
-        >
+  <div class="featured-reel relative w-full" @focusin="focused = true" @focusout="focused = !!($event.relatedTarget && $el.contains($event.relatedTarget))">
+    <div ref="viewport" class="film-reel relative rounded-2xl overflow-hidden border-t-[6px] border-b-[6px] border-x-[4px] border-indigo-400/[0.08]" @mouseenter="hovered = true" @mouseleave="hovered = false">
+      <div ref="track" :class="['reel-track flex gap-2 py-3', { dragging }]" @pointerdown="pointerDown" @pointermove="pointerMove" @pointerup="pointerUp" @pointercancel="cancelPointer" @click.capture="onClick">
+        <RouterLink v-for="(work, i) in looped" :key="`${work.id}-${i}`" :to="{ name: 'work-detail', params: { id: work.id } }"
+          :aria-hidden="i < featured.length || i >= featured.length * 2" :tabindex="i < featured.length || i >= featured.length * 2 ? -1 : 0"
+          :aria-label="`${t('viewProject')}: ${work.title}`" draggable="false"
+          @focus="focusWork($event,i)" class="film-frame flex-shrink-0 w-[78vw] md:w-[40vw] overflow-hidden select-none flex flex-col relative" @dragstart.prevent>
           <div class="film-sprocket-top" />
           <div class="aspect-[16/9] overflow-hidden relative mx-[6px]">
-            <img v-if="w.thumbnail" :src="w.thumbnail" :alt="w.title" width="960" height="540" decoding="async" class="w-full h-full object-cover pointer-events-none" loading="lazy" />
-            <div v-else class="w-full h-full flex items-center justify-center bg-gradient-to-br from-[#141719] to-[#1b1e20]">
-              <svg class="w-6 h-6 text-white/10" fill="none" stroke="currentColor" stroke-width="1" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
-            </div>
+            <img :src="work.thumbnail" :alt="work.title" width="960" height="540" decoding="async" draggable="false" class="w-full h-full object-cover pointer-events-none"
+              :loading="Math.abs(i - (featured.length + centerIndex)) <= 1 ? 'eager' : 'lazy'" :fetchpriority="i === featured.length + centerIndex ? 'high' : 'auto'" />
             <div class="absolute inset-0 bg-gradient-to-t from-[#111315]/60 to-transparent pointer-events-none" />
           </div>
           <div class="p-3 md:p-4 h-[72px] md:h-[80px] flex flex-col items-center justify-center">
-            <span class="text-[9px] md:text-[10px] font-mono tracking-wider text-indigo-200/80 uppercase text-center">{{ w.category }}</span>
-            <h4 class="text-xs md:text-base font-medium text-white/80 mt-1 leading-tight line-clamp-1 text-center">{{ w.title }}</h4>
+            <span class="text-[9px] md:text-[10px] tracking-wider text-indigo-200/80 text-center">{{ work.category }}</span>
+            <h2 class="text-xs md:text-base font-medium text-white/80 mt-1 leading-tight line-clamp-1 text-center">{{ work.title }}</h2>
           </div>
           <div class="film-sprocket-bottom" />
-        </div>
+        </RouterLink>
       </div>
     </div>
     <div class="reel-controls">

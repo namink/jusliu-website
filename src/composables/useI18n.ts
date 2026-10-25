@@ -1,6 +1,8 @@
 import { reactive, computed } from 'vue'
 
 const zh = {
+  viewProject: '查看项目', backWorks: '返回作品集', projectGoal: '项目目标', projectScope: '工作范围', projectFocus: '技术与表达', projectMedia: '画面与演示', relatedWorks: '相关作品', selectedCases: '精选案例', selectedIntro: '从平台界面、管线工具到 AI 影像', allProjects: '浏览全部作品', sendEmail: '发送邮件', copyEmail: '复制邮箱', copyWechat: '复制微信', copied: '已复制', copyManually: '请选中并复制', openImage: '查看原图', coverNote: 'AI 生成封面插画', projectMissing: '未找到该作品',
+
   aigc: 'AIGC',
   workCount: '件作品', filterWorks: '按分类筛选作品', pagination: '作品分页', previousPage: '上一页', nextPage: '下一页', pageLabel: '第',
   playDemo: '播放演示', previewImage: '放大预览', closePreview: '关闭预览', technologies: '相关技术', retry: '重试',
@@ -14,7 +16,7 @@ const zh = {
   scroll: 'SCROLL',
 
   portfolio: 'PORTFOLIO', portfolioSub: '作品集',
-  portfolioHint: '点击卡片图片可全屏预览 · 点击带 VIDEO 标识播放演示',
+  portfolioHint: '查看项目了解工作内容 · 点击封面放大或播放演示',
   all: '全部', aiPlatform: 'AI 平台', toolDev: '工具开发',
   sceneRender: '场景渲染', materialDev: '材质研发',
   procedural: '程序化', techDev: '技术研发', projectSupport: '项目支持',
@@ -39,7 +41,7 @@ const zh = {
   skills: ['Unreal Engine 5/4', 'Maya', 'Python / AI 辅助开发', 'SpeedTree', 'ComfyUI / AI 流程', 'Substance Painter', 'Gaea / WorldCreator', 'Deadline 渲染农场', 'Git / rez 包管理', 'ZBrush'],
 
   timelinePeriods: ['2025.12 - 至今', '2023.10 - 2025.11', '2023.02 - 2023.06', '2022.06 - 2023.01'],
-  timelineRoles: ['TD (技术指导)', 'UE 美术', '平面设计师助理', 'UE 美术'],
+  timelineRoles: ['TD (技术指导)', 'UE 美术', '平面设计师助理（实习）', 'UE 美术（实习）'],
   timelineComps: ['长沙神漫文化科技有限公司', '湖南极也视界文化艺术有限公司', '有只蚂蚁品牌设计有限公司', '北京原子比特科技有限公司'],
   timelineDetails: [
     ['DCC 软件工具开发与流程优化', 'Python/PyQt 管线工具开发', 'Deadline 渲染农场管理', 'AI 生成软件前端界面开发'],
@@ -50,6 +52,8 @@ const zh = {
 }
 
 const en = {
+  viewProject: 'View project', backWorks: 'Back to works', projectGoal: 'Project goal', projectScope: 'Scope', projectFocus: 'Technical & visual focus', projectMedia: 'Images & demo', relatedWorks: 'Related work', selectedCases: 'Selected projects', selectedIntro: 'Platform interfaces, pipeline tools and AI storytelling', allProjects: 'Explore all work', sendEmail: 'Send email', copyEmail: 'Copy email', copyWechat: 'Copy WeChat', copied: 'Copied', copyManually: 'Select and copy this text', openImage: 'Open original image', coverNote: 'AI-generated cover illustration', projectMissing: 'Project not found',
+
   aigc: 'AIGC',
   workCount: 'works', filterWorks: 'Filter works by category', pagination: 'Portfolio pages', previousPage: 'Previous page', nextPage: 'Next page', pageLabel: 'Page',
   playDemo: 'Play demo', previewImage: 'Preview image', closePreview: 'Close preview', technologies: 'Technologies', retry: 'Retry',
@@ -63,7 +67,7 @@ const en = {
   scroll: 'SCROLL',
 
   portfolio: 'PORTFOLIO', portfolioSub: 'Portfolio',
-  portfolioHint: 'Click image to preview · Click VIDEO to play',
+  portfolioHint: 'Explore a project · Preview images or play demos',
   all: 'All', aiPlatform: 'AI Platform', toolDev: 'Tool Dev',
   sceneRender: 'Scene Render', materialDev: 'Material Dev',
   procedural: 'Procedural', techDev: 'Tech R&D', projectSupport: 'Project Support',
@@ -88,7 +92,7 @@ const en = {
   skills: ['Unreal Engine 5/4', 'Maya', 'Python / AI-assisted Dev', 'SpeedTree', 'ComfyUI / AI Pipeline', 'Substance Painter', 'Gaea / WorldCreator', 'Deadline Render Farm', 'Git / rez Package Mgmt', 'ZBrush'],
 
   timelinePeriods: ['2025.12 - Present', '2023.10 - 2025.11', '2023.02 - 2023.06', '2022.06 - 2023.01'],
-  timelineRoles: ['TD (Technical Director)', 'UE Artist', 'Graphic Designer Asst.', 'UE Artist'],
+  timelineRoles: ['TD (Technical Director)', 'UE Artist', 'Graphic Design Assistant (Intern)', 'UE Artist (Intern)'],
   timelineComps: ['Changsha Shenman Culture Tech', 'Hunan Jiye Vision Culture Art', 'Youzhi Ant Brand Design', 'Beijing Atom Bit Tech'],
   timelineDetails: [
     ['DCC tooling & pipeline optimization', 'Python/PyQt pipeline dev', 'Deadline render farm mgmt', 'AI web UI development'],

@@ -3,11 +3,12 @@ import { computed } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { works, categories } from '@/data/works'
 import WorkCard from '@/components/WorkCard.vue'
+import { categoryText } from '@/data/workContent'
 import { useI18n } from '@/composables/useI18n'
 import { useMotion } from '@/composables/useMotion'
 
 const emit = defineEmits<{ previewImage: [src: string, alt: string] }>()
-const { t } = useI18n()
+const { t, locale } = useI18n()
 const { reducedMotion } = useMotion()
 const route = useRoute()
 const router = useRouter()
@@ -35,8 +36,7 @@ function goPage(page: number) {
   window.scrollTo({ top: 0, behavior: reducedMotion.value ? 'instant' : 'smooth' })
 }
 function categoryLabel(category: string) {
-  const keys: Record<string, string> = { 'AIGC': 'aigc', 'AI 平台': 'aiPlatform', '工具开发': 'toolDev', '场景渲染': 'sceneRender', '材质研发': 'materialDev', '程序化': 'procedural', '技术研发': 'techDev', '项目支持': 'projectSupport' }
-  return category ? t(keys[category] || category) : t('all')
+  return category ? categoryText(category, locale.value) : t('all')
 }
 </script>
 
@@ -54,10 +54,10 @@ function categoryLabel(category: string) {
       </button>
     </div>
     <p class="results-summary" role="status">{{ categoryLabel(activeCategory) }} <span aria-hidden="true">/</span> {{ filteredWorks.length }} {{ t('workCount') }}</p>
-    <div class="portfolio-grid">
+    <TransitionGroup name="work-list" tag="div" class="portfolio-grid">
       <WorkCard v-for="(work, i) in paginatedWorks" :key="work.id" :work="work" :index="i"
         @preview-image="(src, alt) => emit('previewImage', src, alt)" />
-    </div>
+    </TransitionGroup>
     <nav v-if="totalPages > 1" class="pagination" :aria-label="t('pagination')">
       <button type="button" :disabled="currentPage === 1" :aria-label="t('previousPage')" @click="goPage(currentPage - 1)">
         <svg aria-hidden="true" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="m15 18-6-6 6-6" /></svg>

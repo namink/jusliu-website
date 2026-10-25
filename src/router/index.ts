@@ -18,6 +18,11 @@ const router = createRouter({
       component: () => import('@/views/WorksView.vue')
     },
     {
+      path: '/works/:id',
+      name: 'work-detail',
+      component: () => import('@/views/WorkDetailView.vue')
+    },
+    {
       path: '/about',
       name: 'about',
       component: () => import('@/views/AboutView.vue')
@@ -32,6 +37,7 @@ const router = createRouter({
 const ROUTE_ORDER: Record<string, number> = {
   home: 0,
   works: 1,
+  'work-detail': 1,
   about: 2
 }
 

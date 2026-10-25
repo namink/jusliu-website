@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import { ref, onMounted, computed } from 'vue'
+import { ref, onMounted, onBeforeUnmount, computed } from 'vue'
+import { useMotion } from '@/composables/useMotion'
 import { useI18n } from '@/composables/useI18n'
 
 const { tArr } = useI18n()
@@ -24,14 +25,20 @@ const items = computed<TimelineItem[]>(() => {
   }))
 })
 
-const visible = ref(false)
+const { reducedMotion } = useMotion()
+const visible = ref(reducedMotion.value)
+const root = ref<HTMLElement>()
+let observer: IntersectionObserver | undefined
 
 onMounted(() => {
-  setTimeout(() => visible.value = true, 300)
+  observer = new IntersectionObserver(entries => { if (entries[0]?.isIntersecting) { visible.value = true; observer?.disconnect() } }, { threshold: .1 })
+  if (root.value) observer.observe(root.value)
 })
+onBeforeUnmount(() => observer?.disconnect())
 </script>
 
 <template>
+  <div ref="root">
   <div class="hidden md:block relative">
     <div class="grid grid-cols-4 gap-5 relative pt-24 pb-2">
       <div
@@ -82,5 +89,6 @@ onMounted(() => {
         </ul>
       </div>
     </div>
+  </div>
   </div>
 </template>

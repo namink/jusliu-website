@@ -2,7 +2,7 @@ import { gsap } from 'gsap'
 import { useMotion } from './useMotion'
 
 export function createTransition() {
-  const { reducedMotion } = useMotion()
+  const { reducedMotion, documentHidden } = useMotion()
   const onBeforeEnter = (el: Element) => {
     const htmlEl = el as HTMLElement
     gsap.set(htmlEl, {
@@ -14,7 +14,7 @@ export function createTransition() {
 
   const onEnter = (el: Element, done: () => void) => {
     const htmlEl = el as HTMLElement
-    if (reducedMotion.value) {
+    if (reducedMotion.value || documentHidden.value) {
       gsap.set(htmlEl, { clearProps: 'transform,opacity' })
       queueMicrotask(done)
       return
@@ -31,7 +31,7 @@ export function createTransition() {
 
   const onLeave = (el: Element, done: () => void) => {
     const htmlEl = el as HTMLElement
-    if (reducedMotion.value) {
+    if (reducedMotion.value || documentHidden.value) {
       gsap.set(htmlEl, { clearProps: 'transform,opacity' })
       queueMicrotask(done)
       return
