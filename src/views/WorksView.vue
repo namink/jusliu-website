@@ -35,7 +35,7 @@ function goPage(page: number) {
   window.scrollTo({ top: 0, behavior: reducedMotion.value ? 'instant' : 'smooth' })
 }
 function categoryLabel(category: string) {
-  const keys: Record<string, string> = { 'AI 平台': 'aiPlatform', '工具开发': 'toolDev', '场景渲染': 'sceneRender', '材质研发': 'materialDev', '程序化': 'procedural', '技术研发': 'techDev', '项目支持': 'projectSupport' }
+  const keys: Record<string, string> = { 'AIGC': 'aigc', 'AI 平台': 'aiPlatform', '工具开发': 'toolDev', '场景渲染': 'sceneRender', '材质研发': 'materialDev', '程序化': 'procedural', '技术研发': 'techDev', '项目支持': 'projectSupport' }
   return category ? t(keys[category] || category) : t('all')
 }
 </script>

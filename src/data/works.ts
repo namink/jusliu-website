@@ -11,6 +11,36 @@ export interface Work {
 
 export const works: Work[] = [
   {
+    id: 'aigc-storybook',
+    title: '儿童绘本改编',
+    category: 'AIGC',
+    description: '儿童绘本改编动画，以古代人物、竹简与宫廷场景呈现故事，探索 AI 生成影像的叙事表达。',
+    thumbnail: '/images/aigc/storybook-adaptation.webp',
+    poster: '/images/aigc/storybook-adaptation.webp',
+    videoUrl: '/media/aigc/storybook-adaptation.web.mp4',
+    tags: ['AIGC', '绘本改编', '角色动画', '故事叙事']
+  },
+  {
+    id: 'aigc-painterly-animation',
+    title: '双城之战风格探索',
+    category: 'AIGC',
+    description: '以《双城之战》的绘画感动画视觉为参考，探索角色造型、沙漠场景与电影化光影的 AI 影像表达。',
+    thumbnail: '/images/aigc/painterly-animation-study.webp',
+    poster: '/images/aigc/painterly-animation-study.webp',
+    videoUrl: '/media/aigc/painterly-animation-study.mp4',
+    tags: ['AIGC', '风格探索', '绘画感', '电影光影']
+  },
+  {
+    id: 'aigc-song-aesthetic',
+    title: '宋式美学风格探讨',
+    category: 'AIGC',
+    description: '以月夜、营帐与白衣人物为视觉线索，探索宋式美学的留白、设色和东方意境。',
+    thumbnail: '/images/aigc/song-aesthetic-study.webp',
+    poster: '/images/aigc/song-aesthetic-study.webp',
+    videoUrl: '/media/aigc/song-aesthetic-study.mp4',
+    tags: ['AIGC', '宋式美学', '东方意境', '风格探索']
+  },
+  {
     id: 'ai-platform',
     title: 'AI 数字内容生成平台',
     category: 'AI 平台',

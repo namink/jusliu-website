@@ -1,6 +1,7 @@
 import { reactive, computed } from 'vue'
 
 const zh = {
+  aigc: 'AIGC',
   workCount: '件作品', filterWorks: '按分类筛选作品', pagination: '作品分页', previousPage: '上一页', nextPage: '下一页', pageLabel: '第',
   playDemo: '播放演示', previewImage: '放大预览', closePreview: '关闭预览', technologies: '相关技术', retry: '重试',
   imageUnavailable: '图片暂时无法加载', imageRetryHint: '请检查网络后重试', videoUnavailable: '视频暂时无法播放。', openVideo: '打开原视频',
@@ -49,6 +50,7 @@ const zh = {
 }
 
 const en = {
+  aigc: 'AIGC',
   workCount: 'works', filterWorks: 'Filter works by category', pagination: 'Portfolio pages', previousPage: 'Previous page', nextPage: 'Next page', pageLabel: 'Page',
   playDemo: 'Play demo', previewImage: 'Preview image', closePreview: 'Close preview', technologies: 'Technologies', retry: 'Retry',
   imageUnavailable: 'Image unavailable', imageRetryHint: 'Check your connection and retry', videoUnavailable: 'Video could not be played.', openVideo: 'Open original video',

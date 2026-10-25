@@ -8,6 +8,7 @@ const { t } = useI18n()
 
 const featured = computed(() =>
   works.filter(w =>
+    w.category === 'AIGC' ||
     w.category === '项目支持' ||
     w.id === 'node-editor' ||
     w.id === 'ai-platform'
